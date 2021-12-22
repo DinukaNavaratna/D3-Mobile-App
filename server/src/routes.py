@@ -1,4 +1,5 @@
-from .db import init_db
+from .user import register, login
 
 def initialize_routes(api):
-    api.add_resource(init_db, "/init_db")
+    api.add_resource(register, "/register")
+    api.add_resource(login, "/login")
