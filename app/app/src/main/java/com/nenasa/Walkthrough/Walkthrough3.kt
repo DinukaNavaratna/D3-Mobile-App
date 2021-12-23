@@ -1,11 +1,11 @@
-package com.d3
+package com.nenasa.Walkthrough
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_walkthrough3.view.*
+import com.nenasa.R
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,11 +34,11 @@ class Walkthrough3 : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_walkthrough3, container, false)
+        val view: View = inflater.inflate(R.layout.walkthrough3, container, false)
 
-        view.walkthrough3_btn.setOnClickListener {
-            (activity as Walkthrough?)?.openLogin()
-        }
+//        view.walkthrough3_btn.setOnClickListener {
+//            (activity as Walkthrough?)?.openLogin()
+//        }
 
         // Inflate the layout for this fragment
         return view

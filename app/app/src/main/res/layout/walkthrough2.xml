@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Walkthrough1">
+    tools:context=".Walkthrough.Walkthrough2">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="D3 - Walk-through 01"
+                android:text="ණැනස - Walk-through 02"
                 android:textColor="#E6E6E6"
                 android:textSize="24sp"
                 android:textStyle="bold"
@@ -44,7 +44,7 @@
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="This is a sample text for the walk-through screen 01.\nThis is a sample text for the walk-through screen 01. This is a sample text for the walk-through screen 01. \nThis is a sample text for the walk-through screen 01. This is a sample text for the walk-through screen 01. This is a sample text for the walk-through screen 01. \nThis is a sample text for the walkthrough screen 02. "
+                android:text="This is a sample text for the walk-through screen 02.\nThis is a sample text for the walk-through screen 02. This is a sample text for the walk-through screen 02. \nThis is a sample text for the walk-through screen 02. This is a sample text for the walk-through screen 02. This is a sample text for the walk-through screen 02. \nThis is a sample text for the walkthrough screen 02. "
                 android:textAlignment="center"
                 android:textColor="#E3E3E3"
                 android:textSize="15sp"
@@ -61,10 +61,11 @@
             android:layout_weight="4">
 
             <Button
-                android:id="@+id/walkthrough1_btn"
+                android:id="@+id/walkthrough2_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Skip"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +80,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/walkthrough1_btn" />
+                app:layout_constraintTop_toBottomOf="@+id/walkthrough2_btn" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="50dp"
                         android:fontFamily="@font/print_clearly"
                         android:text="Hello,"
                         android:textAlignment="center"
@@ -78,7 +78,7 @@
                         android:textSize="32sp" />
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView"
@@ -109,63 +109,49 @@
                         android:orientation="vertical">
 
                         <Button
-                            android:id="@+id/register_btn"
+                            android:id="@+id/dyslexia_btn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="16dp"
                             android:background="@drawable/buttonshape"
                             android:fontFamily="@font/calibri"
-                            android:text="Option 01"
+                            android:text="Dyslexia"
                             android:textAllCaps="false"
                             android:textColor="#ffffff"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/register_btn"
+                            android:id="@+id/dysgraphia_btn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="16dp"
                             android:background="@drawable/buttonshape"
                             android:fontFamily="@font/calibri"
-                            android:text="Option 01"
+                            android:text="Dysgraphia"
                             android:textAllCaps="false"
                             android:textColor="#ffffff"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/register_btn"
+                            android:id="@+id/dyscalculia_btn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_margin="16dp"
                             android:background="@drawable/buttonshape"
                             android:fontFamily="@font/calibri"
-                            android:text="Option 01"
+                            android:text="Dyscalculia"
                             android:textAllCaps="false"
                             android:textColor="#ffffff"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
                         <Button
-                            android:id="@+id/register_btn"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="16dp"
-                            android:background="@drawable/buttonshape"
-                            android:fontFamily="@font/calibri"
-                            android:text="Option 01"
-                            android:textAllCaps="false"
-                            android:textColor="#ffffff"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <Button
-                            android:id="@+id/login_btn"
+                            android:id="@+id/not_sure_btn"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -188,4 +174,4 @@
 
     </RelativeLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

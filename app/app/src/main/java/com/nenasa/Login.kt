@@ -1,15 +1,26 @@
-package com.d3
+package com.nenasa
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.nenasa.Services.HTTP
+import org.json.JSONObject
 
 class Login : AppCompatActivity() {
+
+    lateinit var login_email: EditText
+    lateinit var login_psw: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.login)
+
+        login_email = findViewById(R.id.login_email)
+        login_psw = findViewById(R.id.login_psw)
     }
 
     fun openRegister(view: View) {
@@ -19,9 +30,14 @@ class Login : AppCompatActivity() {
     }
 
     fun login(view: View) {
-        val intent = Intent(this, Home::class.java)
-        startActivity(intent)
-        finish()
+        var email = login_email.text.toString()
+        var password = login_psw.text.toString()
+        try {
+            val http = HTTP(this);
+            http.request("login","{\"email\":\""+ email +"\", \"password\":\"" + password + "\"}")
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+        }
     }
 
     fun showAbout(view: View) {
