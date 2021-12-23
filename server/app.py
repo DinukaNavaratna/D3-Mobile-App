@@ -13,10 +13,10 @@ load_dotenv()
 # init server
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
-api = Api(app)
+#api = Api(app)
 
 # init api routes
-initialize_routes(api)
+#initialize_routes(api)
 
 
 # connection test route
@@ -45,7 +45,7 @@ def login():
             return jsonify({"msg":"failed"})
     except Exception as e:
         print(str(e))
-        return jsonify({"msg":"failed"})
+        return jsonify({"msg":"failed","error":str(e)})
 
 
 @app.route("/register", methods=["POST", "GET"])
@@ -53,13 +53,18 @@ def register():
     try:
         content = request.json
         print(str(content))
+        fname = content['fname']
+        lname = content['lname']
         email = content['email']
+        number = content['number']
+        childname = content['childname']
+        childage = content['childage']
         psw = content['password']
         emails = email.split("@")
         return jsonify({"msg":"success","email":email,"username":emails[0]})
     except Exception as e:
         print(str(e))
-        return jsonify({"msg":"failed"})
+        return jsonify({"msg":"failed","error":str(e)})
 
 
 
