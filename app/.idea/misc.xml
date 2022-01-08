@@ -5,8 +5,16 @@
       <map>
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/about_popup.xml" value="0.10989583333333333" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/activity_main.xml" value="0.20742753623188406" />
-        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/home.xml" value="0.10989583333333333" />
-        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/login.xml" value="0.10989583333333333" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyscalculia_calculate.xml" value="0.22" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyscalculia_home.xml" value="0.21965579710144928" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dysgraphia_draw.xml" value="0.21965579710144928" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dysgraphia_home.xml" value="0.21965579710144928" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dysgraphia_tracing.xml" value="0.21041666666666667" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyslexia_home.xml" value="0.21965579710144928" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyslexia_read.xml" value="0.22447916666666667" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/home.xml" value="0.25" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/login.xml" value="0.21" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/questions.xml" value="0.2" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/register.xml" value="0.25" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/splash.xml" value="0.21" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/walkthrough.xml" value="0.10989583333333333" />

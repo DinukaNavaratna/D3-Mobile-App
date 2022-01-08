@@ -62,7 +62,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="260dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bus_image_1" />
+                        android:src="@drawable/bg" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -158,10 +158,26 @@
                             android:layout_margin="16dp"
                             android:background="#00FFFFFF"
                             android:fontFamily="@font/calibri"
+                            android:onClick="openQuestions"
                             android:text="Not Sure ?"
                             android:textAllCaps="false"
                             android:textColor="#9C27B0"
                             android:textSize="14sp" />
+
+                        <Button
+                            android:id="@+id/change_selection_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_margin="16dp"
+                            android:background="#00FFFFFF"
+                            android:fontFamily="@font/calibri"
+                            android:onClick="clearSelection"
+                            android:text="Change Selection ?"
+                            android:textAllCaps="false"
+                            android:textColor="#9C27B0"
+                            android:textSize="14sp"
+                            android:visibility="gone" />
 
                     </LinearLayout>
 

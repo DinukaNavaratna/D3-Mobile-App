@@ -16,6 +16,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nenasa.Home;
+import com.nenasa.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,12 +42,13 @@ public class HTTP {
 
     private Context context;
     private JSONObject body;
-    private String url = "http://161.97.171.85:5005/";
+    private String url;
     private String endpoint = "";
     private String jsonString = "";
 
     public HTTP(Context context) {
         this.context = context;
+        context.getResources().getString(R.string.server_host);
     }
 
     public void request(String endpoint, String json_body) {

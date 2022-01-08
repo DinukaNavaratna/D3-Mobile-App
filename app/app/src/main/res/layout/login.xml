@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Login">
 
+    <!--
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+    -->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -68,7 +70,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="260dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bus_image_1" />
+                        android:src="@drawable/bg" />
 
                     <TextView
                         android:id="@+id/textView"

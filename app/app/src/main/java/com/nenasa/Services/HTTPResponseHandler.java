@@ -22,6 +22,7 @@ public class HTTPResponseHandler {
                     SharedPreference sp = new SharedPreference(context);
                     sp.setPreference("email", jsonObject.getString("email"));
                     sp.setPreference("username", jsonObject.getString("username"));
+                    sp.setPreference("isLoggedIn", "true");
                     context.startActivity(new Intent(context, Home.class));
                 } else {
                     Log.v("222", "failed");
@@ -38,6 +39,7 @@ public class HTTPResponseHandler {
                     SharedPreference sp = new SharedPreference(context);
                     sp.setPreference("email", jsonObject.getString("email"));
                     sp.setPreference("username", jsonObject.getString("username"));
+                    sp.setPreference("isLoggedIn", "true");
                     context.startActivity(new Intent(context, Home.class));
                 } else {
                     Log.v("222", "failed");
