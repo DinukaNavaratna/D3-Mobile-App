@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import com.nenasa.Home
 import com.nenasa.R
+import com.nenasa.Services.SharedPreference
 import com.nenasa.dysgraphia.Tracing
 
 class Home : AppCompatActivity() {
@@ -17,6 +18,14 @@ class Home : AppCompatActivity() {
         var level_1 = findViewById<Button>(R.id.level_1);
         var level_2 = findViewById<Button>(R.id.level_2);
         var level_3 = findViewById<Button>(R.id.level_3);
+
+        var sp = SharedPreference(this)
+        var dyscalculia_level_2 = sp.getPreference("dyscalculia_level_2")
+        var dyscalculia_level_3 = sp.getPreference("dyscalculia_level_3")
+        if(dyscalculia_level_2 == "open")
+            level_2.isEnabled = true
+        if(dyscalculia_level_3 == "open")
+            level_3.isEnabled = true
 
         level_1.setOnClickListener {
             calculate("1");
@@ -40,5 +49,8 @@ class Home : AppCompatActivity() {
         intent.putExtra("level", level)
         startActivity(intent)
         finish()
+    }
+
+    override fun onBackPressed() {
     }
 }

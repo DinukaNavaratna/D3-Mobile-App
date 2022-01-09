@@ -59,4 +59,7 @@ class Register : AppCompatActivity() {
         val about_popup_frame_layout = findViewById<FrameLayout>(R.id.about_popup_frame_layout)
         about_popup_frame_layout.visibility = View.GONE
     }
+
+    override fun onBackPressed() {
+    }
 }

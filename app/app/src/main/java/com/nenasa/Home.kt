@@ -29,7 +29,7 @@ class Home : AppCompatActivity() {
         username.setText(sp.getPreference("username"))
 
         var selection = sp.getPreference("selection")
-        if(selection != "" && !selection.isNullOrEmpty())
+        if(selection != "" && !selection.isNullOrEmpty() && selection != "none")
             selectionButtonOptions(selection)
 
 
@@ -70,24 +70,18 @@ class Home : AppCompatActivity() {
 
         if(selection == "dysgraphia"){
             dyscalculia_btn.isEnabled = false
-            dyscalculia_btn.isClickable = false
             dyscalculia_btn.setAlpha(0.5F)
             dyslexia_btn.isEnabled = false
-            dyslexia_btn.isClickable = false
             dyslexia_btn.setAlpha(0.5F)
         } else if(selection == "dyslexia"){
             dyscalculia_btn.isEnabled = false
-            dyscalculia_btn.isClickable = false
             dyscalculia_btn.setAlpha(0.5F)
             dysgraphia_btn.isEnabled = false
-            dysgraphia_btn.isClickable = false
             dysgraphia_btn.setAlpha(0.5F)
         } else if(selection == "dyscalculia"){
             dyslexia_btn.isEnabled = false
-            dyslexia_btn.isClickable = false
             dyslexia_btn.setAlpha(0.5F)
             dysgraphia_btn.isEnabled = false
-            dysgraphia_btn.isClickable = false
             dysgraphia_btn.setAlpha(0.5F)
         }
 
@@ -95,7 +89,14 @@ class Home : AppCompatActivity() {
 
     fun clearSelection(view: View){
         sp.removePreference("selection")
-        finish();
-        startActivity(getIntent());
+        dyslexia_btn.isEnabled = true
+        dyslexia_btn.setAlpha(1.0F)
+        dysgraphia_btn.isEnabled = true
+        dysgraphia_btn.setAlpha(1.0F)
+        dyscalculia_btn.isEnabled = true
+        dyscalculia_btn.setAlpha(1.0F)
+    }
+
+    override fun onBackPressed() {
     }
 }

@@ -52,7 +52,6 @@ class Home : AppCompatActivity() {
                 dyslecia_group_id  = dyslecia_group2.checkedRadioButtonId
             }
             val selectedItem = findViewById<RadioButton>(dyslecia_group_id)
-            Toast.makeText(this, selectedItem.text, Toast.LENGTH_SHORT).show()
 
             if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
@@ -61,6 +60,7 @@ class Home : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, permissions,0)
             } else {
                 val intent = Intent(this, Read::class.java)
+                intent.putExtra("level", selectedItem.text.toString())
                 startActivity(intent)
                 finish()
             }
@@ -71,5 +71,8 @@ class Home : AppCompatActivity() {
         val intent = Intent(this, Home::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onBackPressed() {
     }
 }

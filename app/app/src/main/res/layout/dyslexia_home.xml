@@ -149,7 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:buttonTint="#FFFFFF"
-                            android:text="Read Letters"
+                            android:text="Level 1 - Read Letters"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
@@ -158,7 +158,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:buttonTint="#FFFFFF"
-                            android:text="Read Words - Level 1"
+                            android:text="Level 2 - Read Words"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
@@ -167,7 +167,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:buttonTint="#FFFFFF"
-                            android:text="Read Words - Level 2"
+                            android:text="Level 3 - Read Words"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
                     </RadioGroup>
@@ -211,7 +211,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:buttonTint="#FFFFFF"
-                            android:text="Level 01"
+                            android:text="Level 4 - Read Sentences"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
@@ -220,18 +220,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:buttonTint="#FFFFFF"
-                            android:text="Level 02"
+                            android:text="Level 5 - Read Sentences"
                             android:textColor="#FFFFFF"
                             android:textSize="14sp" />
 
-                        <RadioButton
-                            android:id="@+id/dyslecia_group2_op3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="#FFFFFF"
-                            android:text="Level 03"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
                     </RadioGroup>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

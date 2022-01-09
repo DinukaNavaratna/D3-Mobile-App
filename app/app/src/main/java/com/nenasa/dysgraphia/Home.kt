@@ -42,4 +42,7 @@ class Home : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+
+    override fun onBackPressed() {
+    }
 }

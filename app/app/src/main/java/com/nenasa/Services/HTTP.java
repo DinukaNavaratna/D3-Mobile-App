@@ -43,12 +43,12 @@ public class HTTP {
     private Context context;
     private JSONObject body;
     private String url;
-    private String endpoint = "";
-    private String jsonString = "";
+    private String endpoint;
+    private String jsonString;
 
     public HTTP(Context context) {
         this.context = context;
-        context.getResources().getString(R.string.server_host);
+        url = context.getResources().getString(R.string.server_host);
     }
 
     public void request(String endpoint, String json_body) {
@@ -105,7 +105,6 @@ public class HTTP {
                         responseString = String.valueOf(response.statusCode);
                         // can get more details such as response.headers
                         try {
-                            Log.i("Res", jsonString);
                             jsonString = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
                             HTTPResponseHandler httpResponseHandler = new HTTPResponseHandler();
                             httpResponseHandler.analyzeResponse(context, endpoint, jsonString);

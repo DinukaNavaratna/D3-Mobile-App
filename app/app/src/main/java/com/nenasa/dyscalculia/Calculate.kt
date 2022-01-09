@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.nenasa.R
+import com.nenasa.Services.SharedPreference
 import com.nenasa.dysgraphia.Home
 import java.lang.Boolean.FALSE
 import java.lang.Boolean.TRUE
@@ -16,20 +17,21 @@ class Calculate : AppCompatActivity() {
     var startNumber = 0;
     var endNumber = 0;
     val sign1 = arrayOf<String>("+", "-")
-    val sign2 = arrayOf<String>("+", "-", "x", "/")
+    val sign2 = arrayOf<String>("+", "-", "x", "÷")
     lateinit var sign_arr: String;
     var correct_answer = 0;
     var questionCount = 1;
     var correctCount = 0;
     lateinit var nextButton: Button;
     lateinit var finishButton: Button;
+    private lateinit var level: String;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dyscalculia_calculate)
 
         val myIntent = intent
-        val level = myIntent.getStringExtra("level")
+        level = myIntent.getStringExtra("level").toString()
 
         nextButton = findViewById<Button>(R.id.next_button)
         finishButton = findViewById<Button>(R.id.finish_btn)
@@ -58,7 +60,7 @@ class Calculate : AppCompatActivity() {
             sign = sign1.random()
         } else {
             sign = sign2.random()
-            if(sign.equals("/")){
+            if(sign.equals("÷")){
                 number1 = number1*number2;
             }
         }
@@ -73,7 +75,7 @@ class Calculate : AppCompatActivity() {
             correct_answer = number1 + number2;
         } else if(sign.equals("x")){
             correct_answer = number1 * number2;
-        } else if(sign.equals("/")){
+        } else if(sign.equals("÷")){
             correct_answer = number1 / number2;
         }
 
@@ -114,7 +116,25 @@ class Calculate : AppCompatActivity() {
         if (questionCount <= 5){
             newCalculation();
         } else {
-            Toast.makeText(applicationContext, correctCount.toString() + " correct out of 5",Toast.LENGTH_SHORT).show()
+            var sp = SharedPreference(this)
+            if(level.equals("1")) {
+                if(correctCount>=4){
+                    sp.setPreference("dyscalculia_level_2", "open")
+                    Toast.makeText(applicationContext, "Congradulations!\nLevel 02 Unlocked!",Toast.LENGTH_SHORT).show()
+                } else
+                    Toast.makeText(applicationContext, correctCount.toString() + " correct out of 5",Toast.LENGTH_SHORT).show()
+            } else if(level.equals("2")) {
+                if(correctCount>=4){
+                    sp.setPreference("dyscalculia_level_3", "open")
+                    Toast.makeText(applicationContext, "Congradulations!\nLevel 03 Unlocked!",Toast.LENGTH_SHORT).show()
+                } else
+                    Toast.makeText(applicationContext, correctCount.toString() + " correct out of 5",Toast.LENGTH_SHORT).show()
+            } else if(level.equals("3")) {
+                if(correctCount>=4){
+                    Toast.makeText(applicationContext, "Congradulations!\nYou Passed this Level!",Toast.LENGTH_SHORT).show()
+                } else
+                    Toast.makeText(applicationContext, correctCount.toString() + " correct out of 5",Toast.LENGTH_SHORT).show()
+            }
             val myIntent = Intent(this, com.nenasa.dyscalculia.Home::class.java)
             this.startActivity(myIntent)
             finish()
@@ -125,5 +145,8 @@ class Calculate : AppCompatActivity() {
         val intent = Intent(this, com.nenasa.dyscalculia.Home::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onBackPressed() {
     }
 }

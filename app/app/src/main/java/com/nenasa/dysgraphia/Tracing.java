@@ -3,6 +3,7 @@ package com.nenasa.dysgraphia;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -187,4 +188,7 @@ public class Tracing extends Activity {
         this.startActivity(myIntent);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {}
 }
