@@ -6,6 +6,10 @@
 #
 aniso8601==9.0.1
     # via flask-restful
+certifi==2021.10.8
+    # via requests
+charset-normalizer==2.0.10
+    # via requests
 click==8.0.3
     # via flask
 colorama==0.4.4
@@ -21,6 +25,8 @@ flask-cors==3.0.10
     # via -r requirements.in
 flask-restful==0.3.9
     # via -r requirements.in
+idna==3.3
+    # via requests
 itsdangerous==2.0.1
     # via flask
 jinja2==3.0.3
@@ -33,14 +39,20 @@ mysql-connector-python==8.0.27
     # via -r requirements.in
 protobuf==3.19.1
     # via mysql-connector-python
+pydub==0.25.1
+    # via -r requirements.in
 python-dotenv==0.19.2
     # via -r requirements.in
 pytz==2021.3
     # via flask-restful
+requests==2.27.1
+    # via -r requirements.in
 six==1.16.0
     # via
     #   flask-cors
     #   flask-restful
+urllib3==1.26.8
+    # via requests
 werkzeug==2.0.2
     # via flask
 win32-setctime==1.0.4

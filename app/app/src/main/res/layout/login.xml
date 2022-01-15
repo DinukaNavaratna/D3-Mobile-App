@@ -126,6 +126,7 @@
                                 android:id="@+id/login_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:capitalize="none"
                                 android:drawableStart="@drawable/ic_baseline_email_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"

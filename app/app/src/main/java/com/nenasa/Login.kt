@@ -3,6 +3,7 @@ package com.nenasa
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
@@ -33,8 +34,8 @@ class Login : AppCompatActivity() {
         var email = login_email.text.toString()
         var password = login_psw.text.toString()
         try {
-            val http = HTTP(this);
-            http.request("login","{\"email\":\""+ email +"\", \"password\":\"" + password + "\"}")
+            val http = HTTP(this, this);
+            http.request("/login","{\"email\":\""+ email +"\", \"password\":\"" + password + "\"}")
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
@@ -51,5 +52,14 @@ class Login : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+    }
+
+    override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            val intent = Intent(this, Hidden::class.java)
+            startActivity(intent)
+            finish()
+        }
+        return super.onKeyLongPress(keyCode, event)
     }
 }
