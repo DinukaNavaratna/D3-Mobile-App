@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.d3">
+    package="com.nenasa">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -8,13 +12,35 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Walkthrough"></activity>
-        <activity android:name=".Walkthrough1" />
+        android:theme="@style/Theme.Nenasa">
+        <activity
+            android:name=".dyslexia.Read"
+            android:exported="false" />
+        <activity
+            android:name=".dyscalculia.Calculate"
+            android:exported="false" />
+        <activity
+            android:name=".dysgraphia.Tracing"
+            android:exported="false" />
+        <activity
+            android:name=".Questions"
+            android:exported="false" />
+        <activity
+            android:name=".dyslexia.Home"
+            android:exported="false" />
+        <activity
+            android:name=".dysgraphia.Home"
+            android:exported="false" />
+        <activity
+            android:name=".dyscalculia.Home"
+            android:exported="false" />
+        <activity android:name=".Walkthrough.Walkthrough" />
         <activity android:name=".Home" />
         <activity android:name=".Register" />
         <activity android:name=".Login" />
-        <activity android:name=".SplashScreen">
+        <activity
+            android:name=".Splash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

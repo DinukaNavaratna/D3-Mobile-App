@@ -1,0 +1,7 @@
+flask
+flask_restful
+flask_cors
+python-dotenv
+loguru
+mysql-connector-python
+requests
