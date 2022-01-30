@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nenasa">
         <activity
+            android:name=".dyslexia.HomeHard"
+            android:exported="false" />
+        <activity
+            android:name=".dyslexia.HomeEasy"
+            android:exported="false" />
+        <activity
             android:name=".dysgraphia.Reports"
             android:exported="false" />
         <activity

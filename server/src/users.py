@@ -16,7 +16,7 @@ class register(Resource):
     def post(self):
         
         msg = ""
-        response =""
+        response = ""
 
         try:
             content = request.json
@@ -48,6 +48,8 @@ class register(Resource):
                         user_id = select_response[0][0]
                         msg = "success"
                         response = "User found!"
+                        score_insert_query = "INSERT IGNORE INTO scores (user_id, game, score) VALUES('"+str(user_id)+"','dyscalculia','0'), ('"+str(user_id)+"','dysgraphia','0'), ('"+str(user_id)+"','dyslexia','0');"
+                        score_query_response = ExecuteQuery.execute(score_insert_query)
                     else:
                         msg = "failed"
                         response = "User not found!"
@@ -71,7 +73,7 @@ class login(Resource):
     def post(self):
 
         msg = ""
-        response =""
+        response = ""
 
         try:
             content = request.json

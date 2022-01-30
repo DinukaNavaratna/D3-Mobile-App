@@ -30,6 +30,10 @@ class create_db(Resource):
             if conn != "failed":
                 cur = conn.cursor()
                 cur.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, fname VARCHAR(255), lname VARCHAR(255), email VARCHAR(255) UNIQUE, number VARCHAR(15), childname VARCHAR(255), childage VARCHAR(3), password VARCHAR(50), reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+                cur.execute("CREATE TABLE IF NOT EXISTS scores (user_id VARCHAR(5), game VARCHAR(25), score VARCHAR(5), PRIMARY KEY (user_id, game));")
+                #cur.execute("CREATE TABLE IF NOT EXISTS dyscalculia (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(5), level VARCHAR(1), data_id VARCHAR(5) UNIQUE, number VARCHAR(15), childname VARCHAR(255), childage VARCHAR(3), password VARCHAR(50), reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+                #cur.execute("CREATE TABLE IF NOT EXISTS dysgraphia (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(5), level VARCHAR(1), data_id VARCHAR(5) UNIQUE, number VARCHAR(15), childname VARCHAR(255), childage VARCHAR(3), password VARCHAR(50), reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+                #cur.execute("CREATE TABLE IF NOT EXISTS dyslexia (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(5), level VARCHAR(1), data_id VARCHAR(5) UNIQUE, number VARCHAR(15), childname VARCHAR(255), childage VARCHAR(3), password VARCHAR(50), reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
                 #cur.execute("CREATE TABLE IF NOT EXISTS reports (id INT AUTO_INCREMENT PRIMARY KEY, submission_id INT UNIQUE, student_id VARCHAR(255), submission_name VARCHAR(255), module_name VARCHAR(255), submission_method VARCHAR(255), submission_type VARCHAR(255), submission_status VARCHAR(255), due_date VARCHAR(255), submission_description VARCHAR(255), time_needed INT, time_completed INT DEFAULT 0, compleation_status VARCHAR(25) DEFAULT 'Pending');")
                 conn.commit()
                 cur.close()
