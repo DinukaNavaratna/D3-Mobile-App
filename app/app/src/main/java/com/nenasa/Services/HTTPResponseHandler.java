@@ -12,6 +12,7 @@ import com.gdacciaro.iOSDialog.iOSDialogClickListener;
 import com.nenasa.Home;
 import com.nenasa.Nenasa;
 import com.nenasa.R;
+import com.nenasa.Splash;
 import com.nenasa.dyslexia.Read;
 
 import org.json.JSONException;
@@ -35,7 +36,7 @@ public class HTTPResponseHandler {
                     sp.setPreference("username", jsonObject.getString("username"));
                     sp.setPreference("isLoggedIn", "true");
                     //showResponse(context, activity, "error", "Login Successful!", "Thank you for being a loyal user...");
-                    context.startActivity(new Intent(context, Home.class));
+                    context.startActivity(new Intent(context, Splash.class));
                 } else {
                     Log.v("http_response_login", "failed");
                     showResponse(context, activity, "error", "Login Failed!", jsonObject.getString("response"));
@@ -55,6 +56,9 @@ public class HTTPResponseHandler {
                     sp.setPreference("email", jsonObject.getString("email"));
                     sp.setPreference("username", jsonObject.getString("username"));
                     sp.setPreference("isLoggedIn", "true");
+                    sp.setPreference("dyscalculia_score", "0");
+                    sp.setPreference("dysgraphia_score", "0");
+                    sp.setPreference("dyslexia_score", "0");
                     //showResponse(context, activity, "error", "Registration Successful!", "Warmly welcome you to our loyal user group...");
                     context.startActivity(new Intent(context, Home.class));
                 } else {
@@ -64,6 +68,22 @@ public class HTTPResponseHandler {
             } else {
                 Log.v("http_response_register", "empty");
                 showResponse(context, activity, "error", "Registration Failed!", "Error Occurred!");
+            }
+        } else if(endpoint == "/get_scores"){
+            if(jsonString != ""){
+                JSONObject jsonObject = new JSONObject(jsonString);
+                String msg = jsonObject.getString("msg");
+                if (msg.equals("success")){
+                    Log.v("http_response_scores", "success");
+                    SharedPreference sp = new SharedPreference(context);
+                    sp.setPreference("dyscalculia_score", jsonObject.getString("dyscalculia"));
+                    sp.setPreference("dysgraphia_score", jsonObject.getString("dysgraphia"));
+                    sp.setPreference("dyslexia_score", jsonObject.getString("dyslexia"));
+                } else {
+                    Log.v("http_response_scores", "failed");
+                }
+            } else {
+                Log.v("http_response_scores", "empty");
             }
         }
     }

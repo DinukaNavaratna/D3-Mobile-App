@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.nenasa.Services.HTTP
 import com.nenasa.Services.SharedPreference
 import com.nenasa.Walkthrough.Walkthrough
 
@@ -22,6 +23,12 @@ class Splash : AppCompatActivity() {
             if(isNew == "false"){
                 var isLoggedIn = sp.getPreference("isLoggedIn")
                     if(isLoggedIn == "true"){
+                        try {
+                            val http = HTTP(this, this);
+                            http.request("/get_scores","{\"user_id\":\""+ sp.getPreference("user_id") +"\"}")
+                        } catch (exception: Exception) {
+                            exception.printStackTrace()
+                        }
                         val intent = Intent(this, Home::class.java)
                         startActivity(intent)
                         finish()

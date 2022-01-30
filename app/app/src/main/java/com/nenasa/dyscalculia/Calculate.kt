@@ -22,7 +22,6 @@ class Calculate : AppCompatActivity() {
     var correct_answer = 0;
     var questionCount = 1;
     var correctCount = 0;
-    lateinit var nextButton: Button;
     lateinit var finishButton: Button;
     private lateinit var level: String;
 
@@ -33,7 +32,6 @@ class Calculate : AppCompatActivity() {
         val myIntent = intent
         level = myIntent.getStringExtra("level").toString()
 
-        nextButton = findViewById<Button>(R.id.next_button)
         finishButton = findViewById<Button>(R.id.finish_btn)
 
         if(level.equals("1")){
@@ -90,9 +88,6 @@ class Calculate : AppCompatActivity() {
         sign_txt.text = sign
 
         if (questionCount > 5) {
-            nextButton.isEnabled = false
-            nextButton.isClickable = false
-            nextButton.setAlpha(0.5F)
             finishButton.isEnabled = true
         }
     }

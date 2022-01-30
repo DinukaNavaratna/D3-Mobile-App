@@ -14,15 +14,31 @@ logger.add('logs/audio.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {
 load_dotenv()
 
 class upload_audio(Resource):
-    def get(self):
+    def post(self):
         try:
-            f = request.files['file']
+            logger.info("Request started processing")
+            function = request.form.get('function')
+            logger.info(request.form.get('function'))
+            logger.info(request.form.get('filename'))
+            logger.info(str(request.files))
+            logger.info(str(request.get_data(parse_form_data=True)))
+            logger.info(request.content_type)
+
+            data = {}
+            for key, value in request.form.items():
+                if key.endswith('[]'):
+                    data[key[:-2]] = request.form.getlist(key)
+                else:
+                    data[key] = value
+            logger.info(str(data)) 
+
+            f = request.files['uploadedfile']
             ext = (f.filename).split('.')[-1]
             fileId = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
             filePath = "./clips/"+fileId+"."+ext
             f.save(filePath)
+            logger.info("Audio saved")
             filenames = [fileId+"."+ext]
-            function = request.form['function']
             if(function == "sentence"):
                 myaudio = AudioSegment.from_file(filePath, "wav")
                 chunk_length_ms = 2000 # pydub calculates in millisec

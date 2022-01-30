@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/dysgraphia_bg"
-    tools:context=".dysgraphia.Home"
+    tools:context=".dysgraphia.Level_01"
     tools:ignore="SpeakableTextPresentCheck">
 
     <LinearLayout
@@ -81,7 +81,7 @@
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dysgraphia"
+                        android:text="Dysgraphia - L1"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -101,7 +101,6 @@
                         android:id="@+id/imageView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="show_score"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -135,6 +134,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="30dp"
+                        android:background="@drawable/background"
                         android:orientation="horizontal"
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
@@ -144,15 +144,80 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:layout_weight="1" >
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ta" />
 
                             <Button
-                                android:id="@+id/level_1"
+                                android:id="@+id/letter_1"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:background="@drawable/cloud"
-                                android:text="පහසු"
-                                android:textSize="20sp"
+                                android:background="@drawable/ta"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ta_1" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="30dp"
+                        android:background="@drawable/background"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="10dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1">
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/la_1" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/letter_2"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@drawable/la"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
@@ -165,6 +230,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="30dp"
+                        android:background="@drawable/background"
                         android:orientation="horizontal"
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
@@ -177,48 +243,27 @@
                             android:layout_weight="1">
 
                             <Button
-                                android:id="@+id/level_2"
+                                android:id="@+id/letter_3"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:background="@drawable/cloud"
-                                android:text="මද්‍යම"
-                                android:textSize="20sp"
+                                android:background="@drawable/u"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="30dp"
-                        android:orientation="horizontal"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="10dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="10dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="150dp"
+                            android:layout_height="match_parent"
                             android:layout_weight="1">
 
-                            <Button
-                                android:id="@+id/reports"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:background="@drawable/cloud"
-                                android:text="ප්‍රගති වාර්තා"
-                                android:textSize="20sp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:srcCompat="@drawable/u_1" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
-
                     </LinearLayout>
 
                 </LinearLayout>

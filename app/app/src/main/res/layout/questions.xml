@@ -82,7 +82,7 @@
                         android:id="@+id/textView8"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Questionaire"
+                        android:text="ප්‍රශ්නාවලිය"
                         android:textColor="#FFFFFF"
                         android:textSize="24sp"
                         android:textStyle="bold"
@@ -206,7 +206,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#FFFFFF"
-                                    android:text="Yes"
+                                    android:text="ඔව්"
                                     android:textColor="#FFFFFF" />
 
                                 <RadioButton
@@ -215,7 +215,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#FFFFFF"
-                                    android:text="No"
+                                    android:text="නැත"
                                     android:textColor="#FFFFFF" />
 
                             </RadioGroup>
@@ -314,7 +314,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#FFFFFF"
-                                    android:text="Yes"
+                                    android:text="ඔව්"
                                     android:textColor="#FFFFFF" />
 
                                 <RadioButton
@@ -323,7 +323,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#FFFFFF"
-                                    android:text="No"
+                                    android:text="නැත"
                                     android:textColor="#FFFFFF" />
 
                             </RadioGroup>
@@ -422,7 +422,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#FFFFFF"
-                                    android:text="Yes"
+                                    android:text="ඔව්"
                                     android:textColor="#FFFFFF" />
 
                                 <RadioButton
@@ -431,7 +431,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#FFFFFF"
-                                    android:text="No"
+                                    android:text="නැත"
                                     android:textColor="#FFFFFF" />
 
                             </RadioGroup>
@@ -529,7 +529,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#FFFFFF"
-                                    android:text="Yes"
+                                    android:text="ඔව්"
                                     android:textColor="#FFFFFF" />
 
                                 <RadioButton
@@ -538,7 +538,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:buttonTint="#FFFFFF"
-                                    android:text="No"
+                                    android:text="නැත"
                                     android:textColor="#FFFFFF" />
 
                             </RadioGroup>
@@ -560,7 +560,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:onClick="submitQuestions"
-                            android:text="Submit"
+                            android:text="සම්පූර්ණ කරන්න"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

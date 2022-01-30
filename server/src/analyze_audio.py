@@ -1,46 +1,15 @@
-from flask_restful import Resource
-from flask import jsonify, request
+from flask import request
 from loguru import logger
 from dotenv import load_dotenv
 from datetime import datetime
 from uuid import uuid4
 from pydub import AudioSegment
 from pydub.utils import make_chunks
-from pathlib import Path
 
 logger.add('logs/audio.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}', filter="audio", colorize=True, level='DEBUG')
 
 # load .env variables
 load_dotenv()
-
-class upload_audio(Resource):
-    def get(self):
-        try:
-            f = request.files['file']
-            ext = (f.filename).split('.')[-1]
-            fileId = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
-            filePath = "./clips/"+fileId+"."+ext
-            f.save(filePath)
-            filenames = [fileId+"."+ext]
-            function = request.form['function']
-            if(function == "sentence"):
-                myaudio = AudioSegment.from_file(filePath, "wav")
-                chunk_length_ms = 2000 # pydub calculates in millisec
-                chunks = make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
-
-                #Export all of the individual chunks as wav files
-                for i, chunk in enumerate(chunks):
-                    chunk_name = ("./clips/"+fileId+"_{0}."+ext).format(i)
-                    #print("exporting", chunk_name)
-                    chunk.export(chunk_name, format="wav")
-                    filenames.append(chunk_name)
-
-            return jsonify({"msg":"success", "accuracy":str(filenames)})
-        except Exception as e:
-            logger.error("Exception | upload_audio: "+str(e))
-            return jsonify({"msg":"failed","error":str(e)})
-
-
 
 def asd():
     f = request.files['file']
@@ -73,3 +42,24 @@ def asd():
         
     response += ']}'
     return response
+
+
+#-------------------------------------------------------------------------------------------------
+
+def split_words():
+    from pydub.silence import split_on_silence
+
+    sound_file = AudioSegment.from_wav("a-z.wav")
+    audio_chunks = split_on_silence(sound_file, 
+        # must be silent for at least half a second
+        min_silence_len=500,
+
+        # consider it silent if quieter than -16 dBFS
+        silence_thresh=-16
+    )
+
+    for i, chunk in enumerate(audio_chunks):
+
+        out_file = ".//splitAudio//chunk{0}.wav".format(i)
+        print "exporting", out_file
+        chunk.export(out_file, format="wav")

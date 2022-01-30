@@ -15,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nenasa">
         <activity
+            android:name=".dysgraphia.Reports"
+            android:exported="false" />
+        <activity
+            android:name=".dysgraphia.Level_02"
+            android:exported="false" />
+        <activity
+            android:name=".dysgraphia.Level_01"
+            android:exported="false" />
+        <activity
             android:name=".Hidden"
             android:exported="false" />
         <activity

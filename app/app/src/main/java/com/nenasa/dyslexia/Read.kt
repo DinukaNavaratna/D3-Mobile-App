@@ -12,23 +12,20 @@ import android.os.Environment
 import android.view.View
 import java.io.IOException
 import android.view.View.OnTouchListener
-import com.nenasa.Home
 import java.io.File
 import java.lang.Exception
 import java.util.*
 import android.media.AudioAttributes
-import android.media.Image
 
 import android.media.MediaPlayer
 import android.os.Handler
 import android.os.Looper
-import android.system.Os.remove
 import android.widget.*
 import com.nenasa.R
 import com.nenasa.Services.FileUploadUtility
+import com.nenasa.Services.MultipartUtility
 import com.nenasa.Services.SharedPreference
 import java.lang.IllegalArgumentException
-import kotlin.collections.ArrayList
 
 
 class Read : AppCompatActivity() {
@@ -118,8 +115,12 @@ class Read : AppCompatActivity() {
             if(audio != ""){
                 frameLayout.visibility = View.VISIBLE;
                 try {
+                    /*
+                    MultipartUtility(Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio);
+                    */
                     val fileUplaoad = FileUploadUtility(this);
                     fileUplaoad.doFileUpload(Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio)
+
                 } catch (exception: Exception) {
                     exception.printStackTrace()
                 }
