@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/dysgraphia_bg"
     tools:context=".dysgraphia.Level_02"
-    tools:ignore="SpeakableTextPresentCheck">
+    tools:ignore="SpeakableTextPresentCheck"
+    tools:viewBindingIgnore="true">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -40,7 +40,7 @@ class HomeHard : AppCompatActivity() {
                 val permissions = arrayOf(android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 ActivityCompat.requestPermissions(this, permissions,0)
             } else {
-                val intent = Intent(this, Read::class.java)
+                val intent = Intent(this, ReadHard::class.java)
                 intent.putExtra("level", "Hard"+selectedItem.text.toString())
                 startActivity(intent)
                 finish()

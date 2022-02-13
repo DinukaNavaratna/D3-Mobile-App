@@ -29,6 +29,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -46,4 +49,8 @@ dependencies {
     implementation 'com.gdacciaro:iosdialog:1.0.3'
     implementation 'com.squareup.okhttp3:okhttp:4.1.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
+
+    //Drag and Drop - Dyslexia
+    implementation 'com.google.android:flexbox:2.0.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 }

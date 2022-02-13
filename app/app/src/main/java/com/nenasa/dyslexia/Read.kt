@@ -47,18 +47,17 @@ class Read : AppCompatActivity() {
     private lateinit var level: String;
     private var levelEnd: Boolean? = false
     lateinit var micGif: ConstraintLayout;
+    lateinit var myIntent: Intent;
     var read_text_arr1: Array<String> = arrayOf("ම", "ල", "ය", "ර", "ප")
     var read_text_arr2: Array<String> = arrayOf("මල", "පය", "මම")
     var read_text_arr3: Array<String> = arrayOf("අම්මා", "අහස", "ලඹය")
-    var read_text_arr4: Array<String> = arrayOf("අම්ම උයනවා", "අපි දුවමු", "ලමයා පයිනවා", "ගස අතන", "සල් ගස", "ගී ගයමු", "ලස්සන වත්ත", "අකුරු කියමු", "හොද ලමයා", "සමනලයා පියාබනවා", "ගෙදට යමු")
-    var read_text_arr5: Array<String> = arrayOf("අම්මා බත් උයනවා", "අමර සල්ගස යට", "අපි සිංදු කියමු", "ලමයි සිංදු කියනවා", "ඔබ ඔහු සමග", "තාත්තා වැඩට ගියා", "අපි ස්කෝලේ යමු", "මුහුද රැල්ල ලස්සනයි", "රට ලස්සනට තියමු", "අපි අපේම යාලුවෝ")
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.nenasa.R.layout.dyslexia_read)
 
-        val myIntent = intent
+        myIntent = intent
         level = myIntent.getStringExtra("level").toString()
 
         context = this;
@@ -224,10 +223,13 @@ class Read : AppCompatActivity() {
     }
 
     fun openHome(view: View) {
-        openHome()
+        if(level == "Hardපහසු" || level == "Hardඅමාරු"){
+            openActivity(Intent(this, com.nenasa.dyslexia.HomeHard::class.java))
+        } else {
+            openActivity(Intent(this, com.nenasa.dyslexia.HomeEasy::class.java))
+        }
     }
-    fun openHome(){
-        val intent = Intent(this, com.nenasa.dyslexia.Home::class.java)
+    fun openActivity(intent: Intent){
         startActivity(intent)
         finish()
     }
@@ -250,12 +252,16 @@ class Read : AppCompatActivity() {
 
     fun nextWord(view: View){
         if(levelEnd == true){
-            openHome()
+            openActivity(Intent(this, com.nenasa.dyslexia.HomeEasy::class.java))
         } else {
-            getReadText()
-            read_text.text = readText
-            record_btn.isEnabled = true
-            next_btn.isEnabled = false
+            if(level == "Hardපහසු" || level == "Hardඅමාරු"){
+                openActivity(Intent(this, com.nenasa.dyslexia.HomeHard::class.java))
+            } else {
+                getReadText()
+                read_text.text = readText
+                record_btn.isEnabled = true
+                next_btn.isEnabled = false
+            }
         }
     }
 
@@ -275,16 +281,8 @@ class Read : AppCompatActivity() {
             read_text_arr3 = remove(read_text_arr3, readText)
             if(read_text_arr3.size == 0 )
                 levelEnd = true
-        } else if(level == "Hardපහසු"){
-            readText = read_text_arr4.random()
-            read_text_arr4 = remove(read_text_arr4, readText)
-            if(read_text_arr4.size == 0 )
-                levelEnd = true
-        } else if(level == "Hardඅමාරු") {
-            readText = read_text_arr5.random()
-            read_text_arr5 = remove(read_text_arr5, readText)
-            if(read_text_arr5.size == 0 )
-                levelEnd = true
+        } else if(level == "Hardපහසු" || level == "Hardඅමාරු"){
+            readText = myIntent.getStringExtra("readText").toString()
         }
     }
 
