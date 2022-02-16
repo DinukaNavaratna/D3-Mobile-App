@@ -1,31 +1,29 @@
 package com.nenasa.dyslexia
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.view.MotionEvent
-
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.media.MediaRecorder
-import android.os.Environment
-import android.view.View
-import java.io.IOException
-import android.view.View.OnTouchListener
-import java.io.File
-import java.lang.Exception
-import java.util.*
 import android.media.AudioAttributes
-
 import android.media.MediaPlayer
+import android.media.MediaRecorder
+import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.view.MotionEvent
+import android.view.View
+import android.view.View.OnTouchListener
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.nenasa.R
 import com.nenasa.Services.FileUploadUtility
 import com.nenasa.Services.SharedPreference
-import java.lang.IllegalArgumentException
+import java.io.File
+import java.io.IOException
+import java.util.*
+import java.math.BigInteger
+import java.security.MessageDigest
 
 
 class Read : AppCompatActivity() {
@@ -48,9 +46,12 @@ class Read : AppCompatActivity() {
     private var levelEnd: Boolean? = false
     lateinit var micGif: ConstraintLayout;
     lateinit var myIntent: Intent;
+    lateinit var mediaPlayer: MediaPlayer
     var read_text_arr1: Array<String> = arrayOf("ම", "ල", "ය", "ර", "ප")
     var read_text_arr2: Array<String> = arrayOf("මල", "පය", "මම")
     var read_text_arr3: Array<String> = arrayOf("අම්මා", "අහස", "ලඹය")
+    var read_text_arr4: Array<String> = arrayOf("අම්මා උයනවා", "අපි දුවමු", "ලමයා පයිනවා", "ගස අතන", "සල් ගස", "ගී ගයමු", "ලස්සන වත්ත", "අකුරු කියමු", "හොද ලමයා", "සමනලයා පියාබනවා", "ගෙදර යමු")
+    var read_text_arr5: Array<String> = arrayOf("අම්මා බත් උයනවා", "අමර සල්ගස යට", "අපි සිංදු කියමු", "ලමයි සිංදු කියනවා", "ඔබ ඔහු සමග", "තාත්තා වැඩට ගියා", "අපි ස්කෝලේ යමු", "මුහුද රැල්ල ලස්සනයි", "රට ලස්සනට තියමු", "අපි අපේම යාලුවෝ")
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +77,9 @@ class Read : AppCompatActivity() {
         record_btn.setOnTouchListener(OnTouchListener {v, event ->
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
+                    if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
+                        mediaPlayer.stop()
+                    }
                     mediaRecorder = MediaRecorder()
                     mediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
                     mediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
@@ -113,6 +117,9 @@ class Read : AppCompatActivity() {
         }
 
         audio_upload.setOnClickListener {
+            if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
+                mediaPlayer.stop()
+            }
             if(audio != ""){
                 frameLayout.visibility = View.VISIBLE;
                 try {
@@ -149,6 +156,9 @@ class Read : AppCompatActivity() {
     }
 
     private fun startRecording() {
+        if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
+            mediaPlayer.stop()
+        }
         try {
             mediaRecorder?.prepare()
             mediaRecorder?.start()
@@ -195,6 +205,9 @@ class Read : AppCompatActivity() {
     protected var player: MediaPlayer? = null
 
     private fun startPlaying(filePath: String) {
+        if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
+            mediaPlayer.stop()
+        }
         player = MediaPlayer()
         try {
             player!!.setDataSource(filePath) // pass reference to file to be played
@@ -223,13 +236,16 @@ class Read : AppCompatActivity() {
     }
 
     fun openHome(view: View) {
-        if(level == "Hardපහසු" || level == "Hardඅමාරු"){
+        if(level == "Hardපහසු" || level == "Hardමද්\u200Dයම" || level == "Hardඅමාරු"){
             openActivity(Intent(this, com.nenasa.dyslexia.HomeHard::class.java))
         } else {
             openActivity(Intent(this, com.nenasa.dyslexia.HomeEasy::class.java))
         }
     }
     fun openActivity(intent: Intent){
+        if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
+            mediaPlayer.stop()
+        }
         startActivity(intent)
         finish()
     }
@@ -251,10 +267,13 @@ class Read : AppCompatActivity() {
     }
 
     fun nextWord(view: View){
+        if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
+            mediaPlayer.stop()
+        }
         if(levelEnd == true){
             openActivity(Intent(this, com.nenasa.dyslexia.HomeEasy::class.java))
         } else {
-            if(level == "Hardපහසු" || level == "Hardඅමාරු"){
+            if(level == "Hardපහසු" || level == "Hardමද්\u200Dයම" || level == "Hardඅමාරු"){
                 openActivity(Intent(this, com.nenasa.dyslexia.HomeHard::class.java))
             } else {
                 getReadText()
@@ -281,13 +300,39 @@ class Read : AppCompatActivity() {
             read_text_arr3 = remove(read_text_arr3, readText)
             if(read_text_arr3.size == 0 )
                 levelEnd = true
-        } else if(level == "Hardපහසු" || level == "Hardඅමාරු"){
+        } else if(level == "Hardපහසු"){
+            readText = read_text_arr4.random()
+            read_text_arr4 = remove(read_text_arr4, readText)
+            if(read_text_arr4.size == 0 )
+                levelEnd = true
+        } else if(level == "Hardමද්\u200Dයම"){
+            readText = read_text_arr5.random()
+            read_text_arr5 = remove(read_text_arr5, readText)
+            if(read_text_arr5.size == 0 )
+                levelEnd = true
+        } else if(level == "Hardඅමාරු"){
             readText = myIntent.getStringExtra("readText").toString()
         }
     }
 
-    fun findIndex(arr: Array<String>, item: String): Int {
-        return arr.indexOf(item)
+    fun speak(view: View){
+        try {
+            val md = MessageDigest.getInstance("MD5")
+            val readTextAudio = BigInteger(1, md.digest(readText.toByteArray())).toString(16).padStart(32, '0')
+            val uri = "@raw/dyslexia_$readTextAudio"
+            val audioResource = resources.getIdentifier(uri, null, packageName)
+            mediaPlayer = MediaPlayer.create(this, audioResource)
+            if(mediaPlayer.isPlaying()){
+                mediaPlayer.stop()
+            }
+            mediaPlayer.start()
+        } catch (ex: Exception){
+            if(ex.toString().contains("NotFoundException")){
+                Toast.makeText(this, "Audio not found!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Error: $ex", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     fun remove(arr: Array<String>, target: String): Array<String> {

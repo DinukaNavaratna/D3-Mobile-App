@@ -11,7 +11,9 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.nenasa.Nenasa
 import com.nenasa.R
+import com.nenasa.Services.SharedPreference
 
 class HomeEasy : AppCompatActivity() {
 
@@ -52,6 +54,15 @@ class HomeEasy : AppCompatActivity() {
         val intent = Intent(this, Home::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun show_score(view: View) {
+        val sp = SharedPreference(this)
+        var score = sp.getPreference("dyslexia_score")
+        if(score == "null")
+            score = "0";
+        val nenasa = Nenasa()
+        nenasa.showDialogBox(this, "info", "Your Score", "You have earned a total of "+score+" coins in this game...")
     }
 
     override fun onBackPressed() {

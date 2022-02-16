@@ -11,7 +11,9 @@ import android.widget.RadioGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.nenasa.Nenasa
 import com.nenasa.R
+import com.nenasa.Services.SharedPreference
 
 class HomeHard : AppCompatActivity() {
 
@@ -40,7 +42,12 @@ class HomeHard : AppCompatActivity() {
                 val permissions = arrayOf(android.Manifest.permission.RECORD_AUDIO, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
                 ActivityCompat.requestPermissions(this, permissions,0)
             } else {
-                val intent = Intent(this, ReadHard::class.java)
+                var intent: Intent;
+                if(selectedItem.text.toString() == "අමාරු") {
+                    intent = Intent(this, ReadHard::class.java)
+                } else {
+                    intent = Intent(this, Read::class.java)
+                }
                 intent.putExtra("level", "Hard"+selectedItem.text.toString())
                 startActivity(intent)
                 finish()
@@ -52,6 +59,15 @@ class HomeHard : AppCompatActivity() {
         val intent = Intent(this, Home::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun show_score(view: View) {
+        val sp = SharedPreference(this)
+        var score = sp.getPreference("dyslexia_score")
+        if(score == "null")
+            score = "0";
+        val nenasa = Nenasa()
+        nenasa.showDialogBox(this, "info", "Your Score", "You have earned a total of "+score+" coins in this game...")
     }
 
     override fun onBackPressed() {
