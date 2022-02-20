@@ -37,6 +37,8 @@ markupsafe==2.0.1
     # via jinja2
 mysql-connector-python==8.0.27
     # via -r requirements.in
+numpy==1.22.2
+    # via -r requirements.in
 protobuf==3.19.1
     # via mysql-connector-python
 pydub==0.25.1
