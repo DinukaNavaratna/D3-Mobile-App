@@ -35,14 +35,7 @@ def calculate_fingerprints(filename):
         print("7")
         print("Calculating fingerprint by fpcalc for %s" % (filename))
         print("8")
-        try:
-            if os.path.exists(filename):
-                print("Found: "+filename)
-            else:
-                print("Not Found: "+filename)
-            fpcalc_out = str(subprocess.check_output(['fpcalc', '-raw', '-length', str(sample_time), filename])).strip().replace('\\n', '').replace("'", "")
-        except Exception as ex:
-            print("\n\nException:\n"+str(ex)+"\n\n")
+        fpcalc_out = str(subprocess.check_output(['fpcalc', '-raw', '-length', str(sample_time), filename])).strip().replace('\\n', '').replace("'", "")
         print("9")
 
     fingerprint_index = fpcalc_out.find('FINGERPRINT=') + 12
