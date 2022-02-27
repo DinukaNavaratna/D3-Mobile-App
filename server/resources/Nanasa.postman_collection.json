@@ -1,0 +1,383 @@
+{
+	"info": {
+		"_postman_id": "e054a033-7544-4a73-b30e-77dac8cd8c50",
+		"name": "Nanasa",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "mfcc",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"file1\": \"././clips/ta1.wav\",\r\n    \"file2\": \"././clips/ta2.wav\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Server}}/mfcc",
+							"host": [
+								"{{Server}}"
+							],
+							"path": [
+								"mfcc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "audiocompare",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Server}}/audiocompare",
+							"host": [
+								"{{Server}}"
+							],
+							"path": [
+								"audiocompare"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resemblyzer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Server}}/resemblyzer",
+							"host": [
+								"{{Server}}"
+							],
+							"path": [
+								"resemblyzer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "correlation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Server}}/correlation",
+							"host": [
+								"{{Server}}"
+							],
+							"path": [
+								"correlation"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"fname\":\"Test5\",\r\n    \"lname\":\"User\",\r\n    \"email\":\"testuser5@nanasa.com\",\r\n    \"phone\":\"0123456789\",\r\n    \"childname\":\"TestChild5\",\r\n    \"childage\":\"5\",\r\n    \"password\":\"Test5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Server}}/register",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"testuser5@nanasa.com\",\r\n    \"password\":\"Test5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Server}}/login",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Server}}/",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DB Create",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Server}}/create_db",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"create_db"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DB Clear",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Server}}/clear_db",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"clear_db"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DB Get All",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Server}}/GetAllFromDB?table=scores",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"GetAllFromDB"
+					],
+					"query": [
+						{
+							"key": "table",
+							"value": "scores"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload Audio",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "dj216BH0q/file_example_WAV_1MG.wav"
+						},
+						{
+							"key": "function",
+							"value": "sentence",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{Server}}/upload_audio",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"upload_audio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Scores",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":\"7\",\r\n    \"game\":\"dyslexia\",\r\n    \"score\":\"6\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Server}}/update_scores",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"update_scores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Scores",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":\"7\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Server}}/get_scores",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"get_scores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Train Model",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"option\":\"full\",\r\n    \"option1\":\"preprocess\",\r\n    \"option2\":\"train\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Server}}/train_model",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"train_model"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Analyze",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"filename\":\"clips/ta.wav\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Server}}/analyze",
+					"host": [
+						"{{Server}}"
+					],
+					"path": [
+						"analyze"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "Server",
+			"value": "161.97.171.85:5005",
+			"type": "string"
+		}
+	]
+}
