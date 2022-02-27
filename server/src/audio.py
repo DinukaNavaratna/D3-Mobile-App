@@ -1,3 +1,4 @@
+import imp
 from flask_restful import Resource
 from flask import jsonify, request
 from loguru import logger
@@ -7,11 +8,51 @@ from uuid import uuid4
 from pydub import AudioSegment
 from pydub.utils import make_chunks
 from pathlib import Path
+from .audio_processing.preprocess import preprocess_dataset
+from .audio_processing.train import start_train
+from .audio_processing.analyze import analyze_audio
 
 logger.add('logs/audio.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}', filter="audio", colorize=True, level='DEBUG')
 
 # load .env variables
 load_dotenv()
+
+class train_model(Resource):
+    def post(self):
+        try:
+            content = request.json
+            option = content['option']
+            if option == "full":
+                if preprocess_dataset() == 1:
+                    train_feedback = start_train()
+                    if train_feedback[0] == 1:
+                        return jsonify({"msg":"success", "Loss": train_feedback[1], "Accuracy": train_feedback[2]})
+                    else:
+                        logger.error("Failed | train_model: start_train() did not return 1")
+                        return jsonify({"msg":"failed","error":"Training failed"})
+                else:
+                    logger.error("Failed | train_model: preprocess_dataset() did not return 1")
+                    return jsonify({"msg":"failed","error":"Pre-processing failed"})
+            elif option == "preprocess":
+                if preprocess_dataset() == 1:
+                    return jsonify({"msg":"success"})
+                else:
+                    logger.error("Failed | train_model: preprocess_dataset() did not return 1")
+                    return jsonify({"msg":"failed","error":"Pre-processing failed"})
+            elif option == "train":
+                train_feedback = start_train()
+                if train_feedback[0] == 1:
+                    return jsonify({"msg":"success", "Loss": train_feedback[1], "Accuracy": train_feedback[2]})
+                else:
+                    logger.error("Failed | train_model: start_train() did not return 1")
+                    return jsonify({"msg":"failed","error":"Training failed"})
+            else:
+                logger.error("Failed | train_model: Option not provided in the request")
+                return jsonify({"msg":"failed","error":"Option not provided in the request"})
+        except Exception as e:
+            logger.error("Exception | train_model: "+str(e))
+            return jsonify({"msg":"failed","error":str(e)})
+
 
 class upload_audio(Resource):
     def post(self):
@@ -69,3 +110,14 @@ class upload_audio(Resource):
             logger.error("Exception | upload_audio: "+str(e))
             return jsonify({"msg":"failed","error":str(e)})
 
+
+class analyze(Resource):
+    def post(self):
+        try:
+            content = request.json
+            filename = content['filename']
+            keyword = analyze_audio(filename)
+            return jsonify({"msg":"success", "keyword":str(keyword)})
+        except Exception as e:
+            logger.error("Exception | analyze: "+str(e))
+            return jsonify({"msg":"failed","error":str(e)})
