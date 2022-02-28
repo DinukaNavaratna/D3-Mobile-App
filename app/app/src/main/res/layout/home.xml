@@ -72,7 +72,9 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="50dp"
                         android:fontFamily="@font/print_clearly"
-                        android:text="Hello,"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="ආයුබෝවන්!"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="32sp" />

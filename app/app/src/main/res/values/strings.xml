@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">ණැනස</string>
-    <string name="server_host">http://161.97.171.85:5005/</string>
+    <string name="server_host">http://161.97.171.85:5005</string>
 </resources>

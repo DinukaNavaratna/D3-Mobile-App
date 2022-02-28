@@ -5,8 +5,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.nenasa.Services.HTTP
+import android.text.TextUtils
+import android.util.Patterns
+
 
 class Register : AppCompatActivity() {
 
@@ -40,13 +44,31 @@ class Register : AppCompatActivity() {
     }
 
     fun register(view: View) {
-        var email = register_fname.text.toString()
-        var password = register_lname.text.toString()
-        try {
-            val http = HTTP(this);
-            http.request("register","{\"email\":\""+ email +"\", \"password\":\"" + password + "\"}")
-        } catch (exception: Exception) {
-            exception.printStackTrace()
+        var fname = register_fname.text.toString()
+        var lname = register_lname.text.toString()
+        var email = register_email.text.toString()
+        var phone = register_phone.text.toString()
+        var childname = register_child_name.text.toString()
+        var childage = register_child_age.text.toString()
+        var password1 = register_psw1.text.toString()
+        var password2 = register_psw2.text.toString()
+
+        if(isValidEmail(email)) {
+            if (password1 != password2) {
+                Toast.makeText(this, "Password confirmation failed!", Toast.LENGTH_SHORT).show()
+            } else {
+                try {
+                    val http = HTTP(this, this);
+                    http.request(
+                        "/register",
+                        "{\"fname\":\"" + fname + "\", \"lname\":\"" + lname + "\", \"email\":\"" + email + "\", \"phone\":\"" + phone + "\", \"childname\":\"" + childname + "\", \"childage\":\"" + childage + "\", \"password\":\"" + password1 + "\"}"
+                    )
+                } catch (exception: Exception) {
+                    exception.printStackTrace()
+                }
+            }
+        } else {
+            Toast.makeText(this, "Please enter a valid email address!", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -61,5 +83,9 @@ class Register : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+    }
+
+    fun isValidEmail(target: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 }

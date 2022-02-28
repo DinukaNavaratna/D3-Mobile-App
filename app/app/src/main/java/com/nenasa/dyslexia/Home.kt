@@ -7,6 +7,7 @@ import android.media.MediaRecorder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.RadioGroup
 import com.nenasa.Home
 import com.nenasa.R
@@ -15,6 +16,9 @@ import android.widget.Toast
 import android.widget.RadioButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.nenasa.Nenasa
+import com.nenasa.Services.SharedPreference
+import com.nenasa.dysgraphia.Level_01
 import java.io.IOException
 
 class Home : AppCompatActivity() {
@@ -26,6 +30,7 @@ class Home : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dyslexia_home)
 
+        /*
         dyslecia_group1 = findViewById<RadioGroup>(R.id.dyslecia_group1);
         dyslecia_group2 = findViewById<RadioGroup>(R.id.dyslecia_group2);
 
@@ -39,8 +44,23 @@ class Home : AppCompatActivity() {
                 dyslecia_group1.clearCheck();
             }
         })
-    }
+        */
 
+        val easy: Button = findViewById<Button>(R.id.easy);
+        val hard: Button = findViewById<Button>(R.id.hard);
+
+        easy.setOnClickListener {
+            val intent = Intent(this, HomeEasy::class.java)
+            startActivity(intent)
+            finish()
+        }
+        hard.setOnClickListener {
+            val intent = Intent(this, HomeHard::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+/*
     fun start(view: View) {
         if(dyslecia_group1.getCheckedRadioButtonId() == -1 && dyslecia_group2.getCheckedRadioButtonId() == -1){
             Toast.makeText(this, "Please select an option to proceed!", Toast.LENGTH_SHORT).show()
@@ -66,11 +86,20 @@ class Home : AppCompatActivity() {
             }
         }
     }
-
+*/
     fun openHome(view: View) {
         val intent = Intent(this, Home::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun show_score(view: View) {
+        val sp = SharedPreference(this)
+        var score = sp.getPreference("dyslexia_score")
+        if(score == "null")
+            score = "0";
+        val nenasa = Nenasa()
+        nenasa.showDialogBox(this, "info", "Your Score", "You have earned a total of "+score+" coins in this game...")
     }
 
     override fun onBackPressed() {

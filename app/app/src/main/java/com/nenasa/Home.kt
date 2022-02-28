@@ -2,6 +2,7 @@ package com.nenasa
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -14,6 +15,8 @@ class Home : AppCompatActivity() {
     lateinit var dysgraphia_btn: Button
     lateinit var dyscalculia_btn: Button
     lateinit var sp: SharedPreference
+    lateinit var change_selection_btn: Button
+    lateinit var not_sure_btn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,14 +27,14 @@ class Home : AppCompatActivity() {
         dyslexia_btn = findViewById<Button>(R.id.dyslexia_btn)
         dysgraphia_btn = findViewById<Button>(R.id.dysgraphia_btn)
         dyscalculia_btn = findViewById<Button>(R.id.dyscalculia_btn)
-
+        change_selection_btn = findViewById<Button>(R.id.change_selection_btn)
+        not_sure_btn = findViewById<Button>(R.id.not_sure_btn)
 
         username.setText(sp.getPreference("username"))
 
         var selection = sp.getPreference("selection")
         if(selection != "" && !selection.isNullOrEmpty() && selection != "none")
             selectionButtonOptions(selection)
-
 
         dyslexia_btn.setOnClickListener {
             sp.setPreference("selection", "dyslexia")
@@ -63,9 +66,7 @@ class Home : AppCompatActivity() {
     }
 
     fun selectionButtonOptions(selection: String) {
-        val change_selection_btn = findViewById<Button>(R.id.change_selection_btn)
         change_selection_btn.visibility = View.VISIBLE
-        val not_sure_btn = findViewById<Button>(R.id.not_sure_btn)
         not_sure_btn.visibility = View.GONE
 
         if(selection == "dysgraphia"){
@@ -95,8 +96,20 @@ class Home : AppCompatActivity() {
         dysgraphia_btn.setAlpha(1.0F)
         dyscalculia_btn.isEnabled = true
         dyscalculia_btn.setAlpha(1.0F)
+        change_selection_btn.visibility = View.GONE
+        not_sure_btn.visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {
     }
+
+    override fun onKeyLongPress(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            val intent = Intent(this, Hidden::class.java)
+            startActivity(intent)
+            finish()
+        }
+        return super.onKeyLongPress(keyCode, event)
+    }
+
 }

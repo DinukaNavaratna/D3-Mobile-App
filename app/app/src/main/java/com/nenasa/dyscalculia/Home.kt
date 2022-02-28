@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import com.nenasa.Home
+import com.nenasa.Nenasa
 import com.nenasa.R
 import com.nenasa.Services.SharedPreference
 import com.nenasa.dysgraphia.Tracing
@@ -49,6 +50,15 @@ class Home : AppCompatActivity() {
         intent.putExtra("level", level)
         startActivity(intent)
         finish()
+    }
+
+    fun show_score(view: View) {
+        val sp = SharedPreference(this)
+        var score = sp.getPreference("dyscalculia_score")
+        if(score == "null")
+            score = "0";
+        val nenasa = Nenasa()
+        nenasa.showDialogBox(this, "info", "Your Score", "You have earned a total of "+score+" coins in this game...")
     }
 
     override fun onBackPressed() {

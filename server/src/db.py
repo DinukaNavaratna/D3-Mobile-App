@@ -1,7 +1,12 @@
 from flask_restful import Resource
 import mysql.connector
 import os
-from flask import jsonify, request
+from flask import request
+import json
+from loguru import logger
+
+logger.add('logs/db.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}', filter="db", colorize=True, level='DEBUG')
+
 
 def init():
     try:
@@ -14,7 +19,7 @@ def init():
         )
         return conn
     except Exception as ex:
-        print("Exception DB init: "+str(ex))
+        logger.error("Exception | init: "+str(ex))
         return "failed"
 
 
@@ -24,20 +29,22 @@ class create_db(Resource):
             conn = init()
             if conn != "failed":
                 cur = conn.cursor()
-                cur.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, fname VARCHAR(255), lname VARCHAR(255), email VARCHAR(255) UNIQUE, degree VARCHAR(255), batch VARCHAR(255), student_id VARCHAR(255) UNIQUE, reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
-                cur.execute("CREATE TABLE IF NOT EXISTS submissions (id INT AUTO_INCREMENT PRIMARY KEY, submission_id INT UNIQUE, student_id VARCHAR(255), submission_name VARCHAR(255), module_name VARCHAR(255), submission_method VARCHAR(255), submission_type VARCHAR(255), submission_status VARCHAR(255), due_date VARCHAR(255), submission_description VARCHAR(255), time_needed INT, time_completed INT DEFAULT 0, compleation_status VARCHAR(25) DEFAULT 'Pending');")
-                cur.execute("CREATE TABLE IF NOT EXISTS app_usage (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(255), app_name VARCHAR(255), app_id VARCHAR(255), date_time VARCHAR(255), usage_time VARCHAR(255));")
-                cur.execute("CREATE TABLE IF NOT EXISTS submissions_workload (id INT AUTO_INCREMENT PRIMARY KEY, submission_id INT, student_id VARCHAR(255), work_day VARCHAR(10), work_date VARCHAR(10), work_duration INT DEFAULT 30, worked_duration INT DEFAULT 0, work_start INT, work_end INT, user_set_duration INT DEFAULT 0)")
-                cur.execute("CREATE TABLE IF NOT EXISTS weekly_free_time (week_day VARCHAR(20), free_time INT);")
+                cur.execute("CREATE TABLE IF NOT EXISTS users (id INT AUTO_INCREMENT PRIMARY KEY, fname VARCHAR(255), lname VARCHAR(255), email VARCHAR(255) UNIQUE, number VARCHAR(15), childname VARCHAR(255), childage VARCHAR(3), password VARCHAR(50), reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+                cur.execute("CREATE TABLE IF NOT EXISTS scores (user_id VARCHAR(5), game VARCHAR(25), score VARCHAR(5), PRIMARY KEY (user_id, game));")
+                #cur.execute("CREATE TABLE IF NOT EXISTS dyscalculia (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(5), level VARCHAR(1), data_id VARCHAR(5) UNIQUE, number VARCHAR(15), childname VARCHAR(255), childage VARCHAR(3), password VARCHAR(50), reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+                #cur.execute("CREATE TABLE IF NOT EXISTS dysgraphia (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(5), level VARCHAR(1), data_id VARCHAR(5) UNIQUE, number VARCHAR(15), childname VARCHAR(255), childage VARCHAR(3), password VARCHAR(50), reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+                #cur.execute("CREATE TABLE IF NOT EXISTS dyslexia (id INT AUTO_INCREMENT PRIMARY KEY, user_id VARCHAR(5), level VARCHAR(1), data_id VARCHAR(5) UNIQUE, number VARCHAR(15), childname VARCHAR(255), childage VARCHAR(3), password VARCHAR(50), reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);")
+                #cur.execute("CREATE TABLE IF NOT EXISTS reports (id INT AUTO_INCREMENT PRIMARY KEY, submission_id INT UNIQUE, student_id VARCHAR(255), submission_name VARCHAR(255), module_name VARCHAR(255), submission_method VARCHAR(255), submission_type VARCHAR(255), submission_status VARCHAR(255), due_date VARCHAR(255), submission_description VARCHAR(255), time_needed INT, time_completed INT DEFAULT 0, compleation_status VARCHAR(25) DEFAULT 'Pending');")
                 conn.commit()
                 cur.close()
                 conn.close()
                 return "DB Created Successfully!"
             else:
-                return "DB Connection Failed!"
+                logger.error("DB Connection Failed!")
+                return "Error | DB Connection Failed!"
         except Exception as ex:
-            print("Exception: "+str(ex))
-            return "Exception: "+str(ex)
+            logger.error("Exception | create_db: "+str(ex))
+            return "Error | Exception: "+str(ex)
 
 
 class clear_db(Resource):
@@ -47,18 +54,17 @@ class clear_db(Resource):
             if conn != "failed":
                 cur = conn.cursor()
                 cur.execute("DROP TABLE IF EXISTS users;")
-                cur.execute("DROP TABLE IF EXISTS submissions;")
-                cur.execute("DROP TABLE IF EXISTS app_usage;")
-                cur.execute("DROP TABLE IF EXISTS submissions_workload;")
+                cur.execute("DROP TABLE IF EXISTS reports;")
                 conn.commit()
                 cur.close()
                 conn.close()
                 return "DB Cleared Successfully!"
             else:
-                return "DB Connection Failed!"
+                logger.error("DB Connection Failed!")
+                return "Error | DB Connection Failed!"
         except Exception as ex:
-            print("Exception: "+str(ex))
-            return "Exception: "+str(ex)
+            logger.error("Exception | clear_db: "+str(ex))
+            return "Error | Exception: "+str(ex)
 
 
 class ExecuteQuery():
@@ -73,10 +79,11 @@ class ExecuteQuery():
                 conn.close()
                 return "success"
             else:
-                return "DB Connection Failed!"
+                logger.error("DB Connection Failed!")
+                return "Error | DB Connection Failed!"
         except Exception as ex:
-            print("Exception ExecuteQuery: "+str(ex))
-            return "Exception ExecuteQuery: "+str(ex)
+            logger.error("Exception | ExecuteQuery: "+str(ex))
+            return "Error | Exception: "+str(ex)
 
 
 class ExecuteSelectQuery():
@@ -91,10 +98,11 @@ class ExecuteSelectQuery():
                 conn.close()
                 return select
             else:
-                return "DB Connection Failed!"
+                logger.error("DB Connection Failed!")
+                return "Error | DB Connection Failed!"
         except Exception as ex:
-            print("Exception ExecuteSelectQuery: "+str(ex))
-            return "Exception ExecuteSelectQuery: "+str(ex)
+            logger.error("Exception | ExecuteSelectQuery: "+str(ex))
+            return "Error | Exception: "+str(ex)
 
 
 class GetAllFromDB(Resource):
@@ -105,12 +113,16 @@ class GetAllFromDB(Resource):
             if conn != "failed":
                 cur = conn.cursor()
                 cur.execute("SELECT * FROM "+str(table)+";")
-                users = cur.fetchall()
+                all = cur.fetchall()
                 conn.close()
                 cur.close()
-                return users
+                return str(all)
             else:
+                logger.error("DB Connection Failed!")
                 return "DB Connection Failed!"
         except Exception as ex:
-            print("Exception: "+str(ex))
-            return "Exception: "+str(ex)
+            logger.error("Exception | GetAllFromDB: "+str(ex))
+            return "Error | Exception: "+str(ex)
+
+
+

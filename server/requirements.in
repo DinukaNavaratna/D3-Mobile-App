@@ -5,3 +5,12 @@ python-dotenv
 loguru
 mysql-connector-python
 requests
+pydub
+numpy
+webrtcvad-wheels 
+librosa
+matplotlib
+torch
+tqdm
+umap-learn
+tensorflow

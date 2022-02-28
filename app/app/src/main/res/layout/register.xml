@@ -72,7 +72,9 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="50dp"
                         android:fontFamily="@font/print_clearly"
-                        android:text="Welcome!"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="සාදරයෙන් පිළිගනිමු!"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="32sp" />
@@ -84,7 +86,7 @@
                         android:layout_below="@+id/textView"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/gotham"
-                        android:text="Create your account below..."
+                        android:text="ඔබගේ ගිණුම පහතින් සාදන්න..."
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp" />
@@ -112,6 +114,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
@@ -121,9 +125,11 @@
                                 android:drawableStart="@drawable/ic_baseline_person_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Registrant First Name"
+                                android:hint="ලියාපදිංචි කරන්නාගේ මුල් නම"
                                 android:inputType="text"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -132,6 +138,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
@@ -141,9 +149,11 @@
                                 android:drawableStart="@drawable/ic_baseline_person_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Registrant Last Name"
+                                android:hint="ලියාපදිංචි කරන්නාගේ අවසාන නම"
                                 android:inputType="text"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -152,18 +162,24 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
                                 android:id="@+id/register_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:capitalize="none"
                                 android:drawableStart="@drawable/ic_baseline_email_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Registrant Email"
+                                android:hint="ලියාපදිංචි කරන්නාගේ ඊමේල් ලිපිනය"
                                 android:inputType="text|textEmailAddress"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
+                                android:textAllCaps="false"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -172,18 +188,22 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
                                 android:id="@+id/register_phone"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:drawableStart="@drawable/ic_baseline_email_24"
+                                android:drawableStart="@drawable/ic_baseline_phone_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Registrant Contect Number"
+                                android:hint="ලියාපදිංචි කරන්නාගේ දුරකථන අංකය"
                                 android:inputType="number|text"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -192,18 +212,22 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
                                 android:id="@+id/register_child_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:drawableStart="@drawable/ic_baseline_email_24"
+                                android:drawableStart="@drawable/ic_baseline_person_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Child Name"
+                                android:hint="දරුවාගේ නම"
                                 android:inputType="text"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -212,18 +236,22 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
                                 android:id="@+id/register_child_age"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:drawableStart="@drawable/ic_baseline_email_24"
+                                android:drawableStart="@drawable/ic_baseline_person_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Child Age"
+                                android:hint="දරුවාගේ වයස"
                                 android:inputType="number|text"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -232,6 +260,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
@@ -241,9 +271,11 @@
                                 android:drawableStart="@drawable/ic_baseline_vpn_key_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Password"
+                                android:hint="රහස් පදය"
                                 android:inputType="text|textPassword"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -252,6 +284,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
@@ -261,9 +295,11 @@
                                 android:drawableStart="@drawable/ic_baseline_vpn_key_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Confirm Password"
+                                android:hint="රහස් පදය තහවුරු කරන්න"
                                 android:inputType="textPassword"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -281,7 +317,7 @@
                     android:background="@drawable/buttonshape"
                     android:fontFamily="@font/calibri"
                     android:onClick="register"
-                    android:text="Register"
+                    android:text="ලියාපදිංචි කරන්න"
                     android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
@@ -296,7 +332,7 @@
                     android:background="#00FFFFFF"
                     android:fontFamily="@font/calibri"
                     android:onClick="openLogin"
-                    android:text="Already have an account? Log In"
+                    android:text="දැනටමත් ගිණුමක් තිබේද? ලොග් වන්න"
                     android:textAllCaps="false"
                     android:textColor="#9C27B0"
                     android:textSize="14sp" />

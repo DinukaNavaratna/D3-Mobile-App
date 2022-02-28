@@ -4,34 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:ignore="SpeakableTextPresentCheck"
-    tools:context=".dyslexia.Home">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/bgColor">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="9"
-            android:background="@drawable/footer">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+    android:background="@drawable/dyslexia_bg"
+    tools:context=".dyslexia.Home"
+    tools:ignore="SpeakableTextPresentCheck">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,7 +34,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="4">
+                    android:layout_weight="2">
 
                     <ImageView
                         android:id="@+id/imageView"
@@ -70,7 +45,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_baseline_home_24" />
+                        app:srcCompat="@drawable/ic_baseline_home_24_black" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,7 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Dyslexia"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -91,6 +66,23 @@
                         app:layout_constraintHorizontal_bias="0.25"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="show_score"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/points_coin" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
@@ -113,131 +105,37 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="• Read Letters/ Words"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp">
-
-                    <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:id="@+id/dyslecia_group1">
-
-                        <RadioButton
-                            android:id="@+id/dyslecia_group1_op1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="#FFFFFF"
-                            android:text="Level 1 - Read Letters"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
-
-                        <RadioButton
-                            android:id="@+id/dyslecia_group1_op2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="#FFFFFF"
-                            android:text="Level 2 - Read Words"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
-
-                        <RadioButton
-                            android:id="@+id/dyslecia_group1_op3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="#FFFFFF"
-                            android:text="Level 3 - Read Words"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
-                    </RadioGroup>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp">
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="• Read Sentences"
-                        android:textColor="#FFFFFF"
-                        android:textSize="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="25dp">
-
-                    <RadioGroup
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:id="@+id/dyslecia_group2">
-
-                        <RadioButton
-                            android:id="@+id/dyslecia_group2_op1"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="#FFFFFF"
-                            android:text="Level 4 - Read Sentences"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
-
-                        <RadioButton
-                            android:id="@+id/dyslecia_group2_op2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:buttonTint="#FFFFFF"
-                            android:text="Level 5 - Read Sentences"
-                            android:textColor="#FFFFFF"
-                            android:textSize="14sp" />
-
-                    </RadioGroup>
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="150dp"
                     android:layout_marginBottom="25dp">
 
                     <Button
-                        android:id="@+id/dyslecia_start_btn"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/easy"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:onClick="start"
-                        android:text="Start"
+                        android:background="@drawable/cloud"
+                        android:text="පහසු"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginBottom="25dp">
+
+                    <Button
+                        android:id="@+id/hard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/cloud"
+                        android:text="අමාරු"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

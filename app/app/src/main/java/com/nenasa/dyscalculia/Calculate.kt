@@ -1,15 +1,13 @@
 package com.nenasa.dyscalculia
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import com.nenasa.R
+import com.nenasa.Services.HTTP
 import com.nenasa.Services.SharedPreference
-import com.nenasa.dysgraphia.Home
-import java.lang.Boolean.FALSE
-import java.lang.Boolean.TRUE
 import kotlin.random.Random
 
 class Calculate : AppCompatActivity() {
@@ -22,7 +20,6 @@ class Calculate : AppCompatActivity() {
     var correct_answer = 0;
     var questionCount = 1;
     var correctCount = 0;
-    lateinit var nextButton: Button;
     lateinit var finishButton: Button;
     private lateinit var level: String;
 
@@ -33,7 +30,6 @@ class Calculate : AppCompatActivity() {
         val myIntent = intent
         level = myIntent.getStringExtra("level").toString()
 
-        nextButton = findViewById<Button>(R.id.next_button)
         finishButton = findViewById<Button>(R.id.finish_btn)
 
         if(level.equals("1")){
@@ -90,9 +86,6 @@ class Calculate : AppCompatActivity() {
         sign_txt.text = sign
 
         if (questionCount > 5) {
-            nextButton.isEnabled = false
-            nextButton.isClickable = false
-            nextButton.setAlpha(0.5F)
             finishButton.isEnabled = true
         }
     }
@@ -116,24 +109,39 @@ class Calculate : AppCompatActivity() {
         if (questionCount <= 5){
             newCalculation();
         } else {
+            var coins: Int = 0;
             var sp = SharedPreference(this)
             if(level.equals("1")) {
+                coins = correctCount;
                 if(correctCount>=4){
                     sp.setPreference("dyscalculia_level_2", "open")
                     Toast.makeText(applicationContext, "Congradulations!\nLevel 02 Unlocked!",Toast.LENGTH_SHORT).show()
                 } else
                     Toast.makeText(applicationContext, correctCount.toString() + " correct out of 5",Toast.LENGTH_SHORT).show()
             } else if(level.equals("2")) {
+                coins = correctCount*2;
                 if(correctCount>=4){
                     sp.setPreference("dyscalculia_level_3", "open")
                     Toast.makeText(applicationContext, "Congradulations!\nLevel 03 Unlocked!",Toast.LENGTH_SHORT).show()
                 } else
                     Toast.makeText(applicationContext, correctCount.toString() + " correct out of 5",Toast.LENGTH_SHORT).show()
             } else if(level.equals("3")) {
+                coins = correctCount*3;
                 if(correctCount>=4){
                     Toast.makeText(applicationContext, "Congradulations!\nYou Passed this Level!",Toast.LENGTH_SHORT).show()
                 } else
                     Toast.makeText(applicationContext, correctCount.toString() + " correct out of 5",Toast.LENGTH_SHORT).show()
+            }
+            try {
+                val score: Int = sp.getPreference("dyscalculia_score").toInt() + coins
+                sp.setPreference("dyscalculia_score", Integer.toString(score))
+                val http = HTTP(this, this)
+                http.request(
+                    "/update_scores",
+                    "{\"user_id\":\"" + sp.getPreference("user_id") + "\", \"game\":\"dyscalculia\", \"score\":\"" + score + "\"}"
+                )
+            } catch (exception: Exception) {
+                exception.printStackTrace()
             }
             val myIntent = Intent(this, com.nenasa.dyscalculia.Home::class.java)
             this.startActivity(myIntent)

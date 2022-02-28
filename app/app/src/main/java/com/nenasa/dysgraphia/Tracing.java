@@ -20,6 +20,8 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.nenasa.R;
+import com.nenasa.Services.HTTP;
+import com.nenasa.Services.SharedPreference;
 
 public class Tracing extends Activity {
 
@@ -183,7 +185,17 @@ public class Tracing extends Activity {
 
     public void finishTracing(View view){
         float per = ((float)transparent_count/((float)transparent_count+(float)painted_count))*100;
-        Toast.makeText(getApplicationContext(),"Score: "+String.valueOf(Math.round(per))+"%",Toast.LENGTH_SHORT).show();
+        final int coins = (int) (per / 10);
+        Toast.makeText(getApplicationContext(),"Score: "+String.valueOf(Math.round(per))+"%\nCoins: "+String.valueOf(coins),Toast.LENGTH_SHORT).show();
+        try {
+            SharedPreference sp = new SharedPreference(this);
+            int score =  Integer.parseInt(sp.getPreference("dysgraphia_score")) + coins;
+            sp.setPreference("dysgraphia_score", Integer.toString(score));
+            HTTP http = new HTTP(this, this);
+            http.request("/update_scores","{\"user_id\":\""+ sp.getPreference("user_id") +"\", \"game\":\"dysgraphia\", \"score\":\""+ score +"\"}");
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
         Intent myIntent = new Intent(this, Home.class);
         this.startActivity(myIntent);
         finish();

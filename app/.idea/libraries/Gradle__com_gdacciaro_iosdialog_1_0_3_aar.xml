@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.gdacciaro:iosdialog:1.0.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/6c17503cd34cdbdd36dd4a198235ed2a/transformed/jetified-iosdialog-1.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6c17503cd34cdbdd36dd4a198235ed2a/transformed/jetified-iosdialog-1.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6c17503cd34cdbdd36dd4a198235ed2a/transformed/jetified-iosdialog-1.0.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gdacciaro/iosdialog/1.0.3/3d9657f3783f3110050e3a8de238ccdb432072cc/iosdialog-1.0.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.gdacciaro/iosdialog/1.0.3/a1235c74927db9c5b46e01820cf9b8949dd9ba65/iosdialog-1.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

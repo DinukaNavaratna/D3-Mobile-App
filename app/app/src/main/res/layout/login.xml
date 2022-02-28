@@ -80,7 +80,9 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="50dp"
                         android:fontFamily="@font/print_clearly"
-                        android:text="Welcome Back!"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="සාදරයෙන් පිළිගනිමු!"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="32sp" />
@@ -92,7 +94,7 @@
                         android:layout_below="@+id/textView"
                         android:layout_marginTop="8dp"
                         android:fontFamily="@font/gotham"
-                        android:text="Log in to start from where you left..."
+                        android:text="ආරම්භ කිරීමට ලොග් වන්න"
                         android:textAlignment="center"
                         android:textColor="#FFFFFF"
                         android:textSize="18sp" />
@@ -120,18 +122,23 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
                                 android:id="@+id/login_email"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:capitalize="none"
                                 android:drawableStart="@drawable/ic_baseline_email_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Email"
+                                android:hint="ඊමේල් ලිපිනය"
                                 android:inputType="text|textEmailAddress"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -140,6 +147,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="8dp"
+                            android:paddingTop="5dp"
+                            android:paddingBottom="5dp"
                             android:textColorHint="#FF8A99AF">
 
                             <EditText
@@ -149,9 +158,11 @@
                                 android:drawableStart="@drawable/ic_baseline_vpn_key_24"
                                 android:drawablePadding="16dp"
                                 android:fontFamily="@font/calibri"
-                                android:hint="Password"
+                                android:hint="රහස් පදය"
                                 android:inputType="text|textPassword"
                                 android:maxLines="1"
+                                android:paddingTop="5dp"
+                                android:paddingBottom="5dp"
                                 android:textColor="@android:color/black"
                                 android:textSize="16sp" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -169,7 +180,7 @@
                     android:background="@drawable/buttonshape"
                     android:fontFamily="@font/calibri"
                     android:onClick="login"
-                    android:text="Log In"
+                    android:text="ලොග් වන්න"
                     android:textAllCaps="false"
                     android:textColor="#ffffff"
                     android:textSize="18sp"
@@ -184,7 +195,7 @@
                     android:background="#00FFFFFF"
                     android:fontFamily="@font/calibri"
                     android:onClick="openRegister"
-                    android:text="Don't have an account? Register"
+                    android:text="ගිණුමක් නැද්ද? ලියාපදිංචි වන්න"
                     android:textAllCaps="false"
                     android:textColor="#9C27B0"
                     android:textSize="14sp" />

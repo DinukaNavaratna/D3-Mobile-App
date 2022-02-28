@@ -1,33 +1,39 @@
 package com.nenasa.dysgraphia
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.RadioGroup
+import androidx.appcompat.app.AppCompatActivity
 import com.nenasa.Home
+import com.nenasa.Nenasa
 import com.nenasa.R
+import com.nenasa.Services.SharedPreference
 
 class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dysgraphia_home)
 
-        var letter_1 = findViewById<Button>(R.id.letter_1);
-        var letter_2 = findViewById<Button>(R.id.letter_2);
-        var letter_3 = findViewById<Button>(R.id.letter_3);
+        var level01 = findViewById<Button>(R.id.level_1);
+        var level02 = findViewById<Button>(R.id.level_2);
+        var reports = findViewById<Button>(R.id.reports);
 
-        letter_1.setOnClickListener {
-            draw("1");
+        level01.setOnClickListener {
+            val intent = Intent(this, Level_01::class.java)
+            startActivity(intent)
+            finish()
         }
-        letter_2.setOnClickListener {
-            draw("2");
+        level02.setOnClickListener {
+            val intent = Intent(this, Level_02::class.java)
+            startActivity(intent)
+            finish()
         }
-        letter_3.setOnClickListener {
-            draw("3");
+        reports.setOnClickListener {
+            val intent = Intent(this, Reports::class.java)
+            startActivity(intent)
+            finish()
         }
-
     }
 
     fun openHome(view: View) {
@@ -36,11 +42,13 @@ class Home : AppCompatActivity() {
         finish()
     }
 
-    fun draw(letter: String) {
-        val intent = Intent(this, Tracing::class.java)
-        intent.putExtra("letter", letter)
-        startActivity(intent)
-        finish()
+    fun show_score(view: View) {
+        val sp = SharedPreference(this)
+        var score = sp.getPreference("dysgraphia_score")
+        if(score == "null")
+            score = "0";
+        val nenasa = Nenasa()
+        nenasa.showDialogBox(this, "info", "Your Score", "You have earned a total of "+score+" coins in this game...")
     }
 
     override fun onBackPressed() {
