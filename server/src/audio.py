@@ -59,11 +59,7 @@ class upload_audio(Resource):
         try:
             logger.info("Request started processing")
             function = request.form.get('function')
-            logger.info(request.form.get('function'))
-            logger.info(request.form.get('filename'))
-            logger.info(str(request.files))
-            logger.info(str(request.get_data(parse_form_data=True)))
-            logger.info(request.content_type)
+            logger.info("Function: "+function)
 
             data = {}
             for key, value in request.form.items():
@@ -71,14 +67,16 @@ class upload_audio(Resource):
                     data[key[:-2]] = request.form.getlist(key)
                 else:
                     data[key] = value
-            logger.info(str(data)) 
+            logger.info("Data: "+str(data)) 
 
-            f = request.files['uploadedfile']
+
+            f = request.files['file']
             ext = (f.filename).split('.')[-1]
             fileId = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
             filePath = "./clips/"+fileId+"."+ext
             f.save(filePath)
             logger.info("Audio saved")
+            return jsonify({"msg":"Working working", "message":"Success!!!"})
             filenames = [fileId+"."+ext]
             if(function == "sentence"):
                 myaudio = AudioSegment.from_file(filePath, "wav")
