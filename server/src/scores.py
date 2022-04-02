@@ -87,11 +87,34 @@ class get_reports(Resource):
         date = datetime.today().strftime('%Y/%m/%d')
         headers = {'Content-Type': 'text/html'}
         try:
+            if(report_type == "insertdb"):
+                query_response = ExecuteQuery.execute("INSERT INTO users (fname, lname, email, number, childname, childage, password) VALUES ('Test 1', 'One', 'test1@nanasa.com', '0123456789', 'Child 1', '5', 'Testing1');")
+                query_response = ExecuteQuery.execute("INSERT INTO dyscalculia_score (user_id, level, correct, wrong, duration, accuracy, points) VALUES ('1', 'Easy', 3, 2, 613, '86.2', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dyscalculia_score (user_id, level, correct, wrong, duration, accuracy, points) VALUES ('1', 'Medium', 3, 2, 577, '35.7', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dyscalculia_score (user_id, level, correct, wrong, duration, accuracy, points) VALUES ('1', 'Hard', 3, 2, 845, '54.8', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 300, '5.5', 'Easy_1', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 500, '23.5', 'Medium_1', 8);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 300, '64.4', 'Easy_2', 6);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 400, '82.3', 'Medium_2', 3);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 657, '12.7', 'Easy_3', 7);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 875, '22.2', 'Medium_3', 9);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 634, '92.5', 'Easy_4', 3);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 260, '42.9', 'Medium_4', 6);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 350, '75.8', 'Easy_5', 8);")
+                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 847, '27.5', 'Medium_5', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dyslexia_easy_score (user_id, level, duration, accuracy, points) VALUES ('1', 'Easy', 222, '37.6', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dyslexia_hard_score (user_id, level, duration, accuracy, points) VALUES ('1', 'Easy', 8674, '56.3', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dyslexia_easy_score (user_id, level, duration, accuracy, points) VALUES ('1', 'Medium', 456, '83.4', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dyslexia_hard_score (user_id, level, duration, accuracy, points) VALUES ('1', 'Medium', 1235, '47.2', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dyslexia_easy_score (user_id, level, duration, accuracy, points) VALUES ('1', 'Hard', 782, '62.8', 5);")
+                query_response = ExecuteQuery.execute("INSERT INTO dyslexia_hard_score (user_id, level, duration, accuracy, points) VALUES ('1', 'Hard', 666, '12.2', 5);")
+                return "Queries inserted"
+
             user_response = ExecuteSelectQuery.execute("SELECT fname, lname, childname, childage FROM users WHERE id="+user_id+";")
-            FirstName = "user_response[0][0]"
-            LastName = "user_response[0][1]"
-            ChildName = "user_response[0][2]"
-            ChildAge = "user_response[0][3]"
+            FirstName = user_response[0][0]
+            LastName = user_response[0][1]
+            ChildName = user_response[0][2]
+            ChildAge = user_response[0][3]
 
             if(report_type == "dyscalculia"):
                 report_response = ExecuteSelectQuery.execute("SELECT level, correct, wrong, duration, points FROM dyscalculia_score WHERE user_id='"+user_id+"';")
@@ -143,10 +166,18 @@ class get_reports(Resource):
                             Hard_Totalcorrect = row[1]
                             Hard_Totalwrong = row[2]
 
-                    Accuracy = Totalcorrect/(Totalcorrect+Totalwrong)*100
-                    Easy_Accuracy = Easy_Totalcorrect/(Easy_Totalcorrect+Easy_Totalwrong)*100
-                    Medium_Accuracy = Medium_Totalcorrect/(Medium_Totalcorrect+Medium_Totalwrong)*100
-                    Hard_Accuracy = Hard_Totalcorrect/(Hard_Totalcorrect+Hard_Totalwrong)*100
+                    count = Totalcorrect+Totalwrong
+                    Easy = Easy_Totalcorrect+Easy_Totalwrong
+                    Medium = Medium_Totalcorrect+Medium_Totalwrong
+                    Hard = Hard_Totalcorrect+Hard_Totalwrong
+                    if count != 0:
+                        Accuracy = round(Totalcorrect/(count)*100, 2)
+                    if Easy != 0:
+                        Easy_Accuracy = round(Easy_Totalcorrect/(Easy)*100, 2)
+                    if Medium != 0:
+                        Medium_Accuracy = round(Medium_Totalcorrect/(Medium)*100, 2)
+                    if Hard != 0:
+                        Hard_Accuracy = round(Hard_Totalcorrect/(Hard)*100, 2)
                     
                     if Accuracy > 80:
                         Status = "Above 80"
@@ -269,19 +300,32 @@ class get_reports(Resource):
                             Medium_5 += 1
 
                     report_response_size = len(report_response)
-                    Accuracy = Accuracy/report_response_size
-                    Easy_Accuracy = Easy_Accuracy/Easy
-                    Medium_Accuracy = Medium_Accuracy/Medium
-                    Easy_Accuracy_1 = Easy_Accuracy_1/Easy_1
-                    Medium_Accuracy_1 = Medium_Accuracy_1/Medium_1
-                    Easy_Accuracy_2 = Easy_Accuracy_2/Easy_2
-                    Medium_Accuracy_2 = Medium_Accuracy_2/Medium_2
-                    Easy_Accuracy_3 = Easy_Accuracy_3/Easy_3
-                    Medium_Accuracy_3 = Medium_Accuracy_3/Medium_3
-                    Easy_Accuracy_4 = Easy_Accuracy_4/Easy_4
-                    Medium_Accuracy_4 = Medium_Accuracy_4/Medium_4
-                    Easy_Accuracy_5 = Easy_Accuracy_5/Easy_5
-                    Medium_Accuracy_5 = Medium_Accuracy_5/Medium_5
+                    if report_response_size != 0:
+                        Accuracy = round(Accuracy/report_response_size, 2)
+                    if Easy != 0:
+                        Easy_Accuracy = round(Easy_Accuracy/Easy, 2)
+                    if Medium != 0:
+                        Medium_Accuracy = round(Medium_Accuracy/Medium, 2)
+                    if Easy_1 != 0:
+                        Easy_Accuracy_1 = round(Easy_Accuracy_1/Easy_1, 2)
+                    if Medium_1 != 0:
+                        Medium_Accuracy_1 = round(Medium_Accuracy_1/Medium_1, 2)
+                    if Easy_2 != 0:
+                        Easy_Accuracy_2 = round(Easy_Accuracy_2/Easy_2, 2)
+                    if Medium_2 != 0:
+                        Medium_Accuracy_2 = round(Medium_Accuracy_2/Medium_2, 2)
+                    if Easy_3 != 0:
+                        Easy_Accuracy_3 = round(Easy_Accuracy_3/Easy_3, 2)
+                    if Medium_3 != 0:
+                        Medium_Accuracy_3 = round(Medium_Accuracy_3/Medium_3, 2)
+                    if Easy_4 != 0:
+                        Easy_Accuracy_4 = round(Easy_Accuracy_4/Easy_4, 2)
+                    if Medium_4 != 0:
+                        Medium_Accuracy_4 = round(Medium_Accuracy_4/Medium_4, 2)
+                    if Easy_5 != 0:
+                        Easy_Accuracy_5 = round(Easy_Accuracy_5/Easy_5, 2)
+                    if Medium_5 != 0:
+                        Medium_Accuracy_5 = round(Medium_Accuracy_5/Medium_5, 2)
                     
                     if Accuracy > 80:
                         Status = "Above 80"
@@ -303,8 +347,15 @@ class get_reports(Resource):
                     Medium_Accuracy_1=Medium_Accuracy_1, Medium_Time_1=strftime("%H:%M:%S", gmtime(Medium_Time_1)), Medium_Accuracy_2=Medium_Accuracy_2, Medium_Time_2=strftime("%H:%M:%S", gmtime(Medium_Time_2)), Medium_Accuracy_3=Medium_Accuracy_3, Medium_Time_3=strftime("%H:%M:%S", gmtime(Medium_Time_3)), Medium_Accuracy_4=Medium_Accuracy_4, Medium_Time_4=strftime("%H:%M:%S", gmtime(Medium_Time_4)), Medium_Accuracy_5=Medium_Accuracy_5, Medium_Time_5=strftime("%H:%M:%S", gmtime(Medium_Time_5)), 
                     ), 200, headers)
 
-            elif(report_type == "dyslexia_easy"):
-                report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_easy_score WHERE user_id='"+user_id+"';")
+            elif(report_type == "dyslexia_easy" or report_type == "dyslexia_hard"):
+                report_response = ""
+                template = ""
+                if(report_type == "dyslexia_easy"):
+                    report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_easy_score WHERE user_id='"+user_id+"';")
+                    template = "./Dyslexia - Easy.html"
+                elif(report_type == "dyslexia_hard"):
+                    report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_hard_score WHERE user_id='"+user_id+"';")
+                    template = "./Dyslexia - Hard.html"
                 logger.info(str(report_response))
                 if not report_response:
                     logger.info("Empty")
@@ -350,7 +401,13 @@ class get_reports(Resource):
                             Hard += 1
 
                     report_response_size = len(report_response)
-                    Accuracy = Accuracy/report_response_size
+                    Accuracy = round(Accuracy/report_response_size, 2)
+                    if Easy != 0:
+                        Easy_Accuracy = round(Easy_Accuracy/Easy, 2)
+                    if Medium != 0:
+                        Medium_Accuracy = round(Medium_Accuracy/Medium, 2)
+                    if Hard != 0:
+                        Hard_Accuracy = round(Hard_Accuracy/Hard, 2)
 
                     if Accuracy > 80:
                         Status = "Above 80"
@@ -365,7 +422,7 @@ class get_reports(Resource):
                         Status = "Below 40"
                         Stage = "Below 40"
 
-                    return make_response(render_template('./Dyslexia - Easy.html', 
+                    return make_response(render_template(template, 
                     FirstName=FirstName, LastName=LastName, ChildName=ChildName, ChildAge=ChildAge, Date=date,
                     Totalpoints=Totalpoints, Totaltime=strftime("%H:%M:%S", gmtime(Totaltime)), Status=Status, Stage=Stage, Accuracy=Accuracy,
                     Easy_Points=Easy_Points, Easy_Time=strftime("%H:%M:%S", gmtime(Easy_Time)), Easy_Accuracy=Easy_Accuracy,
@@ -373,97 +430,7 @@ class get_reports(Resource):
                     Hard_Points=Hard_Points, Hard_Time=strftime("%H:%M:%S", gmtime(Hard_Time)), Hard_Accuracy=Hard_Accuracy,
                     ), 200, headers)
 
-            elif(report_type == "dyslexia_hard"):
-                report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_hard_score WHERE user_id='"+user_id+"';")
-                logger.info(str(report_response))
-                if not report_response:
-                    logger.info("Empty")
-                    return "Empty"
-                else:
-                    Totalpoints = 0
-                    Totaltime = 0
-                    Status = ""
-                    Stage = ""
-                    Accuracy = 0
-                    Easy = 0
-                    Easy_Accuracy = 0
-                    Easy_Time = 0
-                    Easy_Points = 0
-                    Medium = 0
-                    Medium_Accuracy = 0
-                    Medium_Time = 0
-                    Medium_Points = 0
-                    Hard = 0
-                    Hard_Accuracy = 0
-                    Hard_Time = 0
-                    Hard_Points = 0
-
-                    for row in report_response:
-                        Totalpoints += row[3]
-                        Totaltime += row[1]
-                        Accuracy += float(row[2])
-
-                        if row[0] == "Easy":
-                            Easy_Points += row[3]
-                            Easy_Time += row[1]
-                            Easy_Accuracy += float(row[2])
-                            Easy += 1
-                        elif row[0] == "Medium":
-                            Medium_Points += row[3]
-                            Medium_Time += row[1]
-                            Medium_Accuracy += float(row[2])
-                            Medium += 1
-                        elif row[0] == "Hard":
-                            Hard_Points += row[3]
-                            Hard_Time += row[1]
-                            Hard_Accuracy += float(row[2])
-                            Hard += 1
-
-                    report_response_size = len(report_response)
-                    Accuracy = Accuracy/report_response_size
-
-                    if Accuracy > 80:
-                        Status = "Above 80"
-                        Stage = "Above 80"
-                    elif Accuracy > 60:
-                        Status = "Above 60"
-                        Stage = "Above 60"
-                    elif Accuracy > 40:
-                        Status = "Above 40"
-                        Stage = "Above 40"
-                    else:
-                        Status = "Below 40"
-                        Stage = "Below 40"
-
-                    return make_response(render_template('./Dyslexia - Hard.html', 
-                    FirstName=FirstName, LastName=LastName, ChildName=ChildName, ChildAge=ChildAge, Date=date,
-                    Totalpoints=Totalpoints, Totaltime=strftime("%H:%M:%S", gmtime(Totaltime)), Status=Status, Stage=Stage, Accuracy=Accuracy,
-                    Easy_Points=Easy_Points, Easy_Time=strftime("%H:%M:%S", gmtime(Easy_Time)), Easy_Accuracy=Easy_Accuracy,
-                    Medium_Points=Medium_Points, Medium_Time=strftime("%H:%M:%S", gmtime(Medium_Time)), Medium_Accuracy=Medium_Accuracy,
-                    Hard_Points=Hard_Points, Hard_Time=strftime("%H:%M:%S", gmtime(Hard_Time)), Hard_Accuracy=Hard_Accuracy,
-                    ), 200, headers)
-                
-            else:
-                query_response = ExecuteQuery.execute("INSERT INTO dyscalculia_score (user_id, level, correct, wrong, duration, accuracy, points) VALUES ('1', 'Easy', 3, 2, 600, '52.5', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dyscalculia_score (user_id, level, correct, wrong, duration, accuracy, points) VALUES ('1', 'Medium', 3, 2, 500, '52.5', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dyscalculia_score (user_id, level, correct, wrong, duration, accuracy, points) VALUES ('1', 'Hard', 3, 2, 800, '52.5', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 600, '52.5', 'Easy_1', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 600, '52.5', 'Medium_1', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 600, '52.5', 'Easy_2', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 600, '52.5', 'Medium_2', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 600, '52.5', 'Easy_3', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 600, '52.5', 'Medium_3', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 600, '52.5', 'Easy_4', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 600, '52.5', 'Medium_4', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Easy', 600, '52.5', 'Easy_5', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('1', 'Medium', 600, '52.5', 'Medium_5', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dyslexia_easy_score (user_id, level, duration, accuracy, points) VALUES ('1', 'Easy', 600, '52.2', 5);")
-                query_response = ExecuteQuery.execute("INSERT INTO dyslexia_hard_score (user_id, level, duration, accuracy, points) VALUES ('1', 'Easy', 600, '52.2', 5);")
-
-            return "Hello"
-
-            logger.info("Response | get_scores: "+response)
-            return jsonify({"msg":msg, "response":response, "dyscalculia":dyscalculia, "dysgraphia":dysgraphia, "dyslexia":dyslexia})
+            return "Report type not specified"
             
         except Exception as e:
             msg = "failed"

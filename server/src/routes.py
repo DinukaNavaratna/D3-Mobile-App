@@ -2,7 +2,6 @@ from .users import register, login
 from .db import create_db, clear_db, GetAllFromDB
 from .audio import upload_audio, train_model, analyze
 from .scores import update_scores, get_scores, get_reports
-from .reports import dyscalculia, dysgraphia, dyslexia_easy, dyslexia_hard
 #from .test.analyze_audio import correlation, resemblyzer, audiocompare
 from .test.mfcc import compare
 

@@ -128,15 +128,15 @@
 						<table>
 							<tr>
 								<td class="align-left">
-									<b>First Name:</b> 123<br/>
-									<b>Last Name:</b> 456<br/>
-									<b>Child Name:</b> 789
+									<b>First Name:</b> {{ FirstName }}<br/>
+									<b>Last Name:</b> {{ LastName }}<br/>
+									<b>Child Name:</b> {{ ChildName }}
 								</td>
 
 								<td class="align-right">
 									<b>Report:</b> Dyslexia - Hard<br />
-									<b>Child Age:</b> 50<br />
-									<b>Date:</b> 21/05/2000
+									<b>Child Age:</b> {{ ChildAge }}<br />
+									<b>Date:</b> {{ Date }}
 								</td>
 							</tr>
 						</table>
@@ -154,17 +154,17 @@
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Total points earned:</b> 200</td>
-					<td class="align-left"><b>Total time spent:</b> 25 hrs</td>
+					<td class="align-left"><b>Total points earned:</b> {{ Totalpoints }}</td>
+					<td class="align-left"><b>Total time spent:</b> {{ Totaltime }}</td>
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Dyslexia (Easy) status:</b> Patient</td>
-					<td class="align-left"><b>Stage identification:</b> Easy</td>
+					<td class="align-left"><b>Dyslexia (Hard) status:</b> {{ Status }}</td>
+					<td class="align-left"><b>Stage identification:</b> {{ Stage }}</td>
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Accuracy:</b> 50%</td>
+					<td class="align-left"><b>Accuracy:</b> {{ Accuracy }}%</td>
 					<td></td>
 				</tr>
 				
@@ -184,12 +184,12 @@
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Total accuracy:</b> 50%</td>
-					<td class="align-left"><b>Total time spent:</b> 50</td>
+					<td class="align-left"><b>Total accuracy:</b> {{ Easy_Accuracy }}%</td>
+					<td class="align-left"><b>Total time spent:</b> {{ Easy_Time }}</td>
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Total points earned:</b> 50</td>
+					<td class="align-left"><b>Total points earned:</b> {{ Easy_Points }}</td>
 					<td></td>
 				</tr>
 				
@@ -209,12 +209,12 @@
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Total accuracy:</b> 50%</td>
-					<td class="align-left"><b>Total time spent:</b> 50</td>
+					<td class="align-left"><b>Total accuracy:</b> {{ Medium_Accuracy }}%</td>
+					<td class="align-left"><b>Total time spent:</b> {{ Medium_Time }}</td>
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Total points earned:</b> 50</td>
+					<td class="align-left"><b>Total points earned:</b> {{ Medium_Points }}</td>
 					<td></td>
 				</tr>
 				
@@ -234,12 +234,12 @@
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Total accuracy:</b> 50%</td>
-					<td class="align-left"><b>Total time spent:</b> 50</td>
+					<td class="align-left"><b>Total accuracy:</b> {{ Hard_Accuracy }}%</td>
+					<td class="align-left"><b>Total time spent:</b> {{ Hard_Time }}</td>
 				</tr>
 
 				<tr class="details">
-					<td class="align-left"><b>Total points earned:</b> 50</td>
+					<td class="align-left"><b>Total points earned:</b> {{ Hard_Points }}</td>
 					<td></td>
 				</tr>
 				
