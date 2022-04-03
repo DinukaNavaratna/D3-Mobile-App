@@ -37,8 +37,8 @@ public class MultipartUtility {
      * This constructor initializes a new HTTP POST request with content type
      * is set to multipart/form-data
      *
-     * @param requestURL
-     * @param charset
+     * //@param requestURL
+     * //@param charset
      * @throws IOException
      */
     public MultipartUtility(String filePath){

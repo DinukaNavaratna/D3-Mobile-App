@@ -11,7 +11,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.nenasa.Nenasa;
 import com.nenasa.R;
 import com.nenasa.Services.HTTP;
 import com.nenasa.Services.SharedPreference;
@@ -32,27 +35,45 @@ public class Tracing extends Activity {
     int transparent_count = 0;
     int painted_count = 0;
     int touch_count = 0;
+    String number = "";
+    String type = "";
+    int time_spent = 0;
+    String level_name = "";
+    Nenasa nenasa = new Nenasa();
+    String treatment = "false";
+    String treatment_suffix = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent myIntent = getIntent();
-        String letter = myIntent.getStringExtra("letter");
+        if (myIntent.hasExtra("letter")) {
+            number = myIntent.getStringExtra("letter");
+            type = "letter";
+            level_name = "Easy";
+        } else if (myIntent.hasExtra("word")) {
+            number = myIntent.getStringExtra("word");
+            type = "word";
+            level_name = "Medium";
+        } else {
+            Nenasa nenasa = new Nenasa();
+            nenasa.showDialogBox(this, "error", "Type Error", "System couldn't detect the type of the tracing!", "redirect", new Intent(this, Home.class), treatment);
+        }
+
+        treatment = myIntent.getStringExtra("treatment").toString();
+        if(treatment == "true")
+            treatment_suffix = "_treatment";
 
         setContentView(R.layout.dysgraphia_tracing);
         letters_filled = (ImageView)findViewById(R.id.letters_filled);
         letters_transparent = (ImageView)findViewById(R.id.letters_transparent);
-        if (letter.equals("1")){
-            letters_filled.setImageResource(R.drawable.letter_23_filled);
-            letters_transparent.setImageResource(R.drawable.letter_23);
-        } else if (letter.equals("2")){
-            letters_filled.setImageResource(R.drawable.letter_40_filled);
-            letters_transparent.setImageResource(R.drawable.letter_40);
-        } else if (letter.equals("3")){
-            letters_filled.setImageResource(R.drawable.letter_7_filled);
-            letters_transparent.setImageResource(R.drawable.letter_7);
-        }
+        String uri_filled = "@drawable/"+type+"_"+number+"_filled";
+        int imageResource_filled = getResources().getIdentifier(uri_filled, null, getPackageName());
+        letters_filled.setImageResource(imageResource_filled);
+        String uri = "@drawable/"+type+"_"+number;
+        int imageResource = getResources().getIdentifier(uri, null, getPackageName());
+        letters_transparent.setImageResource(imageResource);
         DrawView = (RelativeLayout) findViewById(R.id.DrawView);
         drawingView = new DrawingView(this);
         DrawView.addView(drawingView);
@@ -64,6 +85,31 @@ public class Tracing extends Activity {
         mPaint.setStrokeJoin(Paint.Join.ROUND);
         mPaint.setStrokeCap(Paint.Cap.ROUND);
         mPaint.setStrokeWidth(12);
+
+        long maxCounter;
+        if(treatment == "true") {
+            maxCounter = 60000;
+        } else {
+            maxCounter = 600000;
+        }
+        long diff = 1000;
+        new CountDownTimer(maxCounter, diff) {
+            public void onTick(long millisUntilFinished) {
+                long diff = maxCounter - millisUntilFinished;
+                time_spent++;
+                int countdown = (int)(millisUntilFinished/1000);
+                if(countdown == 10) {
+                    Toast.makeText(getApplicationContext(),"Time left: 10 seconds",Toast.LENGTH_SHORT).show();
+                }
+                if(countdown == 5) {
+                    Toast.makeText(getApplicationContext(),"Time left: 5 seconds",Toast.LENGTH_SHORT).show();
+                }
+            }
+            public void onFinish() {
+                time_spent++;
+                finishTracing("time");
+            }
+        }.start();
     }
 
     public class DrawingView extends View {
@@ -178,27 +224,53 @@ public class Tracing extends Activity {
     }
 
     public void openHome(View view){
-        Intent myIntent = new Intent(this, Home.class);
-        this.startActivity(myIntent);
+        Intent intent = openHome();
+        this.startActivity(intent);
         finish();
     }
 
+    private Intent openHome(){
+        Intent myIntent;
+        if (type == "letter")
+            myIntent = new Intent(this, Level_01.class);
+        else if (type == "word")
+            myIntent = new Intent(this, Level_02.class);
+        else
+            myIntent = new Intent(this, Home.class);
+        return myIntent;
+    }
+
     public void finishTracing(View view){
+        finishTracing("");
+    }
+
+    public void finishTracing(String error){
         float per = ((float)transparent_count/((float)transparent_count+(float)painted_count))*100;
         final int coins = (int) (per / 10);
-        Toast.makeText(getApplicationContext(),"Score: "+String.valueOf(Math.round(per))+"%\nCoins: "+String.valueOf(coins),Toast.LENGTH_SHORT).show();
+        SharedPreference sp = new SharedPreference(this);
+        String user_id = sp.getPreference("user_id");
         try {
-            SharedPreference sp = new SharedPreference(this);
-            int score =  Integer.parseInt(sp.getPreference("dysgraphia_score")) + coins;
-            sp.setPreference("dysgraphia_score", Integer.toString(score));
+            sp.setPreference("dysgraphia_"+type+"_"+number+treatment_suffix, Integer.toString((int)per));
+            int score_type =  Integer.parseInt(sp.getPreference("dysgraphia_score_"+type+treatment_suffix)) + coins;
+            sp.setPreference("dysgraphia_score_"+type+treatment_suffix, Integer.toString(score_type));
+            int score =  Integer.parseInt(sp.getPreference("dysgraphia_score"+treatment_suffix)) + coins;
+            sp.setPreference("dysgraphia_score"+treatment_suffix, Integer.toString(score));
             HTTP http = new HTTP(this, this);
-            http.request("/update_scores","{\"user_id\":\""+ sp.getPreference("user_id") +"\", \"game\":\"dysgraphia\", \"score\":\""+ score +"\"}");
+            //http.request("/update_scores","{\"userid\":\""+ user_id +"\", \"game\":\"dysgraphia\", \"score\":\""+ score +"\"}");
+            http.request(
+                    "/insert_scores",
+                    "{\"user_id\":\"" + user_id + "\", \"game\":\"dysgraphia\", \"score\":\""+ coins +"\", \"query\":\"INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('"
+                            +user_id+"','"+level_name+"', "+time_spent+",'"+per+"','"+level_name+"_"+number+"',"+coins+")\"}"
+            );
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-        Intent myIntent = new Intent(this, Home.class);
-        this.startActivity(myIntent);
-        finish();
+        Intent intent = openHome();
+        if(error == "time"){
+            nenasa.showDialogBox(this, "info", "Ran Out of Time", "Coins: " + coins + "\nScore: " + (int) per + "%\nDuration: " + time_spent + " seconds", "redirect", intent, treatment);
+        } else {
+            nenasa.showDialogBox(this, "info", "Your Score", "Coins: " + coins + "\nScore: " + (int) per + "%\nDuration: " + time_spent + " seconds", "redirect", intent, treatment);
+        }
     }
 
     @Override

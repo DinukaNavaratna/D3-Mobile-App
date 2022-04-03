@@ -157,6 +157,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:background="@drawable/cloud"
+                                android:enabled="false"
                                 android:text="මද්‍යම"
                                 android:textSize="20sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -183,7 +184,7 @@
                             android:layout_weight="1">
 
                             <Button
-                                android:id="@+id/reports"
+                                android:id="@+id/dysgraphia_reports"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:background="@drawable/cloud"

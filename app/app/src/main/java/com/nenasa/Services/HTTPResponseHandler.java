@@ -93,7 +93,7 @@ public class HTTPResponseHandler {
             public void run() {
                 //Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                 Nenasa nenasa = new Nenasa();
-                nenasa.showDialogBox(context, type, topic, message);
+                nenasa.showDialogBox(context, type, topic, message, "null", null, "false");
             }
         });
     }

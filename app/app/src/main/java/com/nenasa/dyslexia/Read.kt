@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
@@ -127,10 +128,15 @@ class Read : AppCompatActivity() {
                     MultipartUtility(Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio);
                     */
                     val fileUplaoad = FileUploadUtility(this);
-                    fileUplaoad.doFileUpload(Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio)
-
+                    //fileUplaoad.doFileUpload(Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio)
+                    val testUpload = testUpload();
+                    Log.d("FileUpload", "Sending the request from Read.kt")
+                    testUpload.upload(context, Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio)
+                    Log.d("FileUpload", "After sending the request from Read.kt")
                 } catch (exception: Exception) {
                     exception.printStackTrace()
+                    Log.d("FileUpload", "Exception - Line 138 in Read.kt")
+                    Log.d("FileUpload", (exception.printStackTrace()).toString())
                 }
                 val mainHandler = Handler(Looper.getMainLooper())
                 var count: Int? = 0;
@@ -141,7 +147,7 @@ class Read : AppCompatActivity() {
                         if(response != "" && !response.isNullOrEmpty() && !response.equals("pending")) {
                             sp.setPreference("audio_upload_response", "pending")
                             fileUploadResponse(response)
-                        } else if(count!! < 10) {
+                        } else if(count!! < 30) {
                             if((count!!.rem(5)) == 0)
                                 Toast.makeText(context, "File uploading...", Toast.LENGTH_SHORT).show()
                             count = count?.plus(1)
@@ -256,6 +262,7 @@ class Read : AppCompatActivity() {
             Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
             next_btn.isEnabled = true
         } else {
+            Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
             Toast.makeText(this, "Audio file processed by the server...", Toast.LENGTH_SHORT).show()
             next_btn.isEnabled = true
             audio_name.text = "";

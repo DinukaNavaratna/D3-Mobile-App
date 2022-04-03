@@ -16,12 +16,18 @@ import android.widget.Toast
 import android.widget.RadioButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.gdacciaro.iOSDialog.iOSDialog
+import com.gdacciaro.iOSDialog.iOSDialogBuilder
+import com.gdacciaro.iOSDialog.iOSDialogClickListener
 import com.nenasa.Nenasa
 import com.nenasa.Services.SharedPreference
+import com.nenasa.dyscalculia.Calculate
 import com.nenasa.dysgraphia.Level_01
 import java.io.IOException
 
 class Home : AppCompatActivity() {
+
+    val nenasa = Nenasa()
 
     lateinit var dyslecia_group1: RadioGroup
     lateinit var dyslecia_group2: RadioGroup
@@ -48,6 +54,7 @@ class Home : AppCompatActivity() {
 
         val easy: Button = findViewById<Button>(R.id.easy);
         val hard: Button = findViewById<Button>(R.id.hard);
+        val reports: Button = findViewById<Button>(R.id.dyslexia_reports);
 
         easy.setOnClickListener {
             val intent = Intent(this, HomeEasy::class.java)
@@ -58,6 +65,31 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, HomeHard::class.java)
             startActivity(intent)
             finish()
+        }
+
+        val intent = Intent(this, Reports::class.java)
+        reports.setOnClickListener {
+            iOSDialogBuilder(this)
+                .setTitle("Select level")
+                .setSubtitle("")
+                .setCancelable(false)
+                .setPositiveListener(
+                    "අමාරු"
+                ) { dialog ->
+                    dialog.dismiss()
+                    intent.putExtra("level", "hard")
+                    startActivity(intent)
+                    finish()
+                }
+                .setNegativeListener(
+                    "පහසු"
+                ) { dialog ->
+                    dialog.dismiss()
+                    intent.putExtra("level", "easy")
+                    startActivity(intent)
+                    finish()
+                }
+                .build().show()
         }
     }
 /*
@@ -98,8 +130,7 @@ class Home : AppCompatActivity() {
         var score = sp.getPreference("dyslexia_score")
         if(score == "null")
             score = "0";
-        val nenasa = Nenasa()
-        nenasa.showDialogBox(this, "info", "Your Score", "You have earned a total of "+score+" coins in this game...")
+        nenasa.showDialogBox(this, "score", "Your Score", "You have earned a total of "+score+" coins in this game...", "dyslexia", null, "false")
     }
 
     override fun onBackPressed() {

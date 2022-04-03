@@ -19,18 +19,17 @@ import java.net.URL;
 
 public class FileUploadUtility {
 
-    static String SERVER_PATH = "http://192.168.8.152//audio.php";
+    static String SERVER_PATH = "";
     static Context context;
 
     public FileUploadUtility(Context context){
         this.context = context;
-        /*
         SharedPreference sp = new SharedPreference(context);
         SERVER_PATH = sp.getPreference("ServerHost");
         if(SERVER_PATH == null){
             SERVER_PATH = context.getResources().getString(R.string.server_host);
         }
-         */
+
     }
 
     public void doFileUpload(final String selectedPath) {
@@ -49,11 +48,13 @@ public class FileUploadUtility {
                 byte[] buffer;
                 int maxBufferSize = 1 * 1024 * 1024;
                 String responseFromServer = "";
+                Log.i("FileUpload", "1");
                 try {
                     //------------------ CLIENT REQUEST
                     FileInputStream fileInputStream = new FileInputStream(new File(selectedPath));
                     // open a URL connection to the Servlet
                     URL url = new URL(SERVER_PATH+"/upload_audio");
+                    Log.i("FileUpload1", "URL: "+url);
                     // Open a HTTP connection to the URL
                     conn = (HttpURLConnection) url.openConnection();
                     // Allow Inputs
@@ -73,6 +74,7 @@ public class FileUploadUtility {
                     dos.writeBytes("Content-Disposition: form-data; function=sentence; name=\"uploadedfile\"; filename=\""
                             + selectedPath + "\"" + lineEnd);
 
+                    Log.i("FileUpload", "2");
                     /*
                     conn.setRequestProperty("Content-Type", "audio/m4a");
 
@@ -96,18 +98,20 @@ public class FileUploadUtility {
                         bufferSize = Math.min(bytesAvailable, maxBufferSize);
                         bytesRead = fileInputStream.read(buffer, 0, bufferSize);
                     }
+                    Log.i("FileUpload", "3");
                     // send multipart form data necesssary after file data...
                     dos.writeBytes(lineEnd);
                     dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
                     // close streams
 
+                    Log.i("FileUpload", "4");
                     Log.e("Debug", "File is written - "+selectedPath);
 
 
                     int serverResponseCode = conn.getResponseCode();
                     String serverResponseMessage = conn.getResponseMessage();
 
-                    Log.i("uploadFile", "HTTP Response is: "
+                    Log.i("FileUpload", "HTTP Response is: "
                             + serverResponseMessage + ": " + serverResponseCode);
 
                     fileInputStream.close();
@@ -123,6 +127,7 @@ public class FileUploadUtility {
                     sendMessageBack(responseFromServer, 0);
                     return;
                 }
+                Log.i("FileUpload", "5");
                 responseFromServer = processResponse(conn, responseFromServer);
                 sendMessageBack(responseFromServer, 1);
             }

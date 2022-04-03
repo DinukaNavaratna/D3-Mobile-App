@@ -254,7 +254,11 @@
                                     android:layout_height="wrap_content"
                                     android:background="@android:drawable/stat_sys_upload"
                                     android:enabled="true"
-                                    android:visibility="invisible" />
+                                    android:visibility="invisible"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                         </LinearLayout>

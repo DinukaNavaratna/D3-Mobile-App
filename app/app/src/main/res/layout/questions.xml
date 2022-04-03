@@ -137,7 +137,8 @@
                                 app:layout_constraintBottom_toTopOf="@+id/textView9"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:ignore="UnknownId">
 
                                 <androidx.constraintlayout.widget.ConstraintLayout
                                     android:layout_width="match_parent"
@@ -145,7 +146,7 @@
                                     android:layout_weight="9">
 
                                     <TextView
-                                        android:id="@+id/textView11"
+                                        android:id="@+id/textView_01"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
@@ -165,10 +166,10 @@
                                     android:layout_weight="1">
 
                                     <TextView
-                                        android:id="@+id/textView9"
+                                        android:id="@+id/textView_01_1"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Difficulty reading, including reading aloud ?"
+                                        android:text="අකුරු කියවීමේ හෝ වචන කියවීමේ අපහසුතාවයක් තිබේද?"
                                         android:textColor="#FFFFFF"
                                         android:textSize="16sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
@@ -242,7 +243,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:orientation="horizontal"
-                                app:layout_constraintBottom_toTopOf="@+id/textView9"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
@@ -253,7 +253,7 @@
                                     android:layout_weight="9">
 
                                     <TextView
-                                        android:id="@+id/textView11"
+                                        android:id="@+id/textView_02"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
@@ -273,10 +273,10 @@
                                     android:layout_weight="1">
 
                                     <TextView
-                                        android:id="@+id/textView9"
+                                        android:id="@+id/textView_02_1"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Difficulty spacing things out on paper or within margins (poor spatial planning) ?"
+                                        android:text="කඩදාසි මත හෝ මායිම් තුළ  අකුරු ලිවිමේ අපහසුතාවයක් තිබේද ?"
                                         android:textColor="#FFFFFF"
                                         android:textSize="16sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
@@ -350,7 +350,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:orientation="horizontal"
-                                app:layout_constraintBottom_toTopOf="@+id/textView9"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
@@ -361,7 +360,7 @@
                                     android:layout_weight="9">
 
                                     <TextView
-                                        android:id="@+id/textView11"
+                                        android:id="@+id/textView_03"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
@@ -381,10 +380,10 @@
                                     android:layout_weight="1">
 
                                     <TextView
-                                        android:id="@+id/textView9"
+                                        android:id="@+id/textView_03_1"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Have difficulty recognizing numbers ?"
+                                        android:text="අංක හඳුනාගැනීමේ අපහසුතාවයක් තිබේද?"
                                         android:textColor="#FFFFFF"
                                         android:textSize="16sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
@@ -457,7 +456,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="5dp"
                                 android:orientation="horizontal"
-                                app:layout_constraintBottom_toTopOf="@+id/textView9"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent">
@@ -468,7 +466,7 @@
                                     android:layout_weight="9">
 
                                     <TextView
-                                        android:id="@+id/textView11"
+                                        android:id="@+id/textView_04"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
@@ -488,10 +486,10 @@
                                     android:layout_weight="1">
 
                                     <TextView
-                                        android:id="@+id/textView9"
+                                        android:id="@+id/textView_04_1"
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
-                                        android:text="Difficult in reading and recognizing words and phrases ?"
+                                        android:text="වචන සහ වාක්‍ය ඛණ්ඩ කියවීමට සහ හඳුනා ගැනීමට අපහසුද?"
                                         android:textColor="#FFFFFF"
                                         android:textSize="16sp"
                                         app:layout_constraintBottom_toBottomOf="parent"

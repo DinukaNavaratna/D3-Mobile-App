@@ -8,6 +8,7 @@
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/drag_and_drop.xml" value="0.1983695652173913" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyscalculia_calculate.xml" value="0.22" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyscalculia_home.xml" value="0.21965579710144928" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyscalculia_reports.xml" value="0.20380434782608695" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dysgraphia_draw.xml" value="0.21965579710144928" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dysgraphia_home.xml" value="0.2" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dysgraphia_level01.xml" value="0.16847826086956522" />
@@ -21,6 +22,7 @@
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyslexia_item_word.xml" value="0.21240942028985507" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyslexia_read.xml" value="0.22447916666666667" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyslexia_read_hard.xml" value="0.21240942028985507" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/dyslexia_reports.xml" value="0.20380434782608695" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/hidden.xml" value="0.18614130434782608" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/home.xml" value="0.25" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/login.xml" value="0.21" />
@@ -31,11 +33,11 @@
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/walkthrough1.xml" value="0.22" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/walkthrough2.xml" value="0.10989583333333333" />
         <entry key="..\:/Freelance/Android App/android/app/src/main/res/layout/walkthrough3.xml" value="0.10989583333333333" />
-        <entry key="..\:/Users/User/Desktop/Mobile/D3-Mobile-App/app/app/src/main/res/layout/dyslexia_read.xml" value="0.128125" />
+        <entry key="..\:/Freelance/Android App/android/app/src/main/res/xml/network_security_config.xml" value="0.20742753623188406" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

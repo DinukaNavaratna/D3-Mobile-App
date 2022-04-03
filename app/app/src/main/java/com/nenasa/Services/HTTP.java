@@ -18,6 +18,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.nenasa.Home;
+import com.nenasa.Nenasa;
 import com.nenasa.R;
 
 import org.json.JSONException;
@@ -61,6 +62,7 @@ public class HTTP {
     }
 
     public void request(String endpoint, String json_body) {
+        Nenasa nenasa = new Nenasa();
         try {
             this.endpoint = endpoint;
             RequestQueue requestQueue = Volley.newRequestQueue(context);
@@ -144,6 +146,7 @@ public class HTTP {
             requestQueue.add(stringRequest);
         } catch (Exception ex){
             Log.e("HTTP Error", ex.toString());
+
         }
     }
 }

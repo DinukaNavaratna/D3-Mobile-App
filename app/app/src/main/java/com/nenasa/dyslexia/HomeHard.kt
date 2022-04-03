@@ -67,7 +67,7 @@ class HomeHard : AppCompatActivity() {
         if(score == "null")
             score = "0";
         val nenasa = Nenasa()
-        nenasa.showDialogBox(this, "info", "Your Score", "You have earned a total of "+score+" coins in this game...")
+        nenasa.showDialogBox(this, "info", "Your Score", "You have earned a total of "+score+" coins in this game...", "null", null, "false")
     }
 
     override fun onBackPressed() {

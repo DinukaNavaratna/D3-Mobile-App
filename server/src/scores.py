@@ -23,11 +23,13 @@ class update_scores(Resource):
         try:
             content = request.json
 
-            user_id = content['user_id']
+            logger.debug("JSO: "+str(content))
+            user_id = content['userid']
             game = content['game']
             score = content['score']
 
             update_query = "UPDATE scores SET score='"+score+"' WHERE user_id='"+user_id+"' AND game='"+game+"';"
+            logger.info("Update Query: "+update_query)
             query_response = ExecuteQuery.execute(update_query)
 
             if(query_response == "success"):
@@ -43,7 +45,8 @@ class update_scores(Resource):
         except Exception as e:
             msg = "failed"
             response = str(e)
-            logger.error("Exception | update_scores: "+response)
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            logger.error("Exception | update_scores: "+response+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
             return jsonify({"msg":msg, "response":response})
             
 
@@ -68,6 +71,9 @@ class get_scores(Resource):
                 msg = "success"
                 response = "Scores retrieved!"
             else:
+                insert_query = "INSERT INTO scores (user_id, game, score) VALUES ('"+user_id+"', 'dyscalculia','0'), ('"+user_id+"', 'dysgraphia','0'), ('"+user_id+"', 'dyslexia','0');"
+                query_response = ExecuteQuery.execute(insert_query)
+                logger.debug("Score retrieval failed insert: "+query_response)
                 msg = "failed"
                 response = "Score retrieval failed!"
 
@@ -111,17 +117,23 @@ class get_reports(Resource):
                 return "Queries inserted"
 
             user_response = ExecuteSelectQuery.execute("SELECT fname, lname, childname, childage FROM users WHERE id="+user_id+";")
-            FirstName = user_response[0][0]
-            LastName = user_response[0][1]
-            ChildName = user_response[0][2]
-            ChildAge = user_response[0][3]
+            if not user_response:
+                FirstName = "User not found"
+                LastName = "User not found"
+                ChildName = "User not found"
+                ChildAge = "User not found"
+            else:
+                FirstName = user_response[0][0]
+                LastName = user_response[0][1]
+                ChildName = user_response[0][2]
+                ChildAge = user_response[0][3]
 
             if(report_type == "dyscalculia"):
                 report_response = ExecuteSelectQuery.execute("SELECT level, correct, wrong, duration, points FROM dyscalculia_score WHERE user_id='"+user_id+"';")
                 logger.info(str(report_response))
                 if not report_response:
                     logger.info("Empty")
-                    return "Empty"
+                    return "Sufficient records could not be found to generate a report."
                 else:
                     Totalpoints = 0
                     Totaltime = 0
@@ -205,7 +217,7 @@ class get_reports(Resource):
                 logger.info(str(report_response))
                 if not report_response:
                     logger.info("Empty")
-                    return "Empty"
+                    return "Sufficient records could not be found to generate a report."
                 else:
                     Totalpoints = 0
                     Totaltime = 0
@@ -359,7 +371,7 @@ class get_reports(Resource):
                 logger.info(str(report_response))
                 if not report_response:
                     logger.info("Empty")
-                    return "Empty"
+                    return "Sufficient records could not be found to generate a report."
                 else:
                     Totalpoints = 0
                     Totaltime = 0
@@ -437,6 +449,47 @@ class get_reports(Resource):
             response = str(e)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             logger.error("Exception | get_reports: "+response+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
+            return jsonify({"msg":msg, "response":response})
+            
+
+class insert_scores(Resource):
+    def post(self):
+        msg = ""
+        response = ""
+
+        try:
+            content = request.json
+            logger.debug("JSON: "+str(content))
+
+            query = content['query']
+            logger.debug("Insert Query: "+query)
+            query_response = ExecuteQuery.execute(query)
+
+            if(query_response == "success"):
+                msg = "success"
+                response = "Score updated successfully!"
+            else:
+                msg = "failed"
+                response = query_response
+
+            user_id = content['user_id']
+            game = content['game']
+            score = content['score']
+            update_query = "UPDATE scores SET score=score+"+score+" WHERE user_id='"+user_id+"' AND game='"+game+"';"
+            query_response = ExecuteQuery.execute(update_query)
+            if(query_response == "success"):
+                logger.debug("Response | update_query: "+query_response)
+            else:
+                logger.error("Response | update_query: "+query_response)
+
+            logger.info("Response | insert_scores: "+response)
+            return jsonify({"msg":msg, "response":response})
+            
+        except Exception as e:
+            msg = "failed"
+            response = str(e)
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            logger.error("Exception | insert_scores: "+response+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
             return jsonify({"msg":msg, "response":response})
             
 

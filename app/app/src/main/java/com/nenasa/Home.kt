@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.nenasa.Services.SharedPreference
 
 class Home : AppCompatActivity() {
@@ -17,6 +18,8 @@ class Home : AppCompatActivity() {
     lateinit var sp: SharedPreference
     lateinit var change_selection_btn: Button
     lateinit var not_sure_btn: Button
+    lateinit var treatment_process: CardView
+    lateinit var tratment_btn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +32,14 @@ class Home : AppCompatActivity() {
         dyscalculia_btn = findViewById<Button>(R.id.dyscalculia_btn)
         change_selection_btn = findViewById<Button>(R.id.change_selection_btn)
         not_sure_btn = findViewById<Button>(R.id.not_sure_btn)
+        treatment_process = findViewById<CardView>(R.id.treatment_process)
+        tratment_btn = findViewById<Button>(R.id.tratment_btn)
 
         username.setText(sp.getPreference("username"))
+        var treatment = sp.getPreference("treatment")
+        if(treatment != "false"){
+            treatment_process.visibility = View.VISIBLE
+        }
 
         var selection = sp.getPreference("selection")
         if(selection != "" && !selection.isNullOrEmpty() && selection != "none")
@@ -40,6 +49,7 @@ class Home : AppCompatActivity() {
             sp.setPreference("selection", "dyslexia")
             selectionButtonOptions("dyslexia")
             val intent = Intent(this, com.nenasa.dyslexia.Home::class.java)
+            intent.putExtra("treatment", "false")
             startActivity(intent)
             finish()
         }
@@ -47,6 +57,7 @@ class Home : AppCompatActivity() {
             sp.setPreference("selection", "dysgraphia")
             selectionButtonOptions("dysgraphia")
             val intent = Intent(this, com.nenasa.dysgraphia.Home::class.java)
+            intent.putExtra("treatment", "false")
             startActivity(intent)
             finish()
         }
@@ -54,6 +65,21 @@ class Home : AppCompatActivity() {
             sp.setPreference("selection", "dyscalculia")
             selectionButtonOptions("dyscalculia")
             val intent = Intent(this, com.nenasa.dyscalculia.Home::class.java)
+            intent.putExtra("treatment", "false")
+            startActivity(intent)
+            finish()
+        }
+        tratment_btn.setOnClickListener {
+            val intent: Intent;
+            if(treatment == "dyslexia")
+                intent = Intent(this, com.nenasa.dyslexia.Home::class.java)
+            else if(treatment == "dyscalculia")
+                intent = Intent(this, com.nenasa.dyscalculia.Home::class.java)
+            else if(treatment == "dysgraphia")
+                intent = Intent(this, com.nenasa.dysgraphia.Home::class.java)
+            else
+                intent = Intent(this, com.nenasa.Splash::class.java)
+            intent.putExtra("treatment", "true")
             startActivity(intent)
             finish()
         }
@@ -85,7 +111,6 @@ class Home : AppCompatActivity() {
             dysgraphia_btn.isEnabled = false
             dysgraphia_btn.setAlpha(0.5F)
         }
-
     }
 
     fun clearSelection(view: View){
@@ -98,6 +123,8 @@ class Home : AppCompatActivity() {
         dyscalculia_btn.setAlpha(1.0F)
         change_selection_btn.visibility = View.GONE
         not_sure_btn.visibility = View.VISIBLE
+        treatment_process.visibility = View.GONE
+        sp.setPreference("treatment", "false")
     }
 
     override fun onBackPressed() {
