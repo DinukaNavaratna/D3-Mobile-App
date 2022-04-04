@@ -37,7 +37,7 @@ def compare(file1, file2):
                 else:
                         accuracy = 0
                         print("The normalized distance between the two : ", dist)   # 0 for similar audios 
-                return str("%.2f" % accuracy)
+                return str(accuracy)
         except Exception as e:
             response = str(e)
             exc_type, exc_obj, exc_tb = sys.exc_info()
