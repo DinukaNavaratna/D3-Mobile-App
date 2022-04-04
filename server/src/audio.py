@@ -91,7 +91,7 @@ class upload_audio(Resource):
 #                    filenames.append(chunk_name)
                 accuracy = "50"
             elif("Hard" in level):
-                accuracy = compare(filePath, "src/Recordings/"+context+"wav")
+                accuracy = compare(filePath, "src/Recordings/"+context+".wav")
         
             return jsonify({"success":"true", "message":"{\""+str(accuracy)+"\":\"%\"}"})
         except Exception as e:
