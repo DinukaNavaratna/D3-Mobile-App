@@ -1,6 +1,7 @@
 import librosa
 import tensorflow as tf
 import numpy as np
+from loguru import logger
 
 SAVED_MODEL_PATH = "src/audio_processing/model.h5"
 SAMPLES_TO_CONSIDER = 22050
@@ -26,6 +27,7 @@ class _Analysis_Service:
         """
 
         # extract MFCC
+        logger.debug("File Path: "+file_path)
         MFCCs = self.preprocess(file_path)
 
         # we need a 4-dim array to feed to the model for prediction: (# samples, # time steps, # coefficients, 1)
@@ -75,14 +77,20 @@ def Analysis_Service():
 
 
 def analyze_audio(filename):
-    # create 2 instances of the keyword spotting service
-    kss = Analysis_Service()
-    kss1 = Analysis_Service()
+    try:
+        import sys
+        # create 2 instances of the keyword spotting service
+        kss = Analysis_Service()
+        kss1 = Analysis_Service()
 
-    # check that different instances of the keyword spotting service point back to the same object (singleton)
-    assert kss is kss1
+        # check that different instances of the keyword spotting service point back to the same object (singleton)
+        assert kss is kss1
 
-    # make a prediction
-    keyword = kss.predict(filename)
-    print("Keyword found: "+keyword)
-    return keyword
+        # make a prediction
+        keyword = kss.predict(filename)
+        print("Keyword found: "+keyword)
+        return keyword
+    except Exception as e:
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        logger.error("Exception | analyze_audio: "+str(e)+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
+        return "Error: "+str(e)

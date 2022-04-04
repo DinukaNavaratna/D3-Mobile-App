@@ -1,4 +1,3 @@
-import imp
 from flask_restful import Resource
 from flask import jsonify, request
 from loguru import logger
@@ -11,6 +10,7 @@ from pathlib import Path
 from .audio_processing.preprocess import preprocess_dataset
 from .audio_processing.train import start_train
 from .audio_processing.analyze import analyze_audio
+import sys
 
 logger.add('logs/audio.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}', filter="audio", colorize=True, level='DEBUG')
 
@@ -59,7 +59,7 @@ class upload_audio(Resource):
         try:
             logger.info("Request started processing")
             function = request.form.get('function')
-            logger.info("Function: "+function)
+            logger.info("Function: "+str(function))
 
             data = {}
             for key, value in request.form.items():
@@ -76,7 +76,7 @@ class upload_audio(Resource):
             filePath = "./clips/"+fileId+"."+ext
             f.save(filePath)
             logger.info("Audio saved")
-            return jsonify({"msg":"Working working", "message":"Success!!!"})
+            return jsonify({"success":"true", "message":"{\"accuracy\":\"50%\"}"})
             filenames = [fileId+"."+ext]
             if(function == "sentence"):
                 myaudio = AudioSegment.from_file(filePath, "wav")
@@ -105,7 +105,8 @@ class upload_audio(Resource):
 
             return jsonify({"msg":"success", "accuracy":str(filenames)})
         except Exception as e:
-            logger.error("Exception | upload_audio: "+str(e))
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            logger.error("Exception | upload_audio: "+str(e)+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
             return jsonify({"msg":"failed","error":str(e)})
 
 
@@ -115,7 +116,11 @@ class analyze(Resource):
             content = request.json
             filename = content['filename']
             keyword = analyze_audio(filename)
-            return jsonify({"msg":"success", "keyword":str(keyword)})
+            if "Error" in keyword:
+                return jsonify({"msg":"failed", "error":str(keyword)})
+            else:
+                return jsonify({"msg":"success", "keyword":str(keyword)})
         except Exception as e:
-            logger.error("Exception | analyze: "+str(e))
-            return jsonify({"msg":"failed","error":str(e)})
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            logger.error("Exception | analyze: "+str(e)+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
+            return jsonify({"msg":"failed", "error":str(e)})

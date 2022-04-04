@@ -21,5 +21,5 @@ def initialize_routes(api):
     #Testing on-going
     #api.add_resource(correlation, "/correlation")
     #api.add_resource(resemblyzer, "/resemblyzer")
-    #api.add_resource(compare, "/mfcc")
+    api.add_resource(compare, "/mfcc")
     #api.add_resource(audiocompare, "/audiocompare")

@@ -9,9 +9,11 @@ from flask import request
 class compare(Resource):
     def get(self):
         
-        content = request.json
-        file1 = content['file1']
-        file2 = content['file2']
+        #content = request.json
+        #file1 = content['file1']
+        #file2 = content['file2']
+        file1 = "src/Recordings/අකුරු කියමු.wav"
+        file2 = "clips/456.wav"
 
         #Loading audio files
         y1, sr1 = librosa.load(file1) 
