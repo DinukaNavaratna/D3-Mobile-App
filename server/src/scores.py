@@ -2,7 +2,6 @@ from flask_restful import Resource
 from flask import jsonify, request, render_template, make_response
 from loguru import logger
 from dotenv import load_dotenv
-from loguru import logger
 from datetime import datetime
 from time import strftime
 from time import gmtime
