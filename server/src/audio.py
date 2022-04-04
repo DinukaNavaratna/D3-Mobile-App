@@ -75,6 +75,9 @@ class upload_audio(Resource):
             fileId = datetime.now().strftime('%Y%m-%d%H-%M%S-') + str(uuid4())
             filePath = "./clips/"+fileId+"."+ext
             f.save(filePath)
+            track = AudioSegment.from_file(filePath,  format= 'm4a')
+            track.export(filePath, format='wav')
+
             logger.info("Audio saved")
             return jsonify({"success":"true", "message":"{\"accuracy\":\"50%\"}"})
             filenames = [fileId+"."+ext]
