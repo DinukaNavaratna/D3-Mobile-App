@@ -92,7 +92,8 @@ class upload_audio(Resource):
                 accuracy = "50"
             elif("Hard" in level):
                 accuracy = compare(filePath, "src/Recordings/"+context+".wav")
-        
+
+            logger.debug("Accuracy: "+str(accuracy))
             return jsonify({"success":"true", "message":"{\"accuracy\":\""+str(accuracy)+"\"}"})
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
