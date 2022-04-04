@@ -12,7 +12,7 @@ from .audio_processing.train import start_train
 from .audio_processing.analyze import analyze_audio
 import sys
 
-from src.test.mfcc import mfcc
+from src.test.mfcc import compare
 
 logger.add('logs/audio.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}', filter="audio", colorize=True, level='DEBUG')
 
@@ -90,7 +90,7 @@ class upload_audio(Resource):
 #                    filenames.append(chunk_name)
                 accuracy = "50"
             elif("Hard" in level):
-                accuracy = mfcc.compare(filePath, "src/Recordings/"+context+"wav")
+                accuracy = compare(filePath, "src/Recordings/"+context+"wav")
         
             return jsonify({"success":"true", "message":"{\""+accuracy+"\":\"%\"}"})
         except Exception as e:
