@@ -6,42 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".Register">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#512da8"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:theme="@style/AppTheme.Toolbar">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:onClick="showAbout"
-                    android:src="@drawable/ic_baseline_help_outline_24" />
-
-            </RelativeLayout>
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -64,6 +28,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="260dp"
+                        android:onClick="showAbout"
                         android:scaleType="centerCrop"
                         android:src="@drawable/bg" />
 
@@ -357,5 +322,17 @@
         <include layout="@layout/about_popup" />
 
     </FrameLayout>
+
+    <Button
+        android:id="@+id/about_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/ic_baseline_help_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
 import com.nenasa.Services.HTTP
 import com.nenasa.Services.SharedPreference
+import com.nenasa.dyslexia.testUpload
 
 class Hidden : AppCompatActivity() {
 
@@ -19,6 +21,8 @@ class Hidden : AppCompatActivity() {
 
         ServerHost = findViewById(R.id.serverhost)
         sp = SharedPreference(this)
+        sp.getPreference("ServerHost")
+        ServerHost.hint = (sp.getPreference("ServerHost")).toString()
     }
 
     fun UpdateServerHost(view: View){

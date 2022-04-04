@@ -37,9 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="http://161.97.171.85:5005"
                 android:inputType="textPersonName"
-                android:text="http://161.97.171.85:5005"
                 android:textAlignment="center" />
 
             <Button

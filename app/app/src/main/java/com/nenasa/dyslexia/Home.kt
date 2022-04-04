@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.media.MediaRecorder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.RadioGroup
@@ -28,6 +29,8 @@ import java.io.IOException
 class Home : AppCompatActivity() {
 
     val nenasa = Nenasa()
+    var treatment: String = "false"
+    var treatment_suffix: String = ""
 
     lateinit var dyslecia_group1: RadioGroup
     lateinit var dyslecia_group2: RadioGroup
@@ -35,6 +38,11 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dyslexia_home)
+
+        val myIntent = intent
+        treatment = myIntent.getStringExtra("treatment").toString()
+        if(treatment == "true")
+            treatment_suffix = "_treatment"
 
         /*
         dyslecia_group1 = findViewById<RadioGroup>(R.id.dyslecia_group1);
@@ -58,11 +66,13 @@ class Home : AppCompatActivity() {
 
         easy.setOnClickListener {
             val intent = Intent(this, HomeEasy::class.java)
+            intent.putExtra("treatment", treatment)
             startActivity(intent)
             finish()
         }
         hard.setOnClickListener {
             val intent = Intent(this, HomeHard::class.java)
+            intent.putExtra("treatment", treatment)
             startActivity(intent)
             finish()
         }
@@ -127,7 +137,7 @@ class Home : AppCompatActivity() {
 
     fun show_score(view: View) {
         val sp = SharedPreference(this)
-        var score = sp.getPreference("dyslexia_score")
+        var score = sp.getPreference("dyslexia_score"+treatment_suffix)
         if(score == "null")
             score = "0";
         nenasa.showDialogBox(this, "score", "Your Score", "You have earned a total of "+score+" coins in this game...", "dyslexia", null, "false")

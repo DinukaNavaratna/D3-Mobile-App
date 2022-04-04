@@ -6,10 +6,7 @@ import android.content.Intent
 import android.media.AudioAttributes
 import android.media.MediaPlayer
 import android.media.MediaRecorder
-import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.Looper
+import android.os.*
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -17,15 +14,14 @@ import android.view.View.OnTouchListener
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.nenasa.Nenasa
 import com.nenasa.R
-import com.nenasa.Services.FileUploadUtility
 import com.nenasa.Services.SharedPreference
 import java.io.File
 import java.io.IOException
-import java.util.*
 import java.math.BigInteger
 import java.security.MessageDigest
-
+import java.util.*
 
 class Read : AppCompatActivity() {
 
@@ -53,14 +49,25 @@ class Read : AppCompatActivity() {
     var read_text_arr3: Array<String> = arrayOf("අම්මා", "අහස", "ලඹය")
     var read_text_arr4: Array<String> = arrayOf("අම්මා උයනවා", "අපි දුවමු", "ලමයා පයිනවා", "ගස අතන", "සල් ගස", "ගී ගයමු", "ලස්සන වත්ත", "අකුරු කියමු", "හොද ලමයා", "සමනලයා පියාබනවා", "ගෙදර යමු")
     var read_text_arr5: Array<String> = arrayOf("අම්මා බත් උයනවා", "අමර සල්ගස යට", "අපි සිංදු කියමු", "ලමයි සිංදු කියනවා", "ඔබ ඔහු සමග", "තාත්තා වැඩට ගියා", "අපි ස්කෝලේ යමු", "මුහුද රැල්ල ලස්සනයි", "රට ලස්සනට තියමු", "අපි අපේම යාලුවෝ")
+    val nenasa = Nenasa()
+    var time_spent: Long = 0
+    var recording_time: Long = 0
+    lateinit var treatment: String;
+    var treatment_suffix: String = ""
+    lateinit var sp: SharedPreference
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.nenasa.R.layout.dyslexia_read)
 
+        sp = SharedPreference(this)
+
         myIntent = intent
         level = myIntent.getStringExtra("level").toString()
+        treatment = myIntent.getStringExtra("treatment").toString()
+        if(treatment == "true")
+            treatment_suffix = "_treatment"
 
         context = this;
         record_btn = findViewById<Button>(com.nenasa.R.id.record_btn)
@@ -89,8 +96,8 @@ class Read : AppCompatActivity() {
                     val uuid: String = UUID.randomUUID().toString()
                     val dir = Environment.getExternalStorageDirectory().absolutePath+"/Nenasa";
                     File(dir).mkdirs();
-                    output = "$dir/$uuid.mp3";
-                    audio = "$uuid.mp3";
+                    output = "$dir/$uuid.wav";
+                    audio = "$uuid.wav";
                     mediaRecorder?.setOutputFile(output)
 
                     if(audioPlaying == true){
@@ -127,11 +134,12 @@ class Read : AppCompatActivity() {
                     /*
                     MultipartUtility(Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio);
                     */
-                    val fileUplaoad = FileUploadUtility(this);
+                    //val fileUplaoad = FileUploadUtility(this);
                     //fileUplaoad.doFileUpload(Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio)
+                    var user_id = sp.getPreference("user_id")
                     val testUpload = testUpload();
                     Log.d("FileUpload", "Sending the request from Read.kt")
-                    testUpload.upload(context, Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio)
+                    testUpload.upload(context, Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio, user_id, level, recording_time.toString(), md5(readText))
                     Log.d("FileUpload", "After sending the request from Read.kt")
                 } catch (exception: Exception) {
                     exception.printStackTrace()
@@ -144,14 +152,17 @@ class Read : AppCompatActivity() {
                     override fun run() {
                         val sp = SharedPreference(context)
                         var response = sp.getPreference("audio_upload_response")
-                        if(response != "" && !response.isNullOrEmpty() && !response.equals("pending")) {
-                            sp.setPreference("audio_upload_response", "pending")
-                            fileUploadResponse(response)
-                        } else if(count!! < 30) {
-                            if((count!!.rem(5)) == 0)
-                                Toast.makeText(context, "File uploading...", Toast.LENGTH_SHORT).show()
-                            count = count?.plus(1)
-                            mainHandler.postDelayed(this, 1000)
+                        if(count!! < 30) {
+                            if(response == "" || response.isNullOrEmpty() || response.equals("pending")) {
+                                sp.setPreference("audio_upload_response", "pending")
+                                if((count!!.rem(5)) == 0)
+                                    Toast.makeText(context, "Audio Processing...", Toast.LENGTH_SHORT).show()
+                                count = count?.plus(1)
+                                mainHandler.postDelayed(this, 1000)
+                            } else {
+                                sp.setPreference("audio_upload_response", "")
+                                fileUploadResponse(response)
+                            }
                         } else {
                             fileUploadResponse("File upload time out!")
                         }
@@ -162,6 +173,35 @@ class Read : AppCompatActivity() {
     }
 
     private fun startRecording() {
+        time_spent = 0
+        val maxCounter: Long
+        maxCounter = if (treatment === "true") {
+            60000
+        } else {
+            600000
+        }
+        val diff: Long = 1000
+        object : CountDownTimer(maxCounter, diff) {
+            override fun onTick(millisUntilFinished: Long) {
+                val diff = maxCounter - millisUntilFinished
+                time_spent++
+                if (diff <= 10) {
+                    if (myIntent.getStringExtra("treatment") === "true") {
+                        Toast.makeText(
+                            applicationContext,
+                            "Time left: $diff seconds",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            }
+
+            override fun onFinish() {
+                time_spent++
+                nenasa.showDialogBox(this@Read,"error","Opz!","You ran out of time. Try again!", "null", null, treatment)
+            }
+        }.start()
+
         if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
             mediaPlayer.stop()
         }
@@ -188,6 +228,7 @@ class Read : AppCompatActivity() {
     private fun stopRecording(){
         if(state){
             try {
+                recording_time = time_spent
                 mediaRecorder?.stop()
                 mediaRecorder?.release()
                 state = false
@@ -248,6 +289,7 @@ class Read : AppCompatActivity() {
             openActivity(Intent(this, com.nenasa.dyslexia.HomeEasy::class.java))
         }
     }
+
     fun openActivity(intent: Intent){
         if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
             mediaPlayer.stop()
@@ -258,22 +300,40 @@ class Read : AppCompatActivity() {
 
     fun fileUploadResponse(feedback: String){
         frameLayout.visibility = View.GONE;
-        if(feedback.contains("failed")){
+        if(feedback.contains("failed") || feedback == ""){
+            nenasa.showDialogBox(this, "error", "File Upload Failed", feedback, "null", null, "null")
             Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
+            Log.e("Audio failed", feedback)
             next_btn.isEnabled = true
         } else {
-            Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
-            Toast.makeText(this, "Audio file processed by the server...", Toast.LENGTH_SHORT).show()
-            next_btn.isEnabled = true
+            //nenasa.showDialogBox(this, "info", "Audio Processed by the Server", feedback, "null", null, "null")
+            val percentage = Math.round(feedback.toDouble() * 10.0) / 10.0
+            Toast.makeText(this, "Accuracy: "+percentage+"%", Toast.LENGTH_LONG).show()
+            Log.e("Audio", "Audio file processed by the server...")
+            Log.e("Audio", feedback)
             audio_name.text = "";
             audio_name.visibility = View.INVISIBLE
             audio_control.visibility = View.INVISIBLE
             audio_upload.visibility = View.INVISIBLE
-            record_btn.isEnabled = false
+            val coins = (percentage.toFloat() / 10).toInt()
+            val score: Int = sp.getPreference("dyslexia_score"+treatment_suffix).toInt() + coins
+            sp.setPreference("dyslexia_score"+treatment_suffix, Integer.toString(score))
+            if(level.contains("Easy")){
+                val score: Int = sp.getPreference("dyslexia_score_easy"+treatment_suffix).toInt() + coins
+                sp.setPreference("dyslexia_score_easy"+treatment_suffix, Integer.toString(score))
+            } else if(level.contains("Hard")){
+                val score: Int = sp.getPreference("dyslexia_score_hard"+treatment_suffix).toInt() + coins
+                sp.setPreference("dyslexia_score_hard"+treatment_suffix, Integer.toString(score))
+            }
+            nextWord()
         }
     }
 
     fun nextWord(view: View){
+        nextWord()
+    }
+
+    fun nextWord(){
         if(this::mediaPlayer.isInitialized && mediaPlayer.isPlaying){
             mediaPlayer.stop()
         }
@@ -348,5 +408,45 @@ class Read : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+    }
+
+    fun md5(input:String): String {
+        val md = MessageDigest.getInstance("MD5")
+        return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
+    }
+
+    fun getMD5(view: View){
+        Log.i("MD5", "ම :"+md5("ම"))
+        Log.i("MD5", "ල :"+md5("ල"))
+        Log.i("MD5", "ය :"+md5("ය"))
+        Log.i("MD5", "ර :"+md5("ර"))
+        Log.i("MD5", "ප :"+md5("ප"))
+        Log.i("MD5", "මල :"+md5("මල"))
+        Log.i("MD5", "පය :"+md5("පය"))
+        Log.i("MD5", "මම :"+md5("මම"))
+        Log.i("MD5", "අම්මා :"+md5("අම්මා"))
+        Log.i("MD5", "අහස :"+md5("අහස"))
+        Log.i("MD5", "ලඹය :"+md5("ලඹය"))
+        Log.i("MD5", "අම්මා උයනවා :"+md5("අම්මා උයනවා"))
+        Log.i("MD5", "අපි දුවමු :"+md5("අපි දුවමු"))
+        Log.i("MD5", "ලමයා පයිනවා :"+md5("ලමයා පයිනවා"))
+        Log.i("MD5", "ගස අතන :"+md5("ගස අතන"))
+        Log.i("MD5", "සල් ගස :"+md5("සල් ගස"))
+        Log.i("MD5", "ගී ගයමු :"+md5("ගී ගයමු"))
+        Log.i("MD5", "ලස්සන වත්ත :"+md5("ලස්සන වත්ත"))
+        Log.i("MD5", "අකුරු කියමු :"+md5("අකුරු කියමු"))
+        Log.i("MD5", "හොද ලමයා :"+md5("හොද ලමයා"))
+        Log.i("MD5", "සමනලයා පියාබනවා :"+md5("සමනලයා පියාබනවා"))
+        Log.i("MD5", "ගෙදර යමු :"+md5("ගෙදර යමු"))
+        Log.i("MD5", "අම්මා බත් උයනවා :"+md5("අම්මා බත් උයනවා"))
+        Log.i("MD5", "අමර සල්ගස යට :"+md5("අමර සල්ගස යට"))
+        Log.i("MD5", "අපි සිංදු කියමු :"+md5("අපි සිංදු කියමු"))
+        Log.i("MD5", "ලමයි සිංදු කියනවා :"+md5("ලමයි සිංදු කියනවා"))
+        Log.i("MD5", "ඔබ ඔහු සමග :"+md5("ඔබ ඔහු සමග"))
+        Log.i("MD5", "තාත්තා වැඩට ගියා :"+md5("තාත්තා වැඩට ගියා"))
+        Log.i("MD5", "අපි ස්කෝලේ යමු :"+md5("අපි ස්කෝලේ යමු"))
+        Log.i("MD5", "මුහුද රැල්ල ලස්සනයි :"+md5("මුහුද රැල්ල ලස්සනයි"))
+        Log.i("MD5", "රට ලස්සනට තියමු :"+md5("රට ලස්සනට තියමු"))
+        Log.i("MD5", "අපි අපේම යාලුවෝ :"+md5("අපි අපේම යාලුවෝ"))
     }
 }

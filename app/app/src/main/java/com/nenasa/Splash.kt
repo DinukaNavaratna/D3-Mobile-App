@@ -99,6 +99,15 @@ class Splash : AppCompatActivity() {
             sp.setPreference("dyscalculia_score_2_treatment", "0")
         if(sp.getPreference("dyscalculia_score_3_treatment") == "" || sp.getPreference("dyscalculia_score_3_treatment").isNullOrEmpty() || sp.getPreference("dyscalculia_score_3_treatment") == "none")
             sp.setPreference("dyscalculia_score_3_treatment", "0")
+
+        if(sp.getPreference("dyslexia_score_hard_treatment") == "" || sp.getPreference("dyslexia_score_hard_treatment").isNullOrEmpty() || sp.getPreference("dyslexia_score_hard_treatment") == "none")
+            sp.setPreference("dyslexia_score_hard_treatment", "0")
+        if(sp.getPreference("dyslexia_score_easy_treatment") == "" || sp.getPreference("dyslexia_score_easy_treatment").isNullOrEmpty() || sp.getPreference("dyslexia_score_easy_treatment") == "none")
+            sp.setPreference("dyslexia_score_easy_treatment", "0")
+        if(sp.getPreference("dyslexia_score_hard") == "" || sp.getPreference("dyslexia_score_hard").isNullOrEmpty() || sp.getPreference("dyslexia_score_hard") == "none")
+            sp.setPreference("dyslexia_score_hard", "0")
+        if(sp.getPreference("dyslexia_score_easy") == "" || sp.getPreference("dyslexia_score_easy").isNullOrEmpty() || sp.getPreference("dyslexia_score_easy") == "none")
+            sp.setPreference("dyslexia_score_easy", "0")
     }
 
 

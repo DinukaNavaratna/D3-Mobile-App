@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -18,10 +19,17 @@ import com.nenasa.Services.SharedPreference
 class HomeHard : AppCompatActivity() {
 
     lateinit var dyslecia_group2: RadioGroup
+    var treatment: String = "false"
+    var treatment_suffix: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dyslexia_homehard)
+
+        val myIntent = intent
+        treatment = myIntent.getStringExtra("treatment").toString()
+        if(treatment == "true")
+            treatment_suffix = "_treatment"
 
         dyslecia_group2 = findViewById<RadioGroup>(R.id.dyslecia_group2);
     }
@@ -49,6 +57,7 @@ class HomeHard : AppCompatActivity() {
                     intent = Intent(this, Read::class.java)
                 }
                 intent.putExtra("level", "Hard"+selectedItem.text.toString())
+                intent.putExtra("treatment", treatment)
                 startActivity(intent)
                 finish()
             }
@@ -63,7 +72,8 @@ class HomeHard : AppCompatActivity() {
 
     fun show_score(view: View) {
         val sp = SharedPreference(this)
-        var score = sp.getPreference("dyslexia_score")
+        var score = sp.getPreference("dyslexia_score_hard"+treatment_suffix)
+        Log.d("Score", treatment)
         if(score == "null")
             score = "0";
         val nenasa = Nenasa()

@@ -30,6 +30,7 @@ class ReadHard : AppCompatActivity() {
     private lateinit var words: MutableList<String>
     // last selected word
     private var selectedWord = ""
+    var treatment: String = "false"
 
     private val binding by lazy { DyslexiaReadHardBinding.inflate(layoutInflater) }
 
@@ -39,6 +40,7 @@ class ReadHard : AppCompatActivity() {
 
         val myIntent = intent
         level = myIntent.getStringExtra("level").toString()
+        treatment = myIntent.getStringExtra("treatment").toString()
 
         if(level == "Hardපහසු"){
             readText = read_text_arr4.random()
@@ -117,6 +119,7 @@ class ReadHard : AppCompatActivity() {
             val intent = Intent(this, Read::class.java)
             intent.putExtra("level", level)
             intent.putExtra("readText", readText)
+            intent.putExtra("treatment", treatment)
             startActivity(intent)
             finish()
         } else {

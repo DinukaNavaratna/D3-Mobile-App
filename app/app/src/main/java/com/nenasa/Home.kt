@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -20,6 +21,8 @@ class Home : AppCompatActivity() {
     lateinit var not_sure_btn: Button
     lateinit var treatment_process: CardView
     lateinit var tratment_btn: Button
+    lateinit var about_btn: Button
+    lateinit var about_frame: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,8 @@ class Home : AppCompatActivity() {
         not_sure_btn = findViewById<Button>(R.id.not_sure_btn)
         treatment_process = findViewById<CardView>(R.id.treatment_process)
         tratment_btn = findViewById<Button>(R.id.tratment_btn)
+        about_btn = findViewById<Button>(R.id.about_btn)
+        about_frame = findViewById<FrameLayout>(R.id.about_frame)
 
         username.setText(sp.getPreference("username"))
         var treatment = sp.getPreference("treatment")
@@ -82,6 +87,13 @@ class Home : AppCompatActivity() {
             intent.putExtra("treatment", "true")
             startActivity(intent)
             finish()
+        }
+        about_btn.setOnClickListener {
+            about_frame.visibility = View.VISIBLE
+        }
+
+        about_frame.setOnClickListener {
+            about_frame.visibility = View.GONE
         }
     }
 

@@ -18,10 +18,17 @@ import com.nenasa.Services.SharedPreference
 class HomeEasy : AppCompatActivity() {
 
     lateinit var dyslecia_group1: RadioGroup
+    var treatment: String = "false"
+    var treatment_suffix: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dyslexia_homeeasy)
+
+        val myIntent = intent
+        treatment = myIntent.getStringExtra("treatment").toString()
+        if(treatment == "true")
+            treatment_suffix = "_treatment"
 
         dyslecia_group1 = findViewById<RadioGroup>(R.id.dyslecia_group1);
     }
@@ -44,6 +51,7 @@ class HomeEasy : AppCompatActivity() {
             } else {
                 val intent = Intent(this, Read::class.java)
                 intent.putExtra("level", "Easy"+selectedItem.text.toString())
+                intent.putExtra("treatment", treatment)
                 startActivity(intent)
                 finish()
             }
@@ -58,7 +66,7 @@ class HomeEasy : AppCompatActivity() {
 
     fun show_score(view: View) {
         val sp = SharedPreference(this)
-        var score = sp.getPreference("dyslexia_score")
+        var score = sp.getPreference("dyslexia_score_easy"+treatment_suffix)
         if(score == "null")
             score = "0";
         val nenasa = Nenasa()
