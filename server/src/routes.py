@@ -3,7 +3,7 @@ from .db import create_db, clear_db, GetAllFromDB
 from .audio import upload_audio, train_model, analyze
 from .scores import update_scores, get_scores, get_reports, insert_scores
 #from .test.analyze_audio import correlation, resemblyzer, audiocompare
-from .test.mfcc import compare
+from .test.mfcc import mfcc
 
 def initialize_routes(api):
     api.add_resource(register, "/register")
@@ -21,5 +21,5 @@ def initialize_routes(api):
     #Testing on-going
     #api.add_resource(correlation, "/correlation")
     #api.add_resource(resemblyzer, "/resemblyzer")
-    api.add_resource(compare, "/mfcc")
+    api.add_resource(mfcc, "/mfcc")
     #api.add_resource(audiocompare, "/audiocompare")

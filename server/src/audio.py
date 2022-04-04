@@ -12,6 +12,8 @@ from .audio_processing.train import start_train
 from .audio_processing.analyze import analyze_audio
 import sys
 
+from src.test.mfcc import mfcc
+
 logger.add('logs/audio.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}', filter="audio", colorize=True, level='DEBUG')
 
 # load .env variables
@@ -58,17 +60,10 @@ class upload_audio(Resource):
     def post(self):
         try:
             logger.info("Request started processing")
-            function = request.form.get('function')
-            logger.info("Function: "+str(function))
-
-            data = {}
-            for key, value in request.form.items():
-                if key.endswith('[]'):
-                    data[key[:-2]] = request.form.getlist(key)
-                else:
-                    data[key] = value
-            logger.info("Data: "+str(data)) 
-
+            user_id = request.form.get('user_id')
+            level = request.form.get('level')
+            duration = request.form.get('duration')
+            context = request.form.get('context')
 
             f = request.files['file']
             ext = (f.filename).split('.')[-1]
@@ -79,34 +74,25 @@ class upload_audio(Resource):
             track.export(filePath, format='wav')
 
             logger.info("Audio saved")
-            return jsonify({"success":"true", "message":"{\"accuracy\":\"50%\"}"})
-            filenames = [fileId+"."+ext]
-            if(function == "sentence"):
-                myaudio = AudioSegment.from_file(filePath, "wav")
-                chunk_length_ms = 2000 # pydub calculates in millisec
-                chunks = make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
+            #return jsonify({"success":"true", "message":"{\"accuracy\":\"50%\"}"})
+
+            accuracy = ""
+            if("Easy" in level):
+#                myaudio = AudioSegment.from_file(filePath, "wav")
+#                chunk_length_ms = 2000 # pydub calculates in millisec
+#               chunks = make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
 
                 #Export all of the individual chunks as wav files
-                for i, chunk in enumerate(chunks):
-                    chunk_name = ("./clips/"+fileId+"_{0}."+ext).format(i)
-                    #print("exporting", chunk_name)
-                    chunk.export(chunk_name, format="wav")
-                    filenames.append(chunk_name)
-            
-            #response = '{"results": ['
-            #first = True
-            #for filename in filenames:
-            #    emotion = str(analyze(model, lb, filePath))
-            #    if first:
-            #        response += '{"file_path": "'+filename+'", "file_type": "audio/wav", "emotion": "'+emotion+'"}'
-            #        first = False
-            #    else:
-            #        response += ', {"file_path": "'+filename+'", "file_type": "audio/wav", "emotion": "'+emotion+'"}'
-            #    
-            #response += ']}'
-            #return response
-
-            return jsonify({"msg":"success", "accuracy":str(filenames)})
+#                for i, chunk in enumerate(chunks):
+#                    chunk_name = ("./clips/"+fileId+"_{0}."+ext).format(i)
+#                    #print("exporting", chunk_name)
+#                    chunk.export(chunk_name, format="wav")
+#                    filenames.append(chunk_name)
+                accuracy = "50"
+            elif("Hard" in level):
+                accuracy = mfcc.compare(filePath, "src/Recordings/"+context+"wav")
+        
+            return jsonify({"success":"true", "message":"{\""+accuracy+"\":\"%\"}"})
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             logger.error("Exception | upload_audio: "+str(e)+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))

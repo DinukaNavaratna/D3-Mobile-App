@@ -8,15 +8,8 @@ from flask import request, jsonify
 from loguru import logger
 import sys
 
-class compare(Resource):
-    def get(self):
+def compare(file1, file2):
         try:
-                content = request.json
-                file1 = content['file1']
-                file2 = content['file2']
-                #file1 = "src/Recordings/අකුරු කියමු.wav"
-                #file2 = "clips/456.wav"
-
                 #Loading audio files
                 y1, sr1 = librosa.load(file1) 
                 y2, sr2 = librosa.load(file2)
@@ -44,6 +37,22 @@ class compare(Resource):
                 else:
                         accuracy = 0
                         print("The normalized distance between the two : ", dist)   # 0 for similar audios 
+                return str("%.2f" % accuracy)
+        except Exception as e:
+            response = str(e)
+            exc_type, exc_obj, exc_tb = sys.exc_info()
+            logger.error("Exception | mfcc compare: "+response+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
+            return jsonify({"msg":"failed", "response":response})
+
+class mfcc(Resource):
+    def get(self):
+        try:
+                content = request.json
+                file1 = content['file1']
+                file2 = content['file2']
+                #file1 = "src/Recordings/අකුරු කියමු.wav"
+                #file2 = "clips/456.wav"
+                accuracy = compare(file1, file1)
                 return jsonify({"msg":"success", "accuracy":"%.2f" % accuracy+"%"})
         except Exception as e:
             response = str(e)
