@@ -137,7 +137,7 @@ class Home : AppCompatActivity() {
 
     fun show_score(view: View) {
         val sp = SharedPreference(this)
-        var score = sp.getPreference("dyslexia_score"+treatment_suffix)
+        var score = ((sp.getPreference("dyslexia_score_easy"+treatment_suffix)).toInt() + (sp.getPreference("dyslexia_score_hard"+treatment_suffix)).toInt()).toString()
         if(score == "null")
             score = "0";
         nenasa.showDialogBox(this, "score", "Your Score", "You have earned a total of "+score+" coins in this game...", "dyslexia", null, "false")

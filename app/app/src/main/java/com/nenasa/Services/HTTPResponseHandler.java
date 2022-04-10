@@ -78,7 +78,12 @@ public class HTTPResponseHandler {
                     SharedPreference sp = new SharedPreference(context);
                     sp.setPreference("dyscalculia_score", jsonObject.getString("dyscalculia"));
                     sp.setPreference("dysgraphia_score", jsonObject.getString("dysgraphia"));
-                    sp.setPreference("dyslexia_score", jsonObject.getString("dyslexia"));
+                    sp.setPreference("dyslexia_easy_score", jsonObject.getString("dyslexia_easy"));
+                    sp.setPreference("dyslexia_hard_score", jsonObject.getString("dyslexia_hard"));
+                    sp.setPreference("dyscalculia_score_treatment", jsonObject.getString("dyscalculia_treatment"));
+                    sp.setPreference("dysgraphia_score_treatment", jsonObject.getString("dysgraphia_treatment"));
+                    sp.setPreference("dyslexia_easy_score_treatment", jsonObject.getString("dyslexia_easy_treatment"));
+                    sp.setPreference("dyslexia_hard_score_treatment", jsonObject.getString("dyslexia_hard_treatment"));
                 } else {
                     Log.v("http_response_scores", "failed");
                 }

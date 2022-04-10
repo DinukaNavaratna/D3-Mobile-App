@@ -13,6 +13,7 @@ from .audio_processing.analyze import analyze_audio
 import sys
 
 from src.test.mfcc import compare
+from src.scores import insert_q
 
 logger.add('logs/audio.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}', filter="audio", colorize=True, level='DEBUG')
 
@@ -75,23 +76,14 @@ class upload_audio(Resource):
             track.export(filePath, format='wav')
 
             logger.info("Audio saved")
-            #return jsonify({"success":"true", "message":"{\"accuracy\":\"50%\"}"})
 
             accuracy = ""
             if("Easy" in level):
-#                myaudio = AudioSegment.from_file(filePath, "wav")
-#                chunk_length_ms = 2000 # pydub calculates in millisec
-#               chunks = make_chunks(myaudio, chunk_length_ms) #Make chunks of one sec
-
-                #Export all of the individual chunks as wav files
-#                for i, chunk in enumerate(chunks):
-#                    chunk_name = ("./clips/"+fileId+"_{0}."+ext).format(i)
-#                    #print("exporting", chunk_name)
-#                    chunk.export(chunk_name, format="wav")
-#                    filenames.append(chunk_name)
-                accuracy = "50"
+                accuracy = "N/A"
             elif("Hard" in level):
                 accuracy = compare(filePath, "src/Recordings/"+context+".wav")
+
+            insert_q("query", user_id, "dyslexia", int(accuracy/10))
 
             logger.debug("Accuracy: "+str(accuracy))
             return jsonify({"success":"true", "message":"{\"accuracy\":\""+str(accuracy)+"\"}"})

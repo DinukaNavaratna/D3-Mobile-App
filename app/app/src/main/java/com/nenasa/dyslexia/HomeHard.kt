@@ -73,7 +73,6 @@ class HomeHard : AppCompatActivity() {
     fun show_score(view: View) {
         val sp = SharedPreference(this)
         var score = sp.getPreference("dyslexia_score_hard"+treatment_suffix)
-        Log.d("Score", treatment)
         if(score == "null")
             score = "0";
         val nenasa = Nenasa()

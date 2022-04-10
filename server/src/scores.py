@@ -77,7 +77,7 @@ class get_scores(Resource):
                 response = "Score retrieval failed!"
 
             logger.info("Response | get_scores: "+response)
-            return jsonify({"msg":msg, "response":response, "dyscalculia":dyscalculia, "dysgraphia":dysgraphia, "dyslexia":dyslexia})
+            return jsonify({"msg":msg, "response":response, "dyscalculia":dyscalculia, "dysgraphia":dysgraphia, "dyslexia_easy":dyslexia, "dyslexia_hard":dyslexia, "dyscalculia_treatment":dyscalculia, "dysgraphia_treatment":dysgraphia, "dyslexia_easy_treatment":dyslexia, "dyslexia_hard_treatment":dyslexia})
             
         except Exception as e:
             msg = "failed"
@@ -451,6 +451,34 @@ class get_reports(Resource):
             return jsonify({"msg":msg, "response":response})
             
 
+def insert_q(query, user_id, game, score):
+    msg = ""
+    response = ""
+    try:
+        query_response = ExecuteQuery.execute(query)
+
+        if(query_response == "success"):
+            msg = "success"
+            response = "Score updated successfully!"
+        else:
+            msg = "failed"
+            response = query_response
+
+        update_query = "UPDATE scores SET score=score+"+score+" WHERE user_id='"+user_id+"' AND game='"+game+"';"
+        query_response = ExecuteQuery.execute(update_query)
+        if(query_response == "success"):
+            logger.debug("Response | update_query: "+query_response)
+        else:
+            logger.error("Response | update_query: "+query_response)
+        return msg, response
+    except Exception as e:
+        msg = "failed"
+        response = str(e)
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        logger.error("Exception | insert_scores: "+response+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
+        return msg, response
+
+
 class insert_scores(Resource):
     def post(self):
         msg = ""
@@ -462,24 +490,11 @@ class insert_scores(Resource):
 
             query = content['query']
             logger.debug("Insert Query: "+query)
-            query_response = ExecuteQuery.execute(query)
-
-            if(query_response == "success"):
-                msg = "success"
-                response = "Score updated successfully!"
-            else:
-                msg = "failed"
-                response = query_response
-
             user_id = content['user_id']
             game = content['game']
             score = content['score']
-            update_query = "UPDATE scores SET score=score+"+score+" WHERE user_id='"+user_id+"' AND game='"+game+"';"
-            query_response = ExecuteQuery.execute(update_query)
-            if(query_response == "success"):
-                logger.debug("Response | update_query: "+query_response)
-            else:
-                logger.error("Response | update_query: "+query_response)
+            
+            msg, response = insert_q(query, user_id, game, score)
 
             logger.info("Response | insert_scores: "+response)
             return jsonify({"msg":msg, "response":response})

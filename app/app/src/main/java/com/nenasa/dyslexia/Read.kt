@@ -55,6 +55,7 @@ class Read : AppCompatActivity() {
     lateinit var treatment: String;
     var treatment_suffix: String = ""
     lateinit var sp: SharedPreference
+    lateinit var pic: ImageView
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,6 +79,7 @@ class Read : AppCompatActivity() {
         next_btn = findViewById(R.id.next_btn)
         read_text = findViewById(R.id.read_text)
         micGif = findViewById(R.id.micGif);
+        pic = findViewById(R.id.pic);
 
         getReadText();
         read_text.text = readText.toString()
@@ -380,13 +382,15 @@ class Read : AppCompatActivity() {
         } else if(level == "Hardඅමාරු"){
             readText = myIntent.getStringExtra("readText").toString()
         }
+
+        val uri = "@drawable/dyslexia_" + md5(readText)
+        val imageResource = resources.getIdentifier(uri, null, packageName)
+        pic.setImageResource(imageResource)
     }
 
     fun speak(view: View){
         try {
-            val md = MessageDigest.getInstance("MD5")
-            val readTextAudio = BigInteger(1, md.digest(readText.toByteArray())).toString(16).padStart(32, '0')
-            val uri = "@raw/dyslexia_$readTextAudio"
+            val uri = "@raw/dyslexia_${md5(readText)}"
             val audioResource = resources.getIdentifier(uri, null, packageName)
             mediaPlayer = MediaPlayer.create(this, audioResource)
             if(mediaPlayer.isPlaying()){
