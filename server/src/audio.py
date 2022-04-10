@@ -83,7 +83,7 @@ class upload_audio(Resource):
             elif("Hard" in level):
                 accuracy = compare(filePath, "src/Recordings/"+context+".wav")
 
-            insert_q("query", user_id, "dyslexia", int(float(accuracy))/10)
+            insert_q("query", user_id, "dyslexia", str((int(float(accuracy)))/10))
 
             logger.debug("Accuracy: "+str(accuracy))
             return jsonify({"success":"true", "message":"{\"accuracy\":\""+str(accuracy)+"\"}"})
