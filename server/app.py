@@ -13,7 +13,7 @@ logger.add('logs/app.log', format='{time:YYYY-MM-DD at HH:mm:ss} | {level} | {me
 load_dotenv()
 
 # init server
-app = Flask(__name__)
+app = Flask(__name__, template_folder = 'reports')
 CORS(app, resources={r"/*": {"origins": "*"}})
 api = Api(app)
 

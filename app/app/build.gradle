@@ -36,6 +36,7 @@ android {
 
 dependencies {
 
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.4'
     implementation 'androidx.appcompat:appcompat:1.4.0'
@@ -53,4 +54,8 @@ dependencies {
     //Drag and Drop - Dyslexia
     implementation 'com.google.android:flexbox:2.0.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    //File Upload (https://github.com/delaroy/UploadMedia/)
+    implementation 'com.squareup.retrofit2:retrofit:2.0.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.0.0'
 }
