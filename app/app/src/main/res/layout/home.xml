@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgColor"
+    android:background="@drawable/dyscalculia_bg"
     tools:context=".Home">
 
     <ScrollView
@@ -24,12 +24,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="260dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/bg" />
-
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="match_parent"
@@ -42,7 +36,7 @@
                     android:paddingBottom="5dp"
                     android:text="ආයුබෝවන්!"
                     android:textAlignment="center"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#000000"
                     android:textSize="32sp" />
 
                 <TextView
@@ -51,10 +45,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/textView"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="50dp"
                     android:fontFamily="@font/gotham"
                     android:text="Dinuka Navaratna"
                     android:textAlignment="center"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#000000"
                     android:textSize="18sp" />
 
             </RelativeLayout>
@@ -204,7 +199,7 @@
         android:id="@+id/about_btn"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:background="@drawable/ic_baseline_help_outline_24"
+        android:background="@drawable/ic_baseline_help_outline_24_black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.98"

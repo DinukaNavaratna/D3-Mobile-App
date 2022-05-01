@@ -41,7 +41,7 @@ class Reports : AppCompatActivity() {
         var dyslexia_report_save = findViewById<Button>(R.id.dyslexia_report_save);
 
         dyslexia_reports_webview.webViewClient = WebViewClient()
-        dyslexia_reports_webview.loadUrl(url+"/reports/1/dyslexia_"+level)
+        dyslexia_reports_webview.loadUrl(url+"/reports/"+user_id+"/dyslexia_"+level)
         dyslexia_reports_webview.settings.javaScriptEnabled = true
         dyslexia_reports_webview.settings.setSupportZoom(true)
 

@@ -162,20 +162,20 @@ class get_reports(Resource):
                         Totalcorrect += row[1]
                         Totalwrong += row[2]
                         if row[0] == "Easy":
-                            Easy_Totalpoints = row[4]
-                            Easy_Totaltime = row[3]
-                            Easy_Totalcorrect = row[1]
-                            Easy_Totalwrong = row[2]
+                            Easy_Totalpoints += row[4]
+                            Easy_Totaltime += row[3]
+                            Easy_Totalcorrect += row[1]
+                            Easy_Totalwrong += row[2]
                         elif row[0] == "Medium":
-                            Medium_Totalpoints = row[4]
-                            Medium_Totaltime = row[3]
-                            Medium_Totalcorrect = row[1]
-                            Medium_Totalwrong = row[2]
+                            Medium_Totalpoints += row[4]
+                            Medium_Totaltime += row[3]
+                            Medium_Totalcorrect += row[1]
+                            Medium_Totalwrong += row[2]
                         elif row[0] == "Hard":
-                            Hard_Totalpoints = 0
-                            Hard_Totaltime = row[3]
-                            Hard_Totalcorrect = row[1]
-                            Hard_Totalwrong = row[2]
+                            Hard_Totalpoints += row[4]
+                            Hard_Totaltime += row[3]
+                            Hard_Totalcorrect += row[1]
+                            Hard_Totalwrong += row[2]
 
                     count = Totalcorrect+Totalwrong
                     Easy = Easy_Totalcorrect+Easy_Totalwrong
@@ -395,17 +395,17 @@ class get_reports(Resource):
                         Totaltime += row[1]
                         Accuracy += float(row[2])
 
-                        if row[0] == "Easy":
+                        if "HardEasy" in row[0] or "EasyEasy" in row[0]:
                             Easy_Points += row[3]
                             Easy_Time += row[1]
                             Easy_Accuracy += float(row[2])
                             Easy += 1
-                        elif row[0] == "Medium":
+                        elif "HardMedium" in row[0] or "EasyMedium" in row[0]:
                             Medium_Points += row[3]
                             Medium_Time += row[1]
                             Medium_Accuracy += float(row[2])
                             Medium += 1
-                        elif row[0] == "Hard":
+                        elif "HardHard" in row[0] or "EasyHard" in row[0]:
                             Hard_Points += row[3]
                             Hard_Time += row[1]
                             Hard_Accuracy += float(row[2])

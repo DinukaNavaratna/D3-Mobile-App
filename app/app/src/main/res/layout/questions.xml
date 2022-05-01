@@ -4,35 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/dyscalculia_bg"
     tools:context=".Questions"
     tools:ignore="SpeakableTextPresentCheck"
     tools:viewBindingIgnore="true">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/bgColor">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="9"
-            android:background="@drawable/footer">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,7 +46,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_baseline_home_24" />
+                        app:srcCompat="@drawable/ic_baseline_home_24_black" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -84,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ප්‍රශ්නාවලිය"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:textSize="24sp"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -151,7 +126,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
                                         android:text="01."
-                                        android:textColor="#FFFFFF"
+                                        android:textColor="#000000"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.0"
@@ -170,7 +145,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="අකුරු කියවීමේ හෝ වචන කියවීමේ අපහසුතාවයක් තිබේද?"
-                                        android:textColor="#FFFFFF"
+                                        android:textColor="#000000"
                                         android:textSize="16sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -207,18 +182,18 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:buttonTint="#FFFFFF"
+                                    android:buttonTint="#000000"
                                     android:text="ඔව්"
-                                    android:textColor="#FFFFFF" />
+                                    android:textColor="#000000" />
 
                                 <RadioButton
                                     android:id="@+id/no_01"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:buttonTint="#FFFFFF"
+                                    android:buttonTint="#000000"
                                     android:text="නැත"
-                                    android:textColor="#FFFFFF" />
+                                    android:textColor="#000000" />
 
                             </RadioGroup>
 
@@ -258,7 +233,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
                                         android:text="02."
-                                        android:textColor="#FFFFFF"
+                                        android:textColor="#000000"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.0"
@@ -277,7 +252,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="කඩදාසි මත හෝ මායිම් තුළ  අකුරු ලිවිමේ අපහසුතාවයක් තිබේද ?"
-                                        android:textColor="#FFFFFF"
+                                        android:textColor="#000000"
                                         android:textSize="16sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -314,18 +289,18 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:buttonTint="#FFFFFF"
+                                    android:buttonTint="#000000"
                                     android:text="ඔව්"
-                                    android:textColor="#FFFFFF" />
+                                    android:textColor="#000000" />
 
                                 <RadioButton
                                     android:id="@+id/no_02"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:buttonTint="#FFFFFF"
+                                    android:buttonTint="#000000"
                                     android:text="නැත"
-                                    android:textColor="#FFFFFF" />
+                                    android:textColor="#000000" />
 
                             </RadioGroup>
 
@@ -365,7 +340,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
                                         android:text="03."
-                                        android:textColor="#FFFFFF"
+                                        android:textColor="#000000"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.0"
@@ -384,7 +359,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="අංක හඳුනාගැනීමේ අපහසුතාවයක් තිබේද?"
-                                        android:textColor="#FFFFFF"
+                                        android:textColor="#000000"
                                         android:textSize="16sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -421,18 +396,18 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:buttonTint="#FFFFFF"
+                                    android:buttonTint="#000000"
                                     android:text="ඔව්"
-                                    android:textColor="#FFFFFF" />
+                                    android:textColor="#000000" />
 
                                 <RadioButton
                                     android:id="@+id/no_03"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:buttonTint="#FFFFFF"
+                                    android:buttonTint="#000000"
                                     android:text="නැත"
-                                    android:textColor="#FFFFFF" />
+                                    android:textColor="#000000" />
 
                             </RadioGroup>
                         </LinearLayout>
@@ -471,7 +446,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_weight="9"
                                         android:text="04."
-                                        android:textColor="#FFFFFF"
+                                        android:textColor="#000000"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
                                         app:layout_constraintHorizontal_bias="0.0"
@@ -490,7 +465,7 @@
                                         android:layout_width="0dp"
                                         android:layout_height="wrap_content"
                                         android:text="වචන සහ වාක්‍ය ඛණ්ඩ කියවීමට සහ හඳුනා ගැනීමට අපහසුද?"
-                                        android:textColor="#FFFFFF"
+                                        android:textColor="#000000"
                                         android:textSize="16sp"
                                         app:layout_constraintBottom_toBottomOf="parent"
                                         app:layout_constraintEnd_toEndOf="parent"
@@ -527,18 +502,18 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:buttonTint="#FFFFFF"
+                                    android:buttonTint="#000000"
                                     android:text="ඔව්"
-                                    android:textColor="#FFFFFF" />
+                                    android:textColor="#000000" />
 
                                 <RadioButton
                                     android:id="@+id/no_04"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:buttonTint="#FFFFFF"
+                                    android:buttonTint="#000000"
                                     android:text="නැත"
-                                    android:textColor="#FFFFFF" />
+                                    android:textColor="#000000" />
 
                             </RadioGroup>
                         </LinearLayout>

@@ -56,17 +56,21 @@ public class Nenasa extends Application {
                     })
                     .build().show();
         } else if(type.equals("error")){
-            new iOSDialogBuilder(context)
-                    .setTitle(title)
-                    .setSubtitle(subtitle)
-                    .setCancelable(false)
-                    .setPositiveListener("Opzzz", new iOSDialogClickListener() {
-                        @Override
-                        public void onClick(iOSDialog dialog) {
-                            dialog.dismiss();
-                        }
-                    })
-                    .build().show();
+            try {
+                new iOSDialogBuilder(context)
+                        .setTitle(title)
+                        .setSubtitle(subtitle)
+                        .setCancelable(false)
+                        .setPositiveListener("Opzzz", new iOSDialogClickListener() {
+                            @Override
+                            public void onClick(iOSDialog dialog) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .build().show();
+            } catch (Exception ex){
+
+            }
         } else if(type.equals("score")){
             new iOSDialogBuilder(context)
                     .setTitle(title)

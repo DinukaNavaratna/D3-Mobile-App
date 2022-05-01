@@ -77,13 +77,19 @@ class upload_audio(Resource):
 
             logger.info("Audio saved")
 
+            query = ""
+            points = 0
             accuracy = ""
-            if("Easy" in level):
+            if("EasyEasy" in level or "EasyMedium" in level or "EasyHard" in level):
                 accuracy = "N/A"
-            elif("Hard" in level):
-                accuracy = compare(filePath, "src/Recordings/"+context+".wav")
+                query = ""
+            elif("HardEasy" in level or "HardMedium" in level or "HardHard" in level):
+                accuracy = compare(filePath, "src/Recordings/"+context+".wav")[:8]
+                points = int(float(accuracy)/10)
+                query = "INSERT INTO dyslexia_hard_score (user_id, level, duration, accuracy, points) VALUES ('"+str(user_id)+"', '"+str(level)+"', "+str(duration)+", '"+str(accuracy)+"', "+str(points)+");"
 
-            insert_q("query", user_id, "dyslexia", str((int(float(accuracy)))/10))
+            msg, response = insert_q(query, user_id, "dyslexia", str(points))
+            logger.info("Dyslexia DB: "+str(msg)+" | "+str(response))
 
             logger.debug("Accuracy: "+str(accuracy))
             return jsonify({"success":"true", "message":"{\"accuracy\":\""+str(accuracy)+"\"}"})

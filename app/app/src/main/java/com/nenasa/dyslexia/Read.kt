@@ -133,6 +133,10 @@ class Read : AppCompatActivity() {
             if(audio != ""){
                 frameLayout.visibility = View.VISIBLE;
                 try {
+                    var level1 = level
+                    level1 = level1.replace("පහසු", "Easy")
+                    level1 = level1.replace("මද්\u200Dයම", "Medium")
+                    level1 = level1.replace("අමාරු", "Hard")
                     /*
                     MultipartUtility(Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio);
                     */
@@ -141,7 +145,7 @@ class Read : AppCompatActivity() {
                     var user_id = sp.getPreference("user_id")
                     val testUpload = testUpload();
                     Log.d("FileUpload", "Sending the request from Read.kt")
-                    testUpload.upload(context, Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio, user_id, level, recording_time.toString(), md5(readText))
+                    testUpload.upload(context, Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio, user_id, level1, recording_time.toString(), md5(readText))
                     Log.d("FileUpload", "After sending the request from Read.kt")
                 } catch (exception: Exception) {
                     exception.printStackTrace()
@@ -304,6 +308,11 @@ class Read : AppCompatActivity() {
         frameLayout.visibility = View.GONE;
         if(feedback.contains("failed") || feedback == ""){
             nenasa.showDialogBox(this, "error", "File Upload Failed", feedback, "null", null, "null")
+            Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
+            Log.e("Audio failed", feedback)
+            next_btn.isEnabled = true
+        } else if(feedback.contains("N/A")){
+            nenasa.showDialogBox(this, "error", "Recordings not found!", "Recordings of these letters/words have not been provided!", "null", null, "null")
             Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
             Log.e("Audio failed", feedback)
             next_btn.isEnabled = true

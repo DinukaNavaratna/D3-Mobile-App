@@ -42,7 +42,7 @@ class Home : AppCompatActivity() {
 
         username.setText(sp.getPreference("username"))
         var treatment = sp.getPreference("treatment")
-        if(treatment != "false"){
+        if(treatment == "true"){
             treatment_process.visibility = View.VISIBLE
         }
 
