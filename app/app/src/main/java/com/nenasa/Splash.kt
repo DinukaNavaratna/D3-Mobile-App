@@ -12,11 +12,14 @@ import com.nenasa.Services.SharedPreference
 import com.nenasa.Walkthrough.Walkthrough
 
 class Splash : AppCompatActivity() {
+
+    lateinit var sp: SharedPreference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash)
 
-        val sp = SharedPreference(this)
+        sp = SharedPreference(this)
 
         checkSharedPreferences(sp);
 
@@ -41,6 +44,7 @@ class Splash : AppCompatActivity() {
                     }
             } else {
                 sp.setPreference("isNew", "false")
+                setInitialSharedPreferences()
                 val intent = Intent(this, Walkthrough::class.java)
                 startActivity(intent)
                 finish()
@@ -110,6 +114,15 @@ class Splash : AppCompatActivity() {
             sp.setPreference("dyslexia_score_easy", "0")
     }
 
+    fun setInitialSharedPreferences(){
+        sp.setPreference("ServerHost", this.getResources().getString(R.string.server_host))
+        sp.setPreference("dyslexia_score", "0")
+        sp.setPreference("dyslexia_score_treatment", "0")
+        sp.setPreference("dyslexia_score_easy", "0")
+        sp.setPreference("dyslexia_score_easy_treatment", "0")
+        sp.setPreference("dyslexia_score_hard", "0")
+        sp.setPreference("dyslexia_score_hard_treatment", "0")
+    }
 
     override fun onBackPressed() {
     }

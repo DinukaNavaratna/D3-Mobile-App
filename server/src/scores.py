@@ -54,30 +54,39 @@ class get_scores(Resource):
         
         msg = ""
         response = ""
-        dyscalculia = ""
-        dysgraphia = ""
-        dyslexia = ""
+        dyscalculia = "0"
+        dysgraphia = "0"
+        dyslexia_easy = "0"
+        dyslexia_hard = "0"
+        dyscalculia_treatment = "0"
+        dysgraphia_treatment = "0"
+        dyslexia_easy_treatment = "0"
+        dyslexia_hard_treatment = "0"
 
         try:
             content = request.json
             user_id = content['user_id']
-            select_response = ExecuteSelectQuery.execute("SELECT score FROM scores WHERE user_id='"+user_id+"' ORDER BY game;")
-                
-            if(len(select_response) > 0):
+            select_response = ExecuteSelectQuery.execute("SELECT game, score FROM scores WHERE user_id='"+user_id+"' ORDER BY game;")
+            logger.info(select_response)
+            if(len(select_response) == 8):
                 dyscalculia = select_response[0][0]
-                dysgraphia = select_response[1][0]
-                dyslexia = select_response[2][0]
-                msg = "success"
-                response = "Scores retrieved!"
+                dysgraphia = select_response[2][0]
+                dyslexia_easy = select_response[4][0]
+                dyslexia_hard = select_response[4][0]
+                dyscalculia_treatment = select_response[1][0]
+                dysgraphia_treatment = select_response[3][0]
+                dyslexia_easy_treatment = select_response[5][0]
+                dyslexia_hard_treatment = select_response[5][0]
             else:
-                insert_query = "INSERT INTO scores (user_id, game, score) VALUES ('"+user_id+"', 'dyscalculia','0'), ('"+user_id+"', 'dysgraphia','0'), ('"+user_id+"', 'dyslexia','0');"
+                insert_query = "INSERT IGNORE INTO scores (user_id, game, score) VALUES ('"+user_id+"', 'dyscalculia','0'), ('"+user_id+"', 'dysgraphia','0'), ('"+user_id+"', 'dyslexia_easy','0'), ('"+user_id+"', 'dyslexia_hard','0'), ('"+user_id+"', 'dyscalculia_treatment','0'), ('"+user_id+"', 'dysgraphia_treatment','0'), ('"+user_id+"', 'dyslexia_easy_treatment','0'), ('"+user_id+"', 'dyslexia_hard_treatment','0');"
                 query_response = ExecuteQuery.execute(insert_query)
                 logger.debug("Score retrieval failed insert: "+query_response)
-                msg = "failed"
-                response = "Score retrieval failed!"
+                
+            msg = "success"
+            response = "Scores retrieved!"
 
             logger.info("Response | get_scores: "+response)
-            return jsonify({"msg":msg, "response":response, "dyscalculia":dyscalculia, "dysgraphia":dysgraphia, "dyslexia_easy":dyslexia, "dyslexia_hard":dyslexia, "dyscalculia_treatment":dyscalculia, "dysgraphia_treatment":dysgraphia, "dyslexia_easy_treatment":dyslexia, "dyslexia_hard_treatment":dyslexia})
+            return jsonify({"msg":msg, "response":response, "dyscalculia":dyscalculia, "dysgraphia":dysgraphia, "dyslexia_easy":dyslexia_easy, "dyslexia_hard":dyslexia_hard, "dyscalculia_treatment":dyscalculia_treatment, "dysgraphia_treatment":dysgraphia_treatment, "dyslexia_easy_treatment":dyslexia_easy_treatment, "dyslexia_hard_treatment":dyslexia_hard_treatment})
             
         except Exception as e:
             msg = "failed"
@@ -127,8 +136,11 @@ class get_reports(Resource):
                 ChildName = user_response[0][2]
                 ChildAge = user_response[0][3]
 
-            if(report_type == "dyscalculia"):
-                report_response = ExecuteSelectQuery.execute("SELECT level, correct, wrong, duration, points FROM dyscalculia_score WHERE user_id='"+user_id+"';")
+            if("dyscalculia" in report_type):
+                if("_treatment" in report_type):
+                    report_response = ExecuteSelectQuery.execute("SELECT level, correct, wrong, duration, points FROM dyscalculia_score WHERE user_id='"+user_id+"' and level LIKE '%_treatment';")
+                else:
+                    report_response = ExecuteSelectQuery.execute("SELECT level, correct, wrong, duration, points FROM dyscalculia_score WHERE user_id='"+user_id+"';")
                 logger.info(str(report_response))
                 if not report_response:
                     logger.info("Empty")
@@ -161,17 +173,17 @@ class get_reports(Resource):
                         Totaltime += row[3]
                         Totalcorrect += row[1]
                         Totalwrong += row[2]
-                        if row[0] == "Easy":
+                        if "Easy" in row[0]:
                             Easy_Totalpoints += row[4]
                             Easy_Totaltime += row[3]
                             Easy_Totalcorrect += row[1]
                             Easy_Totalwrong += row[2]
-                        elif row[0] == "Medium":
+                        elif "Medium" in row[0]:
                             Medium_Totalpoints += row[4]
                             Medium_Totaltime += row[3]
                             Medium_Totalcorrect += row[1]
                             Medium_Totalwrong += row[2]
-                        elif row[0] == "Hard":
+                        elif "Hard" in row[0]:
                             Hard_Totalpoints += row[4]
                             Hard_Totaltime += row[3]
                             Hard_Totalcorrect += row[1]
@@ -211,8 +223,11 @@ class get_reports(Resource):
                     Hard_Totalpoints=Hard_Totalpoints, Hard_Totaltime=strftime("%H:%M:%S", gmtime(Hard_Totaltime)), Hard_Totalcorrect=Hard_Totalcorrect, Hard_Totalwrong=Hard_Totalwrong, Hard_Accuracy=Hard_Accuracy
                     ), 200, headers)
 
-            elif(report_type == "dysgraphia"):
-                report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, letter_word, points FROM dysgraphia_score WHERE user_id='"+user_id+"' ORDER BY level;")
+            elif("dysgraphia" in report_type):
+                if("_treatment" in report_type):
+                    report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, letter_word, points FROM dysgraphia_score WHERE user_id='"+user_id+"' and level LIKE '%_treatment' ORDER BY level;")
+                else:
+                    report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, letter_word, points FROM dysgraphia_score WHERE user_id='"+user_id+"' ORDER BY level;")
                 logger.info(str(report_response))
                 if not report_response:
                     logger.info("Empty")
@@ -262,26 +277,26 @@ class get_reports(Resource):
                         Totaltime += row[1]
                         Accuracy += float(row[2])
 
-                        if row[0] == "Easy":
+                        if "Easy" in row[0]:
                             Easy_Accuracy += float(row[2])
                             Easy += 1
-                        elif row[0] == "Medium":
+                        elif "Medium" in row[0]:
                             Medium_Accuracy += float(row[2])
                             Medium += 1
 
-                        if row[3] == "Easy_1":
+                        if "Easy_1" in row[3]:
                             Easy_Accuracy_1 += float(row[2])
                             Easy_Time_1 += row[1]
                             Easy_1 += 1
-                        elif row[3] == "Easy_2":
+                        elif "Easy_2" in row[3]:
                             Easy_Accuracy_2 += float(row[2])
                             Easy_Time_2 += row[1]
                             Easy_2 += 1
-                        elif row[3] == "Easy_3":
+                        elif "Easy_3" in row[3]:
                             Easy_Accuracy_3 += float(row[2])
                             Easy_Time_3 += row[1]
                             Easy_3 += 1
-                        elif row[3] == "Easy_4":
+                        elif "Easy_4" in row[3]:
                             Easy_Accuracy_4 += float(row[2])
                             Easy_Time_4 += row[1]
                             Easy_4 += 1
@@ -289,23 +304,23 @@ class get_reports(Resource):
                             Easy_Accuracy_5 += float(row[2])
                             Easy_Time_5 += row[1]
                             Easy_5 += 1
-                        elif row[3] == "Medium_1":
+                        elif "Medium_1" in row[3]:
                             Medium_Accuracy_1 = float(row[2])
                             Medium_Time_1 = row[1]
                             Medium_1 += 1
-                        elif row[3] == "Medium_2":
+                        elif "Medium_2" in row[3]:
                             Medium_Accuracy_2 += float(row[2])
                             Medium_Time_2 += row[1]
                             Medium_2 += 1
-                        elif row[3] == "Medium_3":
+                        elif "Medium_3" in row[3]:
                             Medium_Accuracy_3 += float(row[2])
                             Medium_Time_3 += row[1]
                             Medium_3 += 1
-                        elif row[3] == "Medium_4":
+                        elif "Medium_4" in row[3]:
                             Medium_Accuracy_4 += float(row[2])
                             Medium_Time_4 += row[1]
                             Medium_4 += 1
-                        elif row[3] == "Medium_5":
+                        elif "Medium_5" in row[3]:
                             Medium_Accuracy_5 += float(row[2])
                             Medium_Time_5 += row[1]
                             Medium_5 += 1
@@ -358,14 +373,20 @@ class get_reports(Resource):
                     Medium_Accuracy_1=Medium_Accuracy_1, Medium_Time_1=strftime("%H:%M:%S", gmtime(Medium_Time_1)), Medium_Accuracy_2=Medium_Accuracy_2, Medium_Time_2=strftime("%H:%M:%S", gmtime(Medium_Time_2)), Medium_Accuracy_3=Medium_Accuracy_3, Medium_Time_3=strftime("%H:%M:%S", gmtime(Medium_Time_3)), Medium_Accuracy_4=Medium_Accuracy_4, Medium_Time_4=strftime("%H:%M:%S", gmtime(Medium_Time_4)), Medium_Accuracy_5=Medium_Accuracy_5, Medium_Time_5=strftime("%H:%M:%S", gmtime(Medium_Time_5)), 
                     ), 200, headers)
 
-            elif(report_type == "dyslexia_easy" or report_type == "dyslexia_hard"):
+            elif("dyslexia_easy" in report_type or "dyslexia_hard" in report_type):
                 report_response = ""
                 template = ""
-                if(report_type == "dyslexia_easy"):
-                    report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_easy_score WHERE user_id='"+user_id+"';")
+                if("dyslexia_easy" in report_type):
+                    if("_treatment" in report_type):
+                        report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_easy_score WHERE user_id='"+user_id+"' and level LIKE '%_treatment';")
+                    else:
+                        report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_easy_score WHERE user_id='"+user_id+"';")
                     template = "./Dyslexia - Easy.html"
-                elif(report_type == "dyslexia_hard"):
-                    report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_hard_score WHERE user_id='"+user_id+"';")
+                elif("dyslexia_hard" in report_type):
+                    if("_treatment" in report_type):
+                        report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_hard_score WHERE user_id='"+user_id+"' and level LIKE '%_treatment';")
+                    else:
+                        report_response = ExecuteSelectQuery.execute("SELECT level, duration, accuracy, points FROM dyslexia_hard_score WHERE user_id='"+user_id+"';")
                     template = "./Dyslexia - Hard.html"
                 logger.info(str(report_response))
                 if not report_response:

@@ -80,15 +80,25 @@ class upload_audio(Resource):
             query = ""
             points = 0
             accuracy = ""
+            game = "dyslexia"
             if("EasyEasy" in level or "EasyMedium" in level or "EasyHard" in level):
                 accuracy = "N/A"
                 query = ""
+                if("_treatment" in level):
+                    game = "dyslexia_easy_treatment"
+                else:
+                    game = "dyslexia_easy"
+                return jsonify({"success":"true", "message":"{\"accuracy\":\""+str(accuracy)+"\"}"})
             elif("HardEasy" in level or "HardMedium" in level or "HardHard" in level):
                 accuracy = compare(filePath, "src/Recordings/"+context+".wav")[:8]
                 points = int(float(accuracy)/10)
                 query = "INSERT INTO dyslexia_hard_score (user_id, level, duration, accuracy, points) VALUES ('"+str(user_id)+"', '"+str(level)+"', "+str(duration)+", '"+str(accuracy)+"', "+str(points)+");"
+                if("_treatment" in level):
+                    game = "dyslexia_hard_treatment"
+                else:
+                    game = "dyslexia_hard"
 
-            msg, response = insert_q(query, user_id, "dyslexia", str(points))
+            msg, response = insert_q(query, user_id, game, str(points))
             logger.info("Dyslexia DB: "+str(msg)+" | "+str(response))
 
             logger.debug("Accuracy: "+str(accuracy))
@@ -96,7 +106,7 @@ class upload_audio(Resource):
         except Exception as e:
             exc_type, exc_obj, exc_tb = sys.exc_info()
             logger.error("Exception | upload_audio: "+str(e)+"\nType: "+str(exc_type)+"\nLine: "+str(exc_tb.tb_lineno))
-            return jsonify({"msg":"failed","error":str(e)})
+            return jsonify({"success":"false", "message":"server error"})
 
 
 class analyze(Resource):

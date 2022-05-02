@@ -145,7 +145,7 @@ class Read : AppCompatActivity() {
                     var user_id = sp.getPreference("user_id")
                     val testUpload = testUpload();
                     Log.d("FileUpload", "Sending the request from Read.kt")
-                    testUpload.upload(context, Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio, user_id, level1, recording_time.toString(), md5(readText))
+                    testUpload.upload(context, Environment.getExternalStorageDirectory().absolutePath+"/Nenasa/"+audio, user_id, level1+treatment_suffix, recording_time.toString(), md5(readText))
                     Log.d("FileUpload", "After sending the request from Read.kt")
                 } catch (exception: Exception) {
                     exception.printStackTrace()
@@ -313,6 +313,16 @@ class Read : AppCompatActivity() {
             next_btn.isEnabled = true
         } else if(feedback.contains("N/A")){
             nenasa.showDialogBox(this, "error", "Recordings not found!", "Recordings of these letters/words have not been provided!", "null", null, "null")
+            Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
+            Log.e("Audio failed", feedback)
+            next_btn.isEnabled = true
+        } else if(feedback.contains("File upload time out")){
+            nenasa.showDialogBox(this, "error", "Time out!", "File uploading time out! This issue might raise due to your network connection issues & etc.", "null", null, "null")
+            Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
+            Log.e("Audio failed", feedback)
+            next_btn.isEnabled = true
+        } else if(feedback.contains("server error")){
+            nenasa.showDialogBox(this, "error", "Server Error!", "There has been a critical error in the server. Please resolve the issue and try again!", "null", null, "null")
             Toast.makeText(this, feedback, Toast.LENGTH_SHORT).show()
             Log.e("Audio failed", feedback)
             next_btn.isEnabled = true

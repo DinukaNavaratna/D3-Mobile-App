@@ -18,14 +18,26 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.nenasa.R
 import com.nenasa.Services.SharedPreference
+import com.nenasa.dyscalculia.treatment_suffix
 
 lateinit var sp: SharedPreference;
 lateinit var level: String
+lateinit var treatment: String;
+var treatment_suffix: String = ""
 
 class Reports : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dyslexia_reports)
+
+        treatment_suffix = ""
+        val myIntent = intent
+        level = myIntent.getStringExtra("level").toString()
+        treatment = myIntent.getStringExtra("treatment").toString()
+        if(treatment == "true")
+            treatment_suffix = "_treatment"
+
+        Toast.makeText(this, "Report: Dyslexia"+treatment_suffix, Toast.LENGTH_SHORT).show()
 
         sp = SharedPreference(this)
         var user_id = sp.getPreference("user_id")
@@ -34,14 +46,11 @@ class Reports : AppCompatActivity() {
             url = this.getResources().getString(R.string.server_host)
         }
 
-        val myIntent = intent
-        level = myIntent.getStringExtra("level").toString()
-
         var dyslexia_reports_webview = findViewById<WebView>(R.id.dyslexia_reports_webview);
         var dyslexia_report_save = findViewById<Button>(R.id.dyslexia_report_save);
 
         dyslexia_reports_webview.webViewClient = WebViewClient()
-        dyslexia_reports_webview.loadUrl(url+"/reports/"+user_id+"/dyslexia_"+level)
+        dyslexia_reports_webview.loadUrl(url+"/reports/"+user_id+"/dyslexia_"+level+treatment_suffix)
         dyslexia_reports_webview.settings.javaScriptEnabled = true
         dyslexia_reports_webview.settings.setSupportZoom(true)
 
@@ -85,6 +94,7 @@ class Reports : AppCompatActivity() {
 
     fun openHome(view: View) {
         val intent = Intent(this, Home::class.java)
+        intent.putExtra("treatment", treatment)
         startActivity(intent)
         finish()
     }

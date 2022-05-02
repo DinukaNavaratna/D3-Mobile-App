@@ -259,8 +259,8 @@ public class Tracing extends Activity {
             //http.request("/update_scores","{\"userid\":\""+ user_id +"\", \"game\":\"dysgraphia\", \"score\":\""+ score +"\"}");
             http.request(
                     "/insert_scores",
-                    "{\"user_id\":\"" + user_id + "\", \"game\":\"dysgraphia\", \"score\":\""+ coins +"\", \"query\":\"INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('"
-                            +user_id+"','"+level_name+"', "+time_spent+",'"+per+"','"+level_name+"_"+number+"',"+coins+")\"}"
+                    "{\"user_id\":\"" + user_id + "\", \"game\":\"dysgraphia"+treatment_suffix+"\", \"score\":\""+ coins +"\", \"query\":\"INSERT INTO dysgraphia_score (user_id, level, duration, accuracy, letter_word, points) VALUES ('"
+                            +user_id+"','"+level_name+treatment_suffix+"', "+time_spent+",'"+per+"','"+level_name+"_"+number+"',"+coins+")\"}"
             );
         } catch (Exception exception) {
             exception.printStackTrace();

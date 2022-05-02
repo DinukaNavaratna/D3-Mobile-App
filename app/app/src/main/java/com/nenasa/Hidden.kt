@@ -22,7 +22,7 @@ class Hidden : AppCompatActivity() {
         ServerHost = findViewById(R.id.serverhost)
         sp = SharedPreference(this)
         sp.getPreference("ServerHost")
-        ServerHost.hint = (sp.getPreference("ServerHost")).toString()
+        ServerHost.setText((sp.getPreference("ServerHost")).toString())
     }
 
     fun UpdateServerHost(view: View){

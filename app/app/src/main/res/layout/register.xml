@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-16dp"
+        android:background="@drawable/dyscalculia_bg"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <ScrollView
@@ -30,7 +30,7 @@
                         android:layout_height="260dp"
                         android:onClick="showAbout"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bg" />
+                        android:src="@drawable/dyscalculia_bg" />
 
                     <TextView
                         android:id="@+id/textView"
@@ -44,7 +44,7 @@
                         android:paddingBottom="5dp"
                         android:text="සාදරයෙන් පිළිගනිමු!"
                         android:textAlignment="center"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:textSize="32sp" />
 
                     <TextView
@@ -56,7 +56,7 @@
                         android:fontFamily="@font/gotham"
                         android:text="ඔබගේ ගිණුම පහතින් සාදන්න..."
                         android:textAlignment="center"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:textSize="18sp" />
 
                 </RelativeLayout>
@@ -303,7 +303,8 @@
                     android:text="දැනටමත් ගිණුමක් තිබේද? ලොග් වන්න"
                     android:textAllCaps="false"
                     android:textColor="#9C27B0"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
 

@@ -20,13 +20,24 @@ import android.print.PrintJob
 import android.print.PrintManager
 import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
+import com.nenasa.dyscalculia.treatment_suffix
 
 lateinit var sp: SharedPreference;
+lateinit var treatment: String;
+var treatment_suffix: String = ""
 
 class Reports : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.dysgraphia_reports)
+
+        treatment_suffix = ""
+        val myIntent = intent
+        treatment = myIntent.getStringExtra("treatment").toString()
+        if(treatment == "true")
+            treatment_suffix = "_treatment"
+
+        Toast.makeText(this, "Report: Dysgraphia"+treatment_suffix, Toast.LENGTH_SHORT).show()
 
         sp = SharedPreference(this)
         var user_id = sp.getPreference("user_id")
@@ -39,7 +50,7 @@ class Reports : AppCompatActivity() {
         var dysgraphia_report_save = findViewById<Button>(R.id.dysgraphia_report_save);
 
         dysgraphia_reports_webview.webViewClient = WebViewClient()
-        dysgraphia_reports_webview.loadUrl(url+"/reports/"+user_id+"/dysgraphia")
+        dysgraphia_reports_webview.loadUrl(url+"/reports/"+user_id+"/dysgraphia"+ treatment_suffix)
         dysgraphia_reports_webview.settings.javaScriptEnabled = true
         dysgraphia_reports_webview.settings.setSupportZoom(true)
 
@@ -83,6 +94,7 @@ class Reports : AppCompatActivity() {
 
     fun openHome(view: View) {
         val intent = Intent(this, Home::class.java)
+        intent.putExtra("treatment", treatment)
         startActivity(intent)
         finish()
     }

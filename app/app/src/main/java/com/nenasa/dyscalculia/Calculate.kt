@@ -4,18 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.*
+import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AppCompatActivity
 import com.nenasa.Nenasa
 import com.nenasa.R
 import com.nenasa.Services.HTTP
 import com.nenasa.Services.SharedPreference
 import kotlin.random.Random
-import android.view.inputmethod.EditorInfo
-
-import android.widget.TextView
-
-import android.widget.TextView.OnEditorActionListener
 
 class Calculate : AppCompatActivity() {
 
@@ -189,8 +186,8 @@ class Calculate : AppCompatActivity() {
                 )*/
                 http.request(
                     "/insert_scores",
-                    "{\"user_id\":\"" + user_id + "\", \"game\":\"dyscalculia\", \"score\":\""+ coins +"\", \"query\":\"INSERT INTO dyscalculia_score (user_id, level, correct, wrong, duration, accuracy, points) VALUES ('"
-                            +user_id+"','"+level_name+"', "+correctCount+","+(5-correctCount)+","+time_spent+",'"+((correctCount/5)*100)+"',"+coins+")\"}"
+                    "{\"user_id\":\"" + user_id + "\", \"game\":\"dyscalculia"+treatment_suffix+"\", \"score\":\""+ coins +"\", \"query\":\"INSERT INTO dyscalculia_score (user_id, level, correct, wrong, duration, accuracy, points) VALUES ('"
+                            +user_id+"','"+level_name+treatment_suffix+"', "+correctCount+","+(5-correctCount)+","+time_spent+",'"+((correctCount/5)*100)+"',"+coins+")\"}"
                 )
             } catch (exception: Exception) {
                 exception.printStackTrace()

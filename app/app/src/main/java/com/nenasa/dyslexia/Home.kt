@@ -44,6 +44,8 @@ class Home : AppCompatActivity() {
         if(treatment == "true")
             treatment_suffix = "_treatment"
 
+        Toast.makeText(this, "Dyslexia"+treatment_suffix, Toast.LENGTH_SHORT).show()
+
         /*
         dyslecia_group1 = findViewById<RadioGroup>(R.id.dyslecia_group1);
         dyslecia_group2 = findViewById<RadioGroup>(R.id.dyslecia_group2);
@@ -78,6 +80,7 @@ class Home : AppCompatActivity() {
         }
 
         val intent = Intent(this, Reports::class.java)
+        intent.putExtra("treatment", treatment)
         reports.setOnClickListener {
             iOSDialogBuilder(this)
                 .setTitle("Select level")

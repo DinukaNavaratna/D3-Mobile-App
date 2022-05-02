@@ -1,6 +1,7 @@
 package com.nenasa
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -9,6 +10,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.nenasa.Services.HTTP
+import com.nenasa.Services.SharedPreference
 import org.json.JSONObject
 
 class Login : AppCompatActivity() {
@@ -19,6 +21,9 @@ class Login : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login)
+
+        var sp = SharedPreference(this)
+        sp.setPreference("treatment", "false")
 
         login_email = findViewById(R.id.login_email)
         login_psw = findViewById(R.id.login_psw)

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.nenasa.Home
 import com.nenasa.Nenasa
 import com.nenasa.R
@@ -25,6 +26,8 @@ class Home : AppCompatActivity() {
         treatment = myIntent.getStringExtra("treatment").toString()
         if(treatment == "true")
             treatment_suffix = "_treatment"
+
+        Toast.makeText(this, "Dyscalculia"+treatment_suffix, Toast.LENGTH_SHORT).show()
 
         var level_1 = findViewById<Button>(R.id.level_1);
         var level_2 = findViewById<Button>(R.id.level_2);
@@ -50,6 +53,7 @@ class Home : AppCompatActivity() {
         }
         reports.setOnClickListener {
             val intent = Intent(this, Reports::class.java)
+            intent.putExtra("treatment", treatment)
             startActivity(intent)
             finish()
         }

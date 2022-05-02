@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nenasa.Services.HTTP
 import android.text.TextUtils
 import android.util.Patterns
+import com.nenasa.Services.SharedPreference
 
 
 class Register : AppCompatActivity() {
@@ -26,6 +27,9 @@ class Register : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.register)
+
+        var sp = SharedPreference(this)
+        sp.setPreference("treatment", "false")
 
         register_fname = findViewById(R.id.register_fname)
         register_lname = findViewById(R.id.register_lname)

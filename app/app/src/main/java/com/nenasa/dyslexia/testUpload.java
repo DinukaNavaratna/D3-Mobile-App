@@ -79,9 +79,9 @@ public class testUpload {
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                Log.v("Response gotten is", t.getMessage());
+                //Log.v("Response gotten is", t.getMessage());
                 Toast.makeText(context, "Problem uploading the file " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("FileUpload", "Line 65 in testUpload.java");
+                Log.d("FileUpload", "Line 84 in testUpload.java");
                 Log.d("FileUpload", "Problem uploading the file " + t.getMessage());
             }
         });
