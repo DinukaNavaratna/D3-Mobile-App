@@ -82,13 +82,13 @@ class upload_audio(Resource):
             accuracy = ""
             game = "dyslexia"
             if("EasyEasy" in level or "EasyMedium" in level or "EasyHard" in level):
-                accuracy = "N/A"
-                query = ""
+                accuracy = compare(filePath, "src/Recordings/"+context+".wav")[:8]
+                points = int(float(accuracy)/10)
+                query = "INSERT INTO dyslexia_easy_score (user_id, level, duration, accuracy, points) VALUES ('"+str(user_id)+"', '"+str(level)+"', "+str(duration)+", '"+str(accuracy)+"', "+str(points)+");"
                 if("_treatment" in level):
                     game = "dyslexia_easy_treatment"
                 else:
                     game = "dyslexia_easy"
-                return jsonify({"success":"true", "message":"{\"accuracy\":\""+str(accuracy)+"\"}"})
             elif("HardEasy" in level or "HardMedium" in level or "HardHard" in level):
                 accuracy = compare(filePath, "src/Recordings/"+context+".wav")[:8]
                 points = int(float(accuracy)/10)
